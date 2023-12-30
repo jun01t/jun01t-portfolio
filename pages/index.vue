@@ -3,7 +3,7 @@
         <title>jun01t's Portfolio</title>
     </header>
     <div class="text-center font-bold font-serif pb-16 bg-top text-white">
-        <h1 class="h-16 pt-3 text-3xl text-bold bg-gray-600 text-white">jun01t's Portfolio</h1>
+        <h1 class="h-16 pt-3 text-3xl text-bold bg-gray-600 text-white tracking-wide">jun01t's Portfolio</h1>
         <div>
             <div class="flex w-36 ml-auto mr-auto mt-8">
                 <img class="w-5 h-5 mt-9 mr-4" src="/asset/img/icons8-プログラマー-50.png" alt="プログラマー-50" />
@@ -83,7 +83,7 @@
         </div>
     </div>
     <footer class="h-24 pt-3 text-3xl text-bold bg-gray-600 text-white text-center font-bold font-serif">
-        <h1>jun01t's Portfolio
+        <h1 class="tracking-wide">jun01t's Portfolio
         </h1>
         <div class="text-xs text-white pt-2">
             <a
