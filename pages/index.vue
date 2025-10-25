@@ -187,7 +187,7 @@ const projects = ref([
         id: 2,
         title: 'CSVビューアー（Vue.js）',
         description: 'CSVファイルをアップロードして表形式で表示・編集できるWebアプリケーション。データの検索・フィルタリング機能付き。',
-        technologies: ['Vue.js', 'JavaScript', 'HTML5', 'CSS3'],
+        technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'JavaScript', 'HTML5', 'CSS3'],
         githubUrl: 'https://github.com/jun01t/csv-viewer',
         demoUrl: 'https://t.co/JCV7h3xCRR'
     },
