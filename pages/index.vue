@@ -68,11 +68,12 @@
     <!-- メニューが開いている時の背景オーバーレイ -->
     <div v-if="isMenuOpen" @click="closeMenu" class="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
-    <div class="text-center font-bold font-serif pb-16 bg-top text-white pt-16">
+    <div class="text-center font-bold font-serif pb-16 text-white pt-16"
+        :style="{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
         <h1 class="h-16 pt-3 text-3xl text-bold bg-gray-600 text-white tracking-wide">jun01t's Portfolio</h1>
         <div>
             <div class="flex w-36 ml-auto mr-auto mt-8">
-                <img class="w-5 h-5 mt-9 mr-4" src="/assets/img/icons8-プログラマー-50.png" alt="プログラマー-50" />
+                <img class="w-5 h-5 mt-9 mr-4" :src="programmerIcon" alt="プログラマー-50" />
                 <div class="text-2xl pt-8">職業</div>
             </div>
             <div class="text-xs">
@@ -85,7 +86,7 @@
         </div>
         <div>
             <div class="flex w-52 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" src="/assets/img/icons8-ウェブアプリ-64.png" alt="ウェブアプリ-64" />
+                <img class="w-5 h-5 mt-5 mr-4" :src="webappIcon" alt="ウェブアプリ-64" />
                 <div class="text-2xl pt-4">フレームワーク</div>
             </div>
             <div class="text-xs">
@@ -100,7 +101,7 @@
         </div>
         <div>
             <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" src="/assets/img/icons8-プログラミング言語-50.png" alt="プログラミング言語-50" />
+                <img class="w-5 h-5 mt-5 mr-4" :src="languageIcon" alt="プログラミング言語-50" />
                 <div class="text-2xl pt-4">言語</div>
             </div>
             <div class="text-xs">
@@ -118,7 +119,7 @@
         </div>
         <div>
             <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" src="/assets/img/icons8-データベース-50.png" alt="データベース-50" />
+                <img class="w-5 h-5 mt-5 mr-4" :src="databaseIcon" alt="データベース-50" />
                 <div class="text-2xl pt-4">DB</div>
             </div>
             <div class="text-xs">
@@ -134,7 +135,7 @@
         </div>
         <div>
             <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-8 h-8 mt-3 mr-4" src="/assets/img/icons8-アマゾンウェブサービス-32.png" alt="アマゾンウェブサービス-32" />
+                <img class="w-8 h-8 mt-3 mr-4" :src="awsIcon" alt="アマゾンウェブサービス-32" />
                 <div class="text-2xl pt-4">IaaS</div>
             </div>
             <div class="text-xs">
@@ -159,6 +160,14 @@
 
 <script setup>
 import { ref } from 'vue'
+
+// 画像のインポート
+import programmerIcon from '~/assets/img/icons8-プログラマー-50.png'
+import webappIcon from '~/assets/img/icons8-ウェブアプリ-64.png'
+import languageIcon from '~/assets/img/icons8-プログラミング言語-50.png'
+import databaseIcon from '~/assets/img/icons8-データベース-50.png'
+import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.png'
+import backgroundImage from '~/assets/img/coding-man.jpg'
 
 // メニューの開閉状態
 const isMenuOpen = ref(false)
@@ -195,12 +204,6 @@ const projects = ref([
 </script>
 
 <style lang="scss" scoped>
-.bg-top {
-    background-image: url('/assets/img/coding-man.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 /* カスタムスクロールバーのスタイル */
 .scrollbar-thin {
     scrollbar-width: thin;
