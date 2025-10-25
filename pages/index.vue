@@ -29,8 +29,7 @@
             </div>
             <ul class="text-xl pt-4 font-normal">
                 <li class="pt-2">Ruby on Rails</li>
-                <li class="pt-2">Vue.js</li>
-                <li class="pt-2">Spring Boot</li>
+                <li class="pt-2">Nuxt.js(Vue.js)</li>
             </ul>
         </div>
         <div>
