@@ -100,11 +100,11 @@
 
             <!-- CTAボタン -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button
+                <button @click="scrollToProjects"
                     class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
                     成果物を見る
                 </button>
-                <button
+                <button @click="scrollToContact"
                     class="px-8 py-3 border-2 border-white rounded-full text-white font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300">
                     お問い合わせ
                 </button>
@@ -218,6 +218,145 @@
             </div>
         </div>
     </div>
+
+    <!-- お問い合わせセクション -->
+    <div class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">お問い合わせ</h2>
+                <p class="text-xl text-gray-600">プロジェクトのご相談やお仕事のご依頼はお気軽にご連絡ください</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- お問い合わせフォーム -->
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <form @submit.prevent="submitForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">お名前 *</label>
+                            <input type="text" id="name" v-model="form.name" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                                placeholder="山田太郎">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">メールアドレス *</label>
+                            <input type="email" id="email" v-model="form.email" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                                placeholder="example@email.com">
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">件名 *</label>
+                            <select id="subject" v-model="form.subject" required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300">
+                                <option value="">選択してください</option>
+                                <option value="web-development">Web開発のご相談</option>
+                                <option value="consulting">技術コンサルティング</option>
+                                <option value="collaboration">コラボレーション</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">メッセージ *</label>
+                            <textarea id="message" v-model="form.message" required rows="5"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
+                                placeholder="プロジェクトの詳細やご要望をお聞かせください"></textarea>
+                        </div>
+
+                        <button type="submit" :disabled="isSubmitting"
+                            class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105">
+                            <span v-if="!isSubmitting">送信する</span>
+                            <span v-else class="flex items-center justify-center">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                送信中...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 連絡先情報 -->
+                <div class="space-y-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">連絡先情報</h3>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">メール</h4>
+                                    <p class="text-gray-600">contact@jun01t.dev</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">GitHub</h4>
+                                    <p class="text-gray-600">github.com/jun01t</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 0-.315.063-.441.189-.126.126-.189.272-.189.441v7.22c0 .169.063.315.189.441.126.126.272.189.441.189s.315-.063.441-.189c.126-.126.189-.272.189-.441V8.79c0-.169-.063-.315-.189-.441-.126-.126-.272-.189-.441-.189z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">SoundCloud</h4>
+                                    <p class="text-gray-600">soundcloud.com/jun01t</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">対応可能なサービス</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-gray-600">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                Webアプリケーション開発
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                フロントエンド開発
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                技術コンサルティング
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                                コードレビュー
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- フッター -->
     <footer class="bg-gray-900 text-white py-16">
         <div class="max-w-6xl mx-auto px-4">
@@ -291,6 +430,62 @@ const toggleMenu = () => {
 // メニューを閉じる機能
 const closeMenu = () => {
     isMenuOpen.value = false
+}
+
+// お問い合わせフォームの状態
+const isSubmitting = ref(false)
+
+// フォームデータ
+const form = ref({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+})
+
+// フォーム送信処理
+const submitForm = async () => {
+    isSubmitting.value = true
+
+    try {
+        // 実際の送信処理（ここではコンソールに出力）
+        console.log('フォーム送信:', form.value)
+
+        // 送信成功のシミュレーション
+        await new Promise(resolve => setTimeout(resolve, 2000))
+
+        // 成功メッセージ
+        alert('お問い合わせありがとうございます！\n内容を確認の上、2-3営業日以内にご返信いたします。')
+
+        // フォームリセット
+        form.value = {
+            name: '',
+            email: '',
+            subject: '',
+            message: ''
+        }
+
+    } catch (error) {
+        console.error('送信エラー:', error)
+        alert('送信に失敗しました。もう一度お試しください。')
+    } finally {
+        isSubmitting.value = false
+    }
+}
+
+// スクロール機能
+const scrollToProjects = () => {
+    const element = document.querySelector('.bg-gray-50')
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+    }
+}
+
+const scrollToContact = () => {
+    const element = document.querySelector('.py-20.bg-white')
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+    }
 }
 
 // 成果物のデータ
