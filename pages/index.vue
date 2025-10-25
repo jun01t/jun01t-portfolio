@@ -195,6 +195,14 @@ const projects = ref([
         technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'TypeScript'],
         githubUrl: 'https://github.com/example/portfolio',
         demoUrl: 'https://jun01t-portfolio.vercel.app'
+    },
+    {
+        id: 5,
+        title: 'CSVビューアー（Vue.js）',
+        description: 'CSVファイルをアップロードして表形式で表示・編集できるWebアプリケーション。データの検索・フィルタリング機能付き。',
+        technologies: ['Vue.js', 'JavaScript', 'HTML5', 'CSS3'],
+        githubUrl: 'https://github.com/example/csv-viewer',
+        demoUrl: 'https://csv-viewer-demo.netlify.app'
     }
 ])
 </script>
