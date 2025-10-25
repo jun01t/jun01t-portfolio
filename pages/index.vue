@@ -410,6 +410,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import emailjs from '@emailjs/browser'
 
 // 画像のインポート
 import programmerIcon from '~/assets/img/icons8-プログラマー-50.png'
@@ -443,16 +444,44 @@ const form = ref({
     message: ''
 })
 
+// EmailJS設定
+const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'service_portfolio'
+const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'template_contact'
+const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
+
+// EmailJS初期化
+if (EMAILJS_PUBLIC_KEY !== 'your_public_key_here') {
+    emailjs.init(EMAILJS_PUBLIC_KEY)
+}
+
 // フォーム送信処理
 const submitForm = async () => {
     isSubmitting.value = true
 
     try {
-        // 実際の送信処理（ここではコンソールに出力）
-        console.log('フォーム送信:', form.value)
+        // EmailJSの設定チェック
+        if (EMAILJS_PUBLIC_KEY === 'your_public_key_here') {
+            throw new Error('EmailJSの設定が完了していません。管理者にお問い合わせください。')
+        }
 
-        // 送信成功のシミュレーション
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        // EmailJSを使用してメール送信
+        const templateParams = {
+            from_name: form.value.name,
+            from_email: form.value.email,
+            subject: form.value.subject,
+            message: form.value.message,
+            to_email: 'tmdjnch0901@gmail.com'
+        }
+
+        // EmailJSでメール送信
+        const result = await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            templateParams,
+            EMAILJS_PUBLIC_KEY
+        )
+
+        console.log('メール送信成功:', result)
 
         // 成功メッセージ
         alert('お問い合わせありがとうございます！\n内容を確認の上、2-3営業日以内にご返信いたします。')
@@ -467,7 +496,17 @@ const submitForm = async () => {
 
     } catch (error) {
         console.error('送信エラー:', error)
-        alert('送信に失敗しました。もう一度お試しください。')
+
+        // エラーメッセージの詳細化
+        let errorMessage = '送信に失敗しました。もう一度お試しください。'
+
+        if (error.message.includes('EmailJS')) {
+            errorMessage = 'メール送信の設定に問題があります。管理者にお問い合わせください。'
+        } else if (error.message.includes('network')) {
+            errorMessage = 'ネットワークエラーが発生しました。インターネット接続を確認してください。'
+        }
+
+        alert(errorMessage)
     } finally {
         isSubmitting.value = false
     }
