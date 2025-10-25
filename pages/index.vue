@@ -177,43 +177,20 @@ const closeMenu = () => {
 const projects = ref([
     {
         id: 1,
-        title: 'ECサイト（Ruby on Rails）',
-        description: '商品管理、注文処理、決済機能を備えたECサイトを開発。管理画面も含む完全なWebアプリケーション。',
-        technologies: ['Ruby on Rails', 'PostgreSQL', 'JavaScript', 'Bootstrap'],
-        githubUrl: 'https://github.com/example/ec-site',
-        demoUrl: 'https://example-ec-site.herokuapp.com'
-    },
-    {
-        id: 2,
-        title: 'タスク管理アプリ（Vue.js）',
-        description: 'チームでのタスク管理を効率化するWebアプリケーション。リアルタイム更新機能付き。',
-        technologies: ['Vue.js', 'Node.js', 'Socket.io', 'MongoDB'],
-        githubUrl: 'https://github.com/example/task-manager',
-        demoUrl: 'https://task-manager-demo.netlify.app'
-    },
-    {
-        id: 3,
-        title: 'API連携システム（Spring Boot）',
-        description: '外部APIとの連携を行うバックエンドシステム。認証、データ変換、エラーハンドリング機能を実装。',
-        technologies: ['Spring Boot', 'Java', 'MySQL', 'JWT'],
-        githubUrl: 'https://github.com/example/api-integration'
-    },
-    {
-        id: 4,
         title: 'ポートフォリオサイト（Nuxt.js）',
         description: 'このポートフォリオサイト自体。レスポンシブデザインとモダンなUIを実装。',
         technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'TypeScript'],
-        githubUrl: 'https://github.com/example/portfolio',
+        githubUrl: 'https://github.com/jun01t/portfolio',
         demoUrl: 'https://jun01t-portfolio.vercel.app'
     },
     {
-        id: 5,
+        id: 2,
         title: 'CSVビューアー（Vue.js）',
         description: 'CSVファイルをアップロードして表形式で表示・編集できるWebアプリケーション。データの検索・フィルタリング機能付き。',
         technologies: ['Vue.js', 'JavaScript', 'HTML5', 'CSS3'],
-        githubUrl: 'https://github.com/example/csv-viewer',
+        githubUrl: 'https://github.com/jun01t/csv-viewer',
         demoUrl: 'https://t.co/JCV7h3xCRR'
-    }
+    },
 ])
 </script>
 
