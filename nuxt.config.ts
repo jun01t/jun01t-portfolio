@@ -9,7 +9,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ['/']
-    }
+    },
+    preset: 'static'
   },
   // 環境変数の設定
   runtimeConfig: {
