@@ -180,7 +180,7 @@ const projects = ref([
         title: 'ポートフォリオサイト（Nuxt.js）',
         description: 'このポートフォリオサイト自体。レスポンシブデザインとモダンなUIを実装。',
         technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'TypeScript'],
-        githubUrl: 'https://github.com/jun01t/portfolio',
+        githubUrl: 'https://github.com/jun01t/jun01t-portfolio',
         demoUrl: 'https://jun01t-portfolio.vercel.app'
     },
     {
