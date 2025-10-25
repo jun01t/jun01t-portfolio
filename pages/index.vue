@@ -341,11 +341,9 @@
                             </div>
 
                             <div class="flex items-center">
-                                <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mr-4">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 0-.315.063-.441.189-.126.126-.189.272-.189.441v7.22c0 .169.063.315.189.441.126.126.272.189.441.189s.315-.063.441-.189c.126-.126.189-.272.189-.441V8.79c0-.169-.063-.315-.189-.441-.126-.126-.272-.189-.441-.189z" />
-                                    </svg>
+                                <div
+                                    class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-lg">
+                                    <img :src="soundcloudIcon" alt="SoundCloud" class="w-8 h-8" />
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">SoundCloud</h4>
@@ -402,10 +400,7 @@
                     </a>
                     <a href="https://soundcloud.com/jun01t" target="_blank"
                         class="text-gray-400 hover:text-white transition-colors duration-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 0-.315.063-.441.189-.126.126-.189.272-.189.441v7.22c0 .169.063.315.189.441.126.126.272.189.441.189s.315-.063.441-.189c.126-.126.189-.272.189-.441V8.79c0-.169-.063-.315-.189-.441-.126-.126-.272-.189-.441-.189z" />
-                        </svg>
+                        <img :src="soundcloudIcon" alt="SoundCloud" class="w-6 h-6" />
                     </a>
                     <a href="https://www.youtube.com/@jun01t" target="_blank"
                         class="text-gray-400 hover:text-white transition-colors duration-300">
@@ -442,6 +437,7 @@ import webappIcon from '~/assets/img/icons8-ウェブアプリ-64.png'
 import languageIcon from '~/assets/img/icons8-プログラミング言語-50.png'
 import databaseIcon from '~/assets/img/icons8-データベース-50.png'
 import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.png'
+import soundcloudIcon from '~/public/assets/img/icons8-soundcloud-48.png'
 import backgroundImage from '~/assets/img/coding-man.jpg'
 
 // メニューの開閉状態
