@@ -208,6 +208,14 @@ const projects = ref([
         githubUrl: null,
         demoUrl: 'https://t.co/HoN0rgGuKB'
     },
+    {
+        id: 4,
+        title: '音楽制作（SoundCloud）',
+        description: '音楽制作・楽曲配信プラットフォーム。オリジナル楽曲の制作・公開を行い、音楽活動を通じてクリエイティブな表現を追求。',
+        technologies: ['SoundCloud', '音楽制作', '楽曲配信', 'クリエイティブ', '音響技術'],
+        githubUrl: null,
+        demoUrl: 'https://soundcloud.com/jun01t'
+    },
 ])
 </script>
 
