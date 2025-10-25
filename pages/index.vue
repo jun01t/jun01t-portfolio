@@ -68,91 +68,203 @@
     <!-- メニューが開いている時の背景オーバーレイ -->
     <div v-if="isMenuOpen" @click="closeMenu" class="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
-    <div class="text-center font-bold font-serif pb-16 text-white pt-16"
-        :style="{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
-        <div>
-            <div class="flex w-36 ml-auto mr-auto mt-8">
-                <img class="w-5 h-5 mt-9 mr-4" :src="programmerIcon" alt="プログラマー-50" />
-                <div class="text-2xl pt-8">職業</div>
+    <!-- ヒーローセクション -->
+    <div class="relative min-h-screen flex items-center justify-center overflow-hidden"
+        :style="{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }">
+        <!-- オーバーレイ -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+        <!-- メインコンテンツ -->
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <!-- プロフィール画像エリア -->
+            <div class="mb-8">
+                <div
+                    class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-6xl font-bold">
+                    J
+                </div>
+                <h1
+                    class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    jun01t
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8">Software Engineer & Creative Developer</p>
             </div>
-            <div class="text-xs">
-                <a target="_blank" href="https://icons8.com/icon/53381/%E9%96%8B%E7%99%BA%E8%80%85">プログラマー</a>
-                アイコン by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+            <!-- スキルバッジ -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">Vue.js</span>
+                <span class="px-4 py-2 bg-green-600 bg-opacity-80 rounded-full text-sm font-medium">Nuxt.js</span>
+                <span class="px-4 py-2 bg-red-600 bg-opacity-80 rounded-full text-sm font-medium">Ruby on Rails</span>
+                <span class="px-4 py-2 bg-yellow-600 bg-opacity-80 rounded-full text-sm font-medium">JavaScript</span>
+                <span class="px-4 py-2 bg-purple-600 bg-opacity-80 rounded-full text-sm font-medium">AWS</span>
             </div>
-            <ul class="pt-4 text-xl font-normal">
-                <li class="pt-2">ソフトウェアエンジニア</li>
-            </ul>
-        </div>
-        <div>
-            <div class="flex w-52 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" :src="webappIcon" alt="ウェブアプリ-64" />
-                <div class="text-2xl pt-4">フレームワーク</div>
+
+            <!-- CTAボタン -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                    class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+                    成果物を見る
+                </button>
+                <button
+                    class="px-8 py-3 border-2 border-white rounded-full text-white font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300">
+                    お問い合わせ
+                </button>
             </div>
-            <div class="text-xs">
-                <a target="_blank"
-                    href="https://icons8.com/icon/gWFtpuoNEmKs/%E3%82%A6%E3%82%A7%E3%83%96%E3%82%A2%E3%83%97%E3%83%AA">ウェブアプリ</a>
-                アイコン by <a target="_blank" href="https://icons8.com">Icons8</a>
-            </div>
-            <ul class="text-xl pt-4 font-normal">
-                <li class="pt-2">Ruby on Rails</li>
-                <li class="pt-2">Nuxt.js(Vue.js)</li>
-            </ul>
-        </div>
-        <div>
-            <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" :src="languageIcon" alt="プログラミング言語-50" />
-                <div class="text-2xl pt-4">言語</div>
-            </div>
-            <div class="text-xs">
-                <a target="_blank"
-                    href="https://icons8.com/icon/22181/ruby%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E">プログラミング言語</a>
-                アイコン by <a target="_blank" href="https://icons8.com">Icons8</a>
-            </div>
-            <ul class="text-xl pt-4 font-normal">
-                <li class="pt-2">Ruby</li>
-                <li class="pt-2">JavaScript</li>
-                <li class="pt-2">PHP</li>
-                <li class="pt-2">Java</li>
-                <li class="pt-2">HTML/CSS</li>
-            </ul>
-        </div>
-        <div>
-            <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" :src="databaseIcon" alt="データベース-50" />
-                <div class="text-2xl pt-4">DB</div>
-            </div>
-            <div class="text-xs">
-                <a target="_blank"
-                    href="https://icons8.com/icon/1476/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9">データベース</a>
-                アイコン by <a target="_blank" href="https://icons8.com">Icons8</a>
-            </div>
-            <ul class="text-xl pt-4 font-normal">
-                <li class="pt-2">PostgreSQL</li>
-                <li class="pt-2">Oracle</li>
-                <li class="pt-2">MySQL</li>
-            </ul>
-        </div>
-        <div>
-            <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-8 h-8 mt-3 mr-4" :src="awsIcon" alt="アマゾンウェブサービス-32" />
-                <div class="text-2xl pt-4">IaaS</div>
-            </div>
-            <div class="text-xs">
-                <a target="_blank"
-                    href="https://icons8.com/icon/VoXRGxL3ekkk/%E3%82%A2%E3%83%9E%E3%82%BE%E3%83%B3%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9">アマゾンウェブサービス</a>
-                アイコン by <a target="_blank" href="https://icons8.com">Icons8</a>
-            </div>
-            <ul class="text-xl pt-4 font-normal">
-                <li class="pt-2">AWS</li>
-            </ul>
         </div>
     </div>
-    <footer class="h-24 pt-3 text-3xl text-bold bg-gray-600 text-white text-center font-bold font-serif">
-        <h1 class="tracking-wide">jun01t's Portfolio
-        </h1>
-        <div class="text-xs text-white pt-2">
-            <a
-                href="https://jp.freepik.com/free-photo/coding-man_5633683.htm#query=%E3%82%A8%E3%83%B3%E3%82%B8%E3%83%8B%E3%82%A2&position=2&from_view=search&track=sph&uuid=437375bc-0f20-4a81-9715-1b5d801c1cd5">著作者：pressfoto</a>／出典：Freepik
+
+    <!-- スキルセクション -->
+    <div class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Skills & Expertise</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 職業 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center mb-6">
+                        <img class="w-8 h-8 mr-4" :src="programmerIcon" alt="プログラマー" />
+                        <h3 class="text-2xl font-bold text-gray-800">職業</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                            ソフトウェアエンジニア
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- フレームワーク -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center mb-6">
+                        <img class="w-8 h-8 mr-4" :src="webappIcon" alt="ウェブアプリ" />
+                        <h3 class="text-2xl font-bold text-gray-800">フレームワーク</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
+                            Ruby on Rails
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            Nuxt.js (Vue.js)
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- プログラミング言語 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center mb-6">
+                        <img class="w-8 h-8 mr-4" :src="languageIcon" alt="プログラミング言語" />
+                        <h3 class="text-2xl font-bold text-gray-800">言語</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
+                            Ruby
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                            JavaScript
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                            PHP
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            Java
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                            HTML/CSS
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- データベース -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center mb-6">
+                        <img class="w-8 h-8 mr-4" :src="databaseIcon" alt="データベース" />
+                        <h3 class="text-2xl font-bold text-gray-800">データベース</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                            PostgreSQL
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                            Oracle
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            MySQL
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- クラウド -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center mb-6">
+                        <img class="w-8 h-8 mr-4" :src="awsIcon" alt="AWS" />
+                        <h3 class="text-2xl font-bold text-gray-800">クラウド</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            AWS
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- フッター -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center">
+                <h3
+                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    jun01t's Portfolio
+                </h3>
+                <p class="text-gray-400 mb-8">Software Engineer & Creative Developer</p>
+
+                <!-- ソーシャルリンク -->
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com/jun01t" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                    <a href="https://soundcloud.com/jun01t" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16c-.169 0-.315.063-.441.189-.126.126-.189.272-.189.441v7.22c0 .169.063.315.189.441.126.126.272.189.441.189s.315-.063.441-.189c.126-.126.189-.272.189-.441V8.79c0-.169-.063-.315-.189-.441-.126-.126-.272-.189-.441-.189z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/@jun01t" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-gray-500 text-sm">
+                        © 2024 jun01t. All rights reserved.
+                    </p>
+                    <p class="text-gray-600 text-xs mt-2">
+                        Background image by <a href="https://jp.freepik.com/free-photo/coding-man_5633683.htm"
+                            target="_blank" class="hover:text-gray-400 transition-colors">pressfoto</a> / <a
+                            href="https://www.freepik.com" target="_blank"
+                            class="hover:text-gray-400 transition-colors">Freepik</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </footer>
 </template>
