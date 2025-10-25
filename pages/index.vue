@@ -78,12 +78,11 @@
         <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
             <!-- プロフィール画像エリア -->
             <div class="mb-8">
-                <div
-                    class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-6xl font-bold">
-                    J
+                <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
+                    <img :src="profileImage" alt="jun01t" class="w-full h-full object-cover" />
                 </div>
                 <h1
-                    class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
                     jun01t
                 </h1>
                 <p class="text-xl md:text-2xl text-gray-200 mb-8">Software Engineer & Creative Developer</p>
@@ -438,6 +437,7 @@ import languageIcon from '~/assets/img/icons8-プログラミング言語-50.png
 import databaseIcon from '~/assets/img/icons8-データベース-50.png'
 import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.png'
 import soundcloudIcon from '~/public/assets/img/icons8-soundcloud-48.png'
+import profileImage from '~/public/assets/img/ChatGPT Image 2025年10月25日 17_39_14.png'
 import backgroundImage from '~/assets/img/coding-man.jpg'
 
 // メニューの開閉状態
