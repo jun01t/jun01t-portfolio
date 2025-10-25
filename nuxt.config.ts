@@ -4,15 +4,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss'
   ],
-  // Vercel用の設定
-  nitro: {
-    preset: 'vercel'
-  },
   // 静的サイト生成の設定
-  ssr: true,
-  // ビルド設定
-  build: {
-    transpile: ['@nuxtjs/tailwindcss']
+  ssr: false,
+  nitro: {
+    prerender: {
+      routes: ['/']
+    }
   },
   // アセットの設定
   app: {
