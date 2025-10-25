@@ -1,16 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": ".output/public",
-  "framework": "nuxtjs",
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "outputDirectory": ".output",
+  "framework": "nuxtjs"
 }
