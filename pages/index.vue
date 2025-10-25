@@ -70,7 +70,6 @@
 
     <div class="text-center font-bold font-serif pb-16 text-white pt-16"
         :style="{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }">
-        <h1 class="h-16 pt-3 text-3xl text-bold bg-gray-600 text-white tracking-wide">jun01t's Portfolio</h1>
         <div>
             <div class="flex w-36 ml-auto mr-auto mt-8">
                 <img class="w-5 h-5 mt-9 mr-4" :src="programmerIcon" alt="プログラマー-50" />
