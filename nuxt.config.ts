@@ -4,12 +4,9 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss'
   ],
-  // 静的サイト生成の設定
+  // SPAモードの設定
   ssr: false,
   nitro: {
-    prerender: {
-      routes: ['/']
-    },
     preset: 'static'
   },
   // 環境変数の設定
