@@ -299,7 +299,7 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">メール</h4>
-                                    <p class="text-gray-600">contact@jun01t.dev</p>
+                                    <p class="text-gray-600">tmdjnch0901@gmail.com</p>
                                 </div>
                             </div>
 
