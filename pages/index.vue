@@ -437,7 +437,7 @@ import languageIcon from '~/assets/img/icons8-プログラミング言語-50.png
 import databaseIcon from '~/assets/img/icons8-データベース-50.png'
 import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.png'
 import soundcloudIcon from '~/public/assets/img/icons8-soundcloud-48.png'
-import profileImage from '~/public/assets/img/ChatGPT Image 2025年10月25日 17_39_14.png'
+import profileImage from '~/public/assets/img/icon-name.webp'
 import backgroundImage from '~/assets/img/coding-man.jpg'
 
 // メニューの開閉状態
