@@ -1,5 +1,11 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": ".output",
-  "framework": "nuxtjs"
+  "buildCommand": "npm run generate",
+  "outputDirectory": "dist",
+  "framework": "nuxtjs",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
