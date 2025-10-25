@@ -17,6 +17,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.3"
   }
