@@ -200,6 +200,14 @@ const projects = ref([
         githubUrl: 'https://github.com/jun01t/csv-viewer',
         demoUrl: 'https://t.co/JCV7h3xCRR'
     },
+    {
+        id: 3,
+        title: '技術ブログ（はてなブログ）',
+        description: 'WebAssembly、プログラミング、技術トレンドについて発信する技術ブログ。Web開発の知見や最新技術の解説記事を執筆。',
+        technologies: ['はてなブログ', 'Markdown', '技術記事', 'WebAssembly', 'プログラミング'],
+        githubUrl: null,
+        demoUrl: 'https://t.co/HoN0rgGuKB'
+    },
 ])
 </script>
 
