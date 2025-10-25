@@ -216,6 +216,14 @@ const projects = ref([
         githubUrl: null,
         demoUrl: 'https://soundcloud.com/jun01t'
     },
+    {
+        id: 5,
+        title: '動画制作（YouTube）',
+        description: 'YouTubeチャンネルでの動画制作・配信活動。技術解説、チュートリアル、クリエイティブなコンテンツ制作を通じて知識共有と表現活動を展開。',
+        technologies: ['YouTube', '動画制作', 'コンテンツ制作', '映像編集', '配信技術'],
+        githubUrl: null,
+        demoUrl: 'https://www.youtube.com/@jun01t'
+    },
 ])
 </script>
 
