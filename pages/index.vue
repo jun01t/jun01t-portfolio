@@ -289,21 +289,6 @@
 
                         <div class="space-y-6">
                             <div class="flex items-center">
-                                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mr-4">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">メール</h4>
-                                    <p class="text-gray-600">tmdjnch0901@gmail.com</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center">
                                 <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
                                     <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                                         <path
@@ -445,8 +430,8 @@ const form = ref({
 })
 
 // EmailJS設定
-const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'service_portfolio'
-const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'template_contact'
+const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'your_service_id'
+const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'your_template_id'
 const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
 
 // EmailJS初期化

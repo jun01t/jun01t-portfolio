@@ -51,12 +51,45 @@ const EMAILJS_TEMPLATE_ID = 'your_template_id'
 const EMAILJS_PUBLIC_KEY = 'your_public_key'
 ```
 
+### 環境変数での設定（推奨）
+
+Vercelの環境変数で設定する場合：
+- `EMAILJS_SERVICE_ID`: あなたのサービスID
+- `EMAILJS_TEMPLATE_ID`: あなたのテンプレートID
+- `EMAILJS_PUBLIC_KEY`: あなたの公開キー
+
 ## 6. 送信先メールアドレス設定
 
 テンプレート内で送信先メールアドレス（`tmdjnch0901@gmail.com`）を設定してください。
+
+## 7. 環境変数設定
+
+### ローカル開発環境
+
+プロジェクトルートに `.env` ファイルを作成：
+
+```bash
+# EmailJS設定
+EMAILJS_SERVICE_ID=your_service_id
+EMAILJS_TEMPLATE_ID=your_template_id
+EMAILJS_PUBLIC_KEY=your_public_key_here
+```
+
+### Vercelデプロイ環境
+
+Vercelダッシュボードで以下の環境変数を設定：
+
+| 変数名 | 値 | 環境 |
+|--------|-----|------|
+| `EMAILJS_SERVICE_ID` | `service_id` | Production, Preview, Development |
+| `EMAILJS_TEMPLATE_ID` | `your_template_id` | Production, Preview, Development |
+| `EMAILJS_PUBLIC_KEY` | `your_public_key_here` | Production, Preview, Development |
+
+詳細は [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md) を参照してください。
 
 ## 注意事項
 
 - 無料プランでは月100通まで送信可能
 - 本番環境では環境変数を使用することを推奨
 - スパム対策のため、reCAPTCHAの実装も検討してください
+- `.env` ファイルはGitにコミットしないでください
