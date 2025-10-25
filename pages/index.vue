@@ -242,7 +242,7 @@
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">メールアドレス *</label>
                             <input type="email" id="email" v-model="form.email" required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                                placeholder="example@email.com">
+                                placeholder="example@example.com">
                         </div>
 
                         <div>
