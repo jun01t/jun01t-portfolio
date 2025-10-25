@@ -430,9 +430,10 @@ const form = ref({
 })
 
 // EmailJS設定
-const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID || 'your_service_id'
-const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID || 'your_template_id'
-const EMAILJS_PUBLIC_KEY = process.env.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
+const config = useRuntimeConfig()
+const EMAILJS_SERVICE_ID = config.public.EMAILJS_SERVICE_ID || 'your_service_id'
+const EMAILJS_TEMPLATE_ID = config.public.EMAILJS_TEMPLATE_ID || 'your_template_id'
+const EMAILJS_PUBLIC_KEY = config.public.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
 
 // EmailJS初期化
 if (EMAILJS_PUBLIC_KEY !== 'your_public_key_here') {
