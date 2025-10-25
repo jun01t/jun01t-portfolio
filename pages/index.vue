@@ -212,7 +212,7 @@ const projects = ref([
         description: 'CSVファイルをアップロードして表形式で表示・編集できるWebアプリケーション。データの検索・フィルタリング機能付き。',
         technologies: ['Vue.js', 'JavaScript', 'HTML5', 'CSS3'],
         githubUrl: 'https://github.com/example/csv-viewer',
-        demoUrl: 'https://csv-viewer-demo.netlify.app'
+        demoUrl: 'https://t.co/JCV7h3xCRR'
     }
 ])
 </script>
