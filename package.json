@@ -7,11 +7,17 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "vercel-build": "nuxt build"
   },
   "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.10.3",
     "nuxt": "^3.9.0",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "sass": "^1.69.6",
+    "sass-loader": "^13.3.3"
   }
 }
