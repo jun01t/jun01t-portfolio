@@ -72,7 +72,7 @@
         <h1 class="h-16 pt-3 text-3xl text-bold bg-gray-600 text-white tracking-wide">jun01t's Portfolio</h1>
         <div>
             <div class="flex w-36 ml-auto mr-auto mt-8">
-                <img class="w-5 h-5 mt-9 mr-4" src="/asset/img/icons8-プログラマー-50.png" alt="プログラマー-50" />
+                <img class="w-5 h-5 mt-9 mr-4" src="./asset/img/icons8-プログラマー-50.png" alt="プログラマー-50" />
                 <div class="text-2xl pt-8">職業</div>
             </div>
             <div class="text-xs">
@@ -85,7 +85,7 @@
         </div>
         <div>
             <div class="flex w-52 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" src="/asset/img/icons8-ウェブアプリ-64.png" alt="ウェブアプリ-64" />
+                <img class="w-5 h-5 mt-5 mr-4" src="./asset/img/icons8-ウェブアプリ-64.png" alt="ウェブアプリ-64" />
                 <div class="text-2xl pt-4">フレームワーク</div>
             </div>
             <div class="text-xs">
@@ -100,7 +100,7 @@
         </div>
         <div>
             <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" src="/asset/img/icons8-プログラミング言語-50.png" alt="プログラミング言語-50" />
+                <img class="w-5 h-5 mt-5 mr-4" src="./asset/img/icons8-プログラミング言語-50.png" alt="プログラミング言語-50" />
                 <div class="text-2xl pt-4">言語</div>
             </div>
             <div class="text-xs">
@@ -118,7 +118,7 @@
         </div>
         <div>
             <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-5 h-5 mt-5 mr-4" src="/asset/img/icons8-データベース-50.png" alt="データベース-50" />
+                <img class="w-5 h-5 mt-5 mr-4" src="./asset/img/icons8-データベース-50.png" alt="データベース-50" />
                 <div class="text-2xl pt-4">DB</div>
             </div>
             <div class="text-xs">
@@ -134,7 +134,7 @@
         </div>
         <div>
             <div class="flex w-24 ml-auto mr-auto mt-4">
-                <img class="w-8 h-8 mt-3 mr-4" src="/asset/img/icons8-アマゾンウェブサービス-32.png" alt="アマゾンウェブサービス-32" />
+                <img class="w-8 h-8 mt-3 mr-4" src="./asset/img/icons8-アマゾンウェブサービス-32.png" alt="アマゾンウェブサービス-32" />
                 <div class="text-2xl pt-4">IaaS</div>
             </div>
             <div class="text-xs">
@@ -196,7 +196,7 @@ const projects = ref([
 
 <style lang="scss" scoped>
 .bg-top {
-    background-image: url('/asset/img/coding-man.jpg');
+    background-image: url('./asset/img/coding-man.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
