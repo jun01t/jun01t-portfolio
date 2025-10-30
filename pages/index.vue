@@ -426,8 +426,8 @@
     </footer>
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, type Ref } from 'vue'
 import emailjs from '@emailjs/browser'
 
 // 画像のインポート
@@ -441,23 +441,30 @@ import profileImage from '~/public/assets/img/icon-name.webp'
 import backgroundImage from '~/assets/img/coding-man.jpg'
 
 // メニューの開閉状態
-const isMenuOpen = ref(false)
+const isMenuOpen: Ref<boolean> = ref(false)
 
 // メニューの開閉機能
-const toggleMenu = () => {
+const toggleMenu = (): void => {
     isMenuOpen.value = !isMenuOpen.value
 }
 
 // メニューを閉じる機能
-const closeMenu = () => {
+const closeMenu = (): void => {
     isMenuOpen.value = false
 }
 
 // お問い合わせフォームの状態
-const isSubmitting = ref(false)
+const isSubmitting: Ref<boolean> = ref(false)
 
 // フォームデータ
-const form = ref({
+type ContactForm = {
+    name: string
+    email: string
+    subject: string
+    message: string
+}
+
+const form: Ref<ContactForm> = ref({
     name: '',
     email: '',
     subject: '',
@@ -476,14 +483,14 @@ if (EMAILJS_PUBLIC_KEY !== 'your_public_key_here') {
 }
 
 // スクロール関数
-const scrollToProjects = () => {
+const scrollToProjects = (): void => {
     const projectsSection = document.getElementById('projects')
     if (projectsSection) {
         projectsSection.scrollIntoView({ behavior: 'smooth' })
     }
 }
 
-const scrollToContact = () => {
+const scrollToContact = (): void => {
     const contactSection = document.getElementById('contact')
     if (contactSection) {
         contactSection.scrollIntoView({ behavior: 'smooth' })
@@ -491,7 +498,7 @@ const scrollToContact = () => {
 }
 
 // フォーム送信処理
-const submitForm = async () => {
+const submitForm = async (): Promise<void> => {
     isSubmitting.value = true
 
     try {
@@ -530,15 +537,16 @@ const submitForm = async () => {
             message: ''
         }
 
-    } catch (error) {
-        console.error('送信エラー:', error)
+    } catch (err: unknown) {
+        console.error('送信エラー:', err)
 
         // エラーメッセージの詳細化
         let errorMessage = '送信に失敗しました。もう一度お試しください。'
+        const message = (err as Error)?.message ?? ''
 
-        if (error.message.includes('EmailJS')) {
+        if (message.includes('EmailJS')) {
             errorMessage = 'メール送信の設定に問題があります。管理者にお問い合わせください。'
-        } else if (error.message.includes('network')) {
+        } else if (message.includes('network')) {
             errorMessage = 'ネットワークエラーが発生しました。インターネット接続を確認してください。'
         }
 
@@ -550,7 +558,16 @@ const submitForm = async () => {
 
 
 // 成果物のデータ
-const projects = ref([
+type Project = {
+    id: number
+    title: string
+    description: string
+    technologies: string[]
+    githubUrl: string | null
+    demoUrl: string | null
+}
+
+const projects: Ref<Project[]> = ref([
     {
         id: 1,
         title: 'ポートフォリオサイト（Nuxt.js）',
