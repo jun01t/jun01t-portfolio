@@ -93,7 +93,7 @@
                 <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">Vue.js</span>
                 <span class="px-4 py-2 bg-green-600 bg-opacity-80 rounded-full text-sm font-medium">Nuxt.js</span>
                 <span class="px-4 py-2 bg-red-600 bg-opacity-80 rounded-full text-sm font-medium">Ruby on Rails</span>
-                <span class="px-4 py-2 bg-yellow-600 bg-opacity-80 rounded-full text-sm font-medium">JavaScript</span>
+                <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">TypeScript</span>
                 <span class="px-4 py-2 bg-purple-600 bg-opacity-80 rounded-full text-sm font-medium">AWS</span>
             </div>
 
@@ -349,7 +349,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">SoundCloud</h4>
-                                    <a href="https://soundcloud.com/jun01t" target="_blank" class="text-gray-600 hover:text-gray-800 transition-colors">
+                                    <a href="https://soundcloud.com/jun01t" target="_blank"
+                                        class="text-gray-600 hover:text-gray-800 transition-colors">
                                         soundcloud.com/jun01t
                                     </a>
                                 </div>
