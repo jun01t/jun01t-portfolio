@@ -200,8 +200,8 @@
                             Ruby
                         </li>
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                            JavaScript
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                            TypeScript
                         </li>
                         <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
