@@ -383,7 +383,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center">
                 <h3
-                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
                     jun01t's Portfolio
                 </h3>
                 <p class="text-gray-400 mb-8">Software Engineer & Creative Developer</p>
