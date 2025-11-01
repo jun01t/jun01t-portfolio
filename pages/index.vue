@@ -93,7 +93,7 @@
                 <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">Vue.js</span>
                 <span class="px-4 py-2 bg-green-600 bg-opacity-80 rounded-full text-sm font-medium">Nuxt.js</span>
                 <span class="px-4 py-2 bg-red-600 bg-opacity-80 rounded-full text-sm font-medium">Ruby on Rails</span>
-                <span class="px-4 py-2 bg-yellow-600 bg-opacity-80 rounded-full text-sm font-medium">JavaScript</span>
+                <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">TypeScript</span>
                 <span class="px-4 py-2 bg-purple-600 bg-opacity-80 rounded-full text-sm font-medium">AWS</span>
             </div>
 
@@ -200,8 +200,8 @@
                             Ruby
                         </li>
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                            JavaScript
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                            TypeScript
                         </li>
                         <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
@@ -335,7 +335,10 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">GitHub</h4>
-                                    <p class="text-gray-600">github.com/jun01t</p>
+                                    <a href="https://github.com/jun01t" target="_blank"
+                                        class="text-gray-600 hover:text-gray-800 transition-colors">
+                                        github.com/jun01t
+                                    </a>
                                 </div>
                             </div>
 
@@ -346,7 +349,10 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">SoundCloud</h4>
-                                    <p class="text-gray-600">soundcloud.com/jun01t</p>
+                                    <a href="https://soundcloud.com/jun01t" target="_blank"
+                                        class="text-gray-600 hover:text-gray-800 transition-colors">
+                                        soundcloud.com/jun01t
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -383,7 +389,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center">
                 <h3
-                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
                     jun01t's Portfolio
                 </h3>
                 <p class="text-gray-400 mb-8">Software Engineer & Creative Developer</p>
