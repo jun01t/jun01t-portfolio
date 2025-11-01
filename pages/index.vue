@@ -335,7 +335,10 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">GitHub</h4>
-                                    <p class="text-gray-600">github.com/jun01t</p>
+                                    <a href="https://github.com/jun01t" target="_blank"
+                                        class="text-gray-600 hover:text-gray-800 transition-colors">
+                                        github.com/jun01t
+                                    </a>
                                 </div>
                             </div>
 
@@ -346,7 +349,9 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">SoundCloud</h4>
-                                    <p class="text-gray-600">soundcloud.com/jun01t</p>
+                                    <a href="https://soundcloud.com/jun01t" target="_blank" class="text-gray-600 hover:text-gray-800 transition-colors">
+                                        soundcloud.com/jun01t
+                                    </a>
                                 </div>
                             </div>
                         </div>
