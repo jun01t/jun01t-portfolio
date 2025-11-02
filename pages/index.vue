@@ -614,6 +614,14 @@ const projects: Ref<Project[]> = ref([
         githubUrl: null,
         demoUrl: 'https://www.youtube.com/@jun01t'
     },
+    {
+        id: 6,
+        title: 'Weather Outfit Suggestor',
+        description: '天気情報に基づいて最適な服装を提案するWebアプリケーション。気温に応じたコーディネート提案と快適に過ごすためのアドバイスを提供。',
+        technologies: ['Vue.js', 'Vite', 'Tailwind CSS', 'JavaScript', 'OpenWeatherMap API'],
+        githubUrl: 'https://github.com/jun01t/weather-outfit-suggestor',
+        demoUrl: 'https://weather-outfit-suggestor.vercel.app'
+    },
 ])
 </script>
 
