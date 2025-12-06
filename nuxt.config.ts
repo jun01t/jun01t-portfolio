@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/gtm'
   ],
   // SPAモードの設定
   ssr: false,
@@ -16,6 +17,10 @@ export default defineNuxtConfig({
       EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID || 'your_template_id',
       EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
     }
+  },
+  // Google Tag Managerの設定
+  gtm: {
+    id: 'GTM-5N5Q7V74'
   },
   // アセットの設定
   app: {
