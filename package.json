@@ -12,13 +12,13 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.10.3",
+    "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "nuxt": "^3.9.0",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@nuxtjs/gtm": "^2.4.0",
     "sass": "^1.69.6",
     "sass-loader": "^13.3.3"
   }

@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/gtm'
+    '@zadigetvoltaire/nuxt-gtm'
   ],
   // SPAモードの設定
   ssr: false,
