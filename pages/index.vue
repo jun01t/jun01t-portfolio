@@ -355,6 +355,22 @@
                                     </a>
                                 </div>
                             </div>
+
+                            <div class="flex items-center">
+                                <div
+                                    class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2-7h4v-2h-4V7h6v2h-4v6zm8 0h-2V9h2v6z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">はてなブログ</h4>
+                                    <a href="https://blog.jun01t.com/" target="_blank"
+                                        class="text-gray-600 hover:text-gray-800 transition-colors">
+                                        blog.jun01t.com
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -412,6 +428,12 @@
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path
                                 d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                    </a>
+                    <a href="https://blog.jun01t.com/" target="_blank"
+                        class="text-gray-400 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2-7h4v-2h-4V7h6v2h-4v6zm8 0h-2V9h2v6z"/>
                         </svg>
                     </a>
                 </div>
@@ -596,7 +618,7 @@ const projects: Ref<Project[]> = ref([
         description: 'WebAssembly、プログラミング、技術トレンドについて発信する技術ブログ。Web開発の知見や最新技術の解説記事を執筆。',
         technologies: ['はてなブログ', 'Markdown', '技術記事', 'WebAssembly', 'プログラミング'],
         githubUrl: null,
-        demoUrl: 'https://t.co/HoN0rgGuKB'
+        demoUrl: 'https://blog.jun01t.com/'
     },
     {
         id: 4,
