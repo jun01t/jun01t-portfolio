@@ -644,6 +644,14 @@ const projects: Ref<Project[]> = ref([
         githubUrl: 'https://github.com/jun01t/weather-outfit-suggestor',
         demoUrl: 'https://weather-outfit-suggestor.vercel.app'
     },
+    {
+        id: 7,
+        title: '今年は閏年？',
+        description: '指定した年が閏年かどうかを判定するうるう年チェックサイト。閏年は4で割り切れて100で割り切れない年、または400で割り切れる年で判定。',
+        technologies: ['Vue.js', 'Vite', 'Tailwind CSS', 'JavaScript'],
+        githubUrl: null,
+        demoUrl: 'https://leap-year-site.vercel.app/'
+    },
 ])
 </script>
 
