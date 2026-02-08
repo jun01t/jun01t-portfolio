@@ -649,7 +649,7 @@ const projects: Ref<Project[]> = ref([
         title: '今年は閏年？',
         description: '指定した年が閏年かどうかを判定するうるう年チェックサイト。閏年は4で割り切れて100で割り切れない年、または400で割り切れる年で判定。',
         technologies: ['Vue.js', 'Vite', 'Tailwind CSS', 'JavaScript'],
-        githubUrl: null,
+        githubUrl: 'https://github.com/jun01t/leap-year-site',
         demoUrl: 'https://leap-year-site.vercel.app/'
     },
 ])
