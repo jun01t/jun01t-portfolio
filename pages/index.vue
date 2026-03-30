@@ -79,7 +79,8 @@
             <!-- プロフィール画像エリア -->
             <div class="mb-8">
                 <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
-                    <img :src="profileImage" alt="jun01t" class="w-full h-full object-cover" />
+                    <img :src="profileImage" alt="jun01t" class="w-full h-full object-cover"
+                        fetchpriority="high" decoding="async" />
                 </div>
                 <h1
                     class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
@@ -159,7 +160,8 @@
                 <!-- 職業 -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="programmerIcon" alt="プログラマー" />
+                        <img class="w-8 h-8 mr-4" :src="programmerIcon" alt="プログラマー" loading="lazy"
+                            decoding="async" />
                         <h3 class="text-2xl font-bold text-gray-800">職業</h3>
                     </div>
                     <ul class="space-y-3">
@@ -173,7 +175,8 @@
                 <!-- フレームワーク -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="webappIcon" alt="ウェブアプリ" />
+                        <img class="w-8 h-8 mr-4" :src="webappIcon" alt="ウェブアプリ" loading="lazy"
+                            decoding="async" />
                         <h3 class="text-2xl font-bold text-gray-800">フレームワーク</h3>
                     </div>
                     <ul class="space-y-3">
@@ -191,7 +194,8 @@
                 <!-- プログラミング言語 -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="languageIcon" alt="プログラミング言語" />
+                        <img class="w-8 h-8 mr-4" :src="languageIcon" alt="プログラミング言語" loading="lazy"
+                            decoding="async" />
                         <h3 class="text-2xl font-bold text-gray-800">言語</h3>
                     </div>
                     <ul class="space-y-3">
@@ -221,7 +225,8 @@
                 <!-- データベース -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="databaseIcon" alt="データベース" />
+                        <img class="w-8 h-8 mr-4" :src="databaseIcon" alt="データベース" loading="lazy"
+                            decoding="async" />
                         <h3 class="text-2xl font-bold text-gray-800">データベース</h3>
                     </div>
                     <ul class="space-y-3">
@@ -243,7 +248,7 @@
                 <!-- クラウド -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="awsIcon" alt="AWS" />
+                        <img class="w-8 h-8 mr-4" :src="awsIcon" alt="AWS" loading="lazy" decoding="async" />
                         <h3 class="text-2xl font-bold text-gray-800">クラウド</h3>
                     </div>
                     <ul class="space-y-3">
@@ -355,7 +360,8 @@
                             <div class="flex items-center">
                                 <div
                                     class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-lg">
-                                    <img :src="soundcloudIcon" alt="SoundCloud" class="w-8 h-8" />
+                                        <img :src="soundcloudIcon" alt="SoundCloud" class="w-8 h-8" loading="lazy"
+                                            decoding="async" />
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">SoundCloud</h4>
@@ -432,7 +438,8 @@
                     </a>
                     <a href="https://soundcloud.com/jun01t" target="_blank"
                         class="text-gray-400 hover:text-white transition-colors duration-300">
-                        <img :src="soundcloudIcon" alt="SoundCloud" class="w-6 h-6" />
+                        <img :src="soundcloudIcon" alt="SoundCloud" class="w-6 h-6" loading="lazy"
+                            decoding="async" />
                     </a>
                     <a href="https://www.youtube.com/@jun01t" target="_blank"
                         class="text-gray-400 hover:text-white transition-colors duration-300">
