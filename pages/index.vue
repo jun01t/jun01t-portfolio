@@ -285,14 +285,23 @@
 
                         <div>
                             <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">件名 *</label>
-                            <select id="subject" v-model="form.subject" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300">
-                                <option value="">選択してください</option>
-                                <option value="web-development">Web開発のご相談</option>
-                                <option value="consulting">技術コンサルティング</option>
-                                <option value="collaboration">コラボレーション</option>
-                                <option value="other">その他</option>
-                            </select>
+                            <div class="relative">
+                                <select id="subject" v-model="form.subject" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-10 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 appearance-none">
+                                    <option value="">選択してください</option>
+                                    <option value="web-development">Web開発のご相談</option>
+                                    <option value="consulting">技術コンサルティング</option>
+                                    <option value="collaboration">コラボレーション</option>
+                                    <option value="other">その他</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                                    <svg class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.08 1.04l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.27a.75.75 0 0 1 .02-1.06Z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
 
                         <div>
