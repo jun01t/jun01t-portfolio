@@ -478,7 +478,7 @@ import databaseIcon from '~/assets/img/icons8-データベース-50.png'
 import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.png'
 import soundcloudIcon from '~/public/assets/img/icons8-soundcloud-48.png'
 import profileImage from '~/public/assets/img/icon-name.webp'
-import backgroundImage from '~/assets/img/coding-man.webp'
+import backgroundImage from '~/public/assets/img/coding-man.webp'
 
 // メニューの開閉状態
 const isMenuOpen: Ref<boolean> = ref(false)
