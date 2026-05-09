@@ -671,6 +671,15 @@ const projects: Ref<Project[]> = ref([
         githubUrl: 'https://github.com/jun01t/leap-year-site',
         demoUrl: 'https://leap-year-site.vercel.app/'
     },
+    {
+        id: 8,
+        title: '婚活偏差値診断（AI）',
+        description:
+            '質問に答えてAIが婚活の偏差値・傾向を診断するWebアプリ。フロントは Next.js（App Router）、API は Go（Chi）または同一オリジンの Route Handlers。',
+        technologies: ['Next.js', 'Go', 'TypeScript', 'Chi'],
+        githubUrl: 'https://github.com/jun01t/konkatsu-diagnosis',
+        demoUrl: 'https://konkatsu-diagnosis-glbxolozp-jun01ts-projects.vercel.app/'
+    },
 ])
 </script>
 
