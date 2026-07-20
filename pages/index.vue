@@ -407,49 +407,44 @@
     </div>
 
     <!-- フッター -->
-    <footer class="bg-gray-900 text-white py-16">
-        <div class="max-w-6xl mx-auto px-4">
+    <footer class="site-footer">
+        <div class="site-footer__grid" aria-hidden="true"></div>
+        <div class="relative z-10 max-w-6xl mx-auto px-4 py-16">
             <div class="text-center">
-                <h3
-                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
-                    jun01t's Portfolio
-                </h3>
-                <p class="text-gray-400 mb-8">Software Engineer & Creative Developer</p>
+                <p class="site-footer__mono mb-3">built_with_care · summer_build</p>
+                <h3 class="site-footer__brand mb-3">jun01t</h3>
+                <p class="site-footer__lead mb-8">Software Engineer & Creative Developer</p>
 
-                <!-- ソーシャルリンク -->
-                <div class="flex justify-center space-x-6 mb-8">
-                    <a href="https://github.com/jun01t" target="_blank"
-                        class="text-gray-400 hover:text-white transition-colors duration-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <div class="flex justify-center gap-5 mb-10">
+                    <a href="https://github.com/jun01t" target="_blank" rel="noopener noreferrer"
+                        class="site-footer__social" aria-label="GitHub">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path
                                 d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                         </svg>
                     </a>
-                    <a href="https://soundcloud.com/jun01t" target="_blank"
-                        class="text-gray-400 hover:text-white transition-colors duration-300">
-                        <img :src="soundcloudIcon" alt="SoundCloud" class="w-6 h-6" loading="lazy"
-                            decoding="async" />
+                    <a href="https://soundcloud.com/jun01t" target="_blank" rel="noopener noreferrer"
+                        class="site-footer__social" aria-label="SoundCloud">
+                        <img :src="soundcloudIcon" alt="" class="w-5 h-5" loading="lazy" decoding="async" />
                     </a>
-                    <a href="https://www.youtube.com/@jun01t" target="_blank"
-                        class="text-gray-400 hover:text-white transition-colors duration-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <a href="https://www.youtube.com/@jun01t" target="_blank" rel="noopener noreferrer"
+                        class="site-footer__social" aria-label="YouTube">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path
                                 d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
                     </a>
-                    <a href="https://blog.jun01t.com/" target="_blank"
-                        class="text-gray-400 hover:text-white transition-colors duration-300">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 300 300">
+                    <a href="https://blog.jun01t.com/" target="_blank" rel="noopener noreferrer"
+                        class="site-footer__social" aria-label="はてなブログ">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 300 300" aria-hidden="true">
                             <path
                                 d="M149.999 248.909c-54.537 0-98.906-44.367-98.906-98.909 0-54.537 44.369-98.909 98.906-98.909 54.545 0 98.908 44.372 98.908 98.909 0 54.542-44.363 98.909-98.908 98.909zm0-185.238c-47.601 0-86.33 38.723-86.33 86.329 0 47.605 38.729 86.332 86.33 86.332 47.61 0 86.338-38.727 86.338-86.332 0-47.606-38.728-86.329-86.338-86.329zM161.52 101.16c-4.832-9.785-7.783-19.3-9.273-24.845v70.055c2.447.917 4.197 3.257 4.197 6.021 0 3.559-2.887 6.442-6.443 6.442-3.56 0-6.443-2.885-6.443-6.442 0-2.896 1.925-5.317 4.558-6.131v-70.019c-1.485 5.531-4.438 15.092-9.293 24.919-7.571 15.314-17.009 28.823-17.009 28.823l6.036 82.598s5.736 6.401 22.31 6.41h.023c16.573-.009 22.312-6.41 22.312-6.41l6.035-82.598c-.003 0-9.441-13.508-17.01-28.823z" />
                         </svg>
                     </a>
                 </div>
 
-                <div class="border-t border-gray-800 pt-8">
-                    <p class="text-gray-500 text-sm">
-                        © 2024 jun01t. All rights reserved.
-                    </p>
+                <div class="site-footer__rule pt-8">
+                    <p class="site-footer__copy">© 2026 jun01t. All rights reserved.</p>
                 </div>
             </div>
         </div>
@@ -860,6 +855,87 @@ const projects: Ref<Project[]> = ref([
     .hero__content {
         animation: none;
     }
+}
+
+/* フッター：ヒーローと同系の夏 × エンジニア */
+.site-footer {
+    --footer-ink: #e8f7f4;
+    --footer-cyan: #2ec4b6;
+    --footer-sky: #5eead4;
+    --footer-sun: #f5a524;
+    --footer-deep: #042f2e;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(180deg, #063836 0%, var(--footer-deep) 55%, #021c1b 100%);
+    color: var(--footer-ink);
+    font-family: 'Syne', sans-serif;
+}
+
+.site-footer__grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.12;
+    background-image:
+        linear-gradient(rgba(94, 234, 212, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 234, 212, 0.4) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+    pointer-events: none;
+}
+
+.site-footer__mono {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: rgba(94, 234, 212, 0.85);
+}
+
+.site-footer__brand {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    background: linear-gradient(120deg, #fff 10%, var(--footer-sky) 48%, var(--footer-sun) 92%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.site-footer__lead {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.85rem;
+    color: rgba(232, 247, 244, 0.72);
+}
+
+.site-footer__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.35rem;
+    border: 1px solid rgba(232, 247, 244, 0.2);
+    color: rgba(232, 247, 244, 0.75);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.site-footer__social:hover {
+    color: var(--footer-sky);
+    border-color: rgba(94, 234, 212, 0.55);
+    background: rgba(46, 196, 182, 0.12);
+    transform: translateY(-2px);
+}
+
+.site-footer__rule {
+    border-top: 1px solid rgba(94, 234, 212, 0.18);
+}
+
+.site-footer__copy {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: rgba(232, 247, 244, 0.45);
 }
 
 /* カスタムスクロールバーのスタイル */
