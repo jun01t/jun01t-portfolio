@@ -68,49 +68,38 @@
     <!-- メニューが開いている時の背景オーバーレイ -->
     <div v-if="isMenuOpen" @click="closeMenu" class="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
-    <!-- ヒーローセクション -->
-    <div class="relative min-h-screen flex items-center justify-center overflow-hidden"
-        :style="{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }">
-        <!-- オーバーレイ -->
-        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <!-- ヒーローセクション（夏 × スタイリッシュ × エンジニア） -->
+    <section class="hero relative min-h-screen flex items-center justify-center overflow-hidden"
+        :style="{ '--hero-bg': `url(${backgroundImage})` }">
+        <div class="hero__media" aria-hidden="true"></div>
+        <div class="hero__grade" aria-hidden="true"></div>
+        <div class="hero__grid" aria-hidden="true"></div>
+        <div class="hero__sun" aria-hidden="true"></div>
 
-        <!-- メインコンテンツ -->
-        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-            <!-- プロフィール画像エリア -->
-            <div class="mb-8">
-                <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden shadow-lg">
-                    <img :src="profileImage" alt="jun01t" class="w-full h-full object-cover"
-                        fetchpriority="high" decoding="async" />
-                </div>
-                <h1
-                    class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent">
-                    jun01t
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-200 mb-8">Software Engineer & Creative Developer</p>
+        <div class="hero__content relative z-10 text-center px-4 max-w-3xl mx-auto">
+            <div class="hero__avatar mx-auto mb-7 overflow-hidden">
+                <img :src="profileImage" alt="jun01t" class="w-full h-full object-cover"
+                    fetchpriority="high" decoding="async" />
             </div>
 
-            <!-- スキルバッジ -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12">
-                <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">Vue.js</span>
-                <span class="px-4 py-2 bg-green-600 bg-opacity-80 rounded-full text-sm font-medium">Nuxt.js</span>
-                <span class="px-4 py-2 bg-red-600 bg-opacity-80 rounded-full text-sm font-medium">Ruby on Rails</span>
-                <span class="px-4 py-2 bg-blue-600 bg-opacity-80 rounded-full text-sm font-medium">TypeScript</span>
-                <span class="px-4 py-2 bg-purple-600 bg-opacity-80 rounded-full text-sm font-medium">AWS</span>
-            </div>
+            <p class="hero__mono mb-4">software_engineer · summer_build</p>
 
-            <!-- CTAボタン -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button @click="scrollToProjects"
-                    class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+            <h1 class="hero__brand mb-4">jun01t</h1>
+
+            <p class="hero__lead mb-10">
+                プロダクトを速く、美しく、動くものとして届ける。
+            </p>
+
+            <div class="hero__cta flex flex-col sm:flex-row gap-3 justify-center">
+                <button type="button" @click="scrollToProjects" class="hero__btn hero__btn--primary">
                     成果物を見る
                 </button>
-                <button @click="scrollToContact"
-                    class="px-8 py-3 border-2 border-white rounded-full text-white font-semibold hover:bg-white hover:text-gray-900 transition-all duration-300">
+                <button type="button" @click="scrollToContact" class="hero__btn hero__btn--ghost">
                     お問い合わせ
                 </button>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- 成果物セクション -->
     <div id="projects" class="py-20 bg-gray-50">
@@ -461,12 +450,6 @@
                     <p class="text-gray-500 text-sm">
                         © 2024 jun01t. All rights reserved.
                     </p>
-                    <p class="text-gray-600 text-xs mt-2">
-                        Background image by <a href="https://jp.freepik.com/free-photo/coding-man_5633683.htm"
-                            target="_blank" class="hover:text-gray-400 transition-colors">pressfoto</a> / <a
-                            href="https://www.freepik.com" target="_blank"
-                            class="hover:text-gray-400 transition-colors">Freepik</a>
-                    </p>
                 </div>
             </div>
         </div>
@@ -693,6 +676,192 @@ const projects: Ref<Project[]> = ref([
 </script>
 
 <style lang="scss" scoped>
+/* キービジュアル：夏のシアン／アンバー × エンジニアグリッド */
+.hero {
+    --hero-ink: #e8f7f4;
+    --hero-cyan: #2ec4b6;
+    --hero-sky: #5eead4;
+    --hero-sun: #f5a524;
+    --hero-deep: #042f2e;
+    font-family: 'Syne', sans-serif;
+    color: var(--hero-ink);
+}
+
+.hero__media {
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.04);
+    animation: hero-drift 28s ease-in-out infinite alternate;
+}
+
+.hero__grade {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(165deg, rgba(4, 47, 46, 0.72) 0%, rgba(8, 68, 78, 0.55) 42%, rgba(15, 90, 100, 0.45) 100%),
+        linear-gradient(25deg, rgba(245, 165, 36, 0.28) 0%, transparent 38%),
+        linear-gradient(to top, rgba(4, 30, 32, 0.75) 0%, transparent 45%);
+}
+
+.hero__grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.22;
+    background-image:
+        linear-gradient(rgba(94, 234, 212, 0.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 234, 212, 0.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
+    animation: hero-grid 18s linear infinite;
+}
+
+.hero__sun {
+    position: absolute;
+    top: -12%;
+    right: -8%;
+    width: min(52vw, 420px);
+    height: min(52vw, 420px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 165, 36, 0.55) 0%, rgba(46, 196, 182, 0.18) 42%, transparent 70%);
+    filter: blur(8px);
+    animation: hero-sun 12s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.hero__content {
+    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero__avatar {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    border: 2px solid rgba(94, 234, 212, 0.55);
+    box-shadow: 0 0 0 6px rgba(4, 47, 46, 0.35);
+}
+
+.hero__mono {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: rgba(94, 234, 212, 0.9);
+}
+
+.hero__brand {
+    font-size: clamp(3.25rem, 10vw, 5.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    background: linear-gradient(120deg, #fff 10%, var(--hero-sky) 48%, var(--hero-sun) 92%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero__lead {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+    line-height: 1.7;
+    color: rgba(232, 247, 244, 0.88);
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero__btn {
+    min-width: 10.5rem;
+    padding: 0.85rem 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    border-radius: 0.35rem;
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.hero__btn:hover {
+    transform: translateY(-2px);
+}
+
+.hero__btn--primary {
+    background: var(--hero-cyan);
+    color: var(--hero-deep);
+    border: 1px solid transparent;
+}
+
+.hero__btn--primary:hover {
+    background: var(--hero-sky);
+}
+
+.hero__btn--ghost {
+    background: transparent;
+    color: var(--hero-ink);
+    border: 1px solid rgba(232, 247, 244, 0.55);
+}
+
+.hero__btn--ghost:hover {
+    border-color: var(--hero-sky);
+    color: var(--hero-sky);
+}
+
+@keyframes hero-rise {
+    from {
+        opacity: 0;
+        transform: translateY(1.25rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hero-drift {
+    from {
+        transform: scale(1.04) translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: scale(1.08) translate3d(-1.5%, -1%, 0);
+    }
+}
+
+@keyframes hero-grid {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 48px 48px;
+    }
+}
+
+@keyframes hero-sun {
+    from {
+        opacity: 0.75;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(-4%, 6%, 0) scale(1.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero__media,
+    .hero__grid,
+    .hero__sun,
+    .hero__content {
+        animation: none;
+    }
+}
+
 /* カスタムスクロールバーのスタイル */
 .scrollbar-thin {
     scrollbar-width: thin;
