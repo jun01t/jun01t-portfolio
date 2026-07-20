@@ -680,6 +680,15 @@ const projects: Ref<Project[]> = ref([
         githubUrl: 'https://github.com/jun01t/konkatsu-diagnosis',
         demoUrl: 'https://konkatsu-diagnosis-glbxolozp-jun01ts-projects.vercel.app/'
     },
+    {
+        id: 9,
+        title: 'favicon-getter',
+        description:
+            '指定したサイトの favicon を URL・サイズ指定で取得するツール。CLI・API・Web UI を用意し、Vercel にデプロイ。',
+        technologies: ['Node.js', 'JavaScript', 'Vercel', 'HTML/CSS'],
+        githubUrl: 'https://github.com/jun01t/favicon-getter',
+        demoUrl: 'https://favicon-getter.vercel.app'
+    },
 ])
 </script>
 
