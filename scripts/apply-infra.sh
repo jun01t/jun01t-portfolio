@@ -4,6 +4,15 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TF_DIR="$ROOT_DIR/infra/contact"
 TF_BIN="$ROOT_DIR/infra/.bin/terraform"
+PNPM_VERSION="9.15.9"
+
+run_pnpm() {
+  if command -v pnpm >/dev/null 2>&1 && pnpm --version >/dev/null 2>&1; then
+    pnpm "$@"
+  else
+    npx --yes "pnpm@${PNPM_VERSION}" "$@"
+  fi
+}
 
 unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN || true
 export AWS_EC2_METADATA_DISABLED=1 AWS_SDK_LOAD_CONFIG=1
@@ -19,7 +28,7 @@ fi
 eval "$(aws configure export-credentials --format env)"
 
 cd "$TF_DIR/lambda"
-npm install --omit=dev
+run_pnpm install --prod
 
 cd "$TF_DIR"
 mkdir -p build
@@ -29,6 +38,6 @@ mkdir -p build
 echo
 echo "Next:"
 echo "1) Open the SES verification email sent to tmdjnch0901@gmail.com"
-echo "2) From repo root: npm run deploy:aws"
+echo "2) From repo root: pnpm run deploy:aws"
 echo
 "$TF_BIN" output

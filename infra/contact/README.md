@@ -9,18 +9,19 @@ Vercel は使いません。
 
 1. 有効な AWS 認証（期限切れならターミナルで `aws login`）
 2. Route53 に `jun01t.com` ホストゾーンがあること
+3. リポジトリルートで `pnpm install` 済みであること
 
 ## 1. Terraform apply
 
 ```bash
 # リポジトリルートから
-npm run apply:infra
+pnpm run apply:infra
 ```
 
 手動の場合:
 
 ```bash
-cd infra/contact/lambda && npm install --omit=dev
+cd infra/contact/lambda && pnpm install --prod
 cd ..
 ../../.bin/terraform init
 ../../.bin/terraform apply
@@ -37,7 +38,7 @@ apply 後:
 
 ```bash
 export CONTACT_API_URL="$(cd infra/contact && ../../.bin/terraform output -raw contact_api_url)"
-npm run deploy:aws
+pnpm run deploy:aws
 ```
 
 `deploy:aws` は `nuxt generate` → S3 sync → CloudFront invalidation を実行します。
@@ -45,7 +46,7 @@ npm run deploy:aws
 ## 手動デプロイ例
 
 ```bash
-npm run generate
+pnpm run generate
 aws s3 sync dist/ "s3://$(cd infra/contact && ../../.bin/terraform output -raw s3_bucket_name)/" --delete
 aws cloudfront create-invalidation \
   --distribution-id "$(cd infra/contact && ../../.bin/terraform output -raw cloudfront_distribution_id)" \

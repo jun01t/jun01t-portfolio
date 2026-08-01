@@ -3,7 +3,9 @@ data "archive_file" "contact_lambda" {
   source_dir  = "${path.module}/lambda"
   output_path = "${path.module}/build/contact-lambda.zip"
   excludes = [
+    "pnpm-lock.yaml",
     "package-lock.json",
+    ".npmrc",
   ]
 }
 

@@ -4,6 +4,15 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 TF_DIR="$ROOT_DIR/infra/contact"
 TF_BIN="$ROOT_DIR/infra/.bin/terraform"
+PNPM_VERSION="9.15.9"
+
+run_pnpm() {
+  if command -v pnpm >/dev/null 2>&1 && pnpm --version >/dev/null 2>&1; then
+    pnpm "$@"
+  else
+    npx --yes "pnpm@${PNPM_VERSION}" "$@"
+  fi
+}
 
 # Prefer Node 20+ (nuxt generate can crash on older Node)
 if [[ -x "$HOME/.nodebrew/current/bin/node" ]]; then
@@ -29,7 +38,7 @@ export CONTACT_API_URL="${CONTACT_API_URL:-$API_URL}"
 echo "CONTACT_API_URL=$CONTACT_API_URL"
 echo "Deploying to s3://$BUCKET (CloudFront $DIST_ID)"
 
-npm run generate
+run_pnpm run generate
 aws s3 sync dist/ "s3://${BUCKET}/" --delete
 aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
 
