@@ -7,9 +7,10 @@ Nuxt 3 静的サイト。ホスティングは **S3 + CloudFront**、お問い�
 インフラ: [infra/contact/README.md](./infra/contact/README.md)  
 環境変数: [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
 
-パッケージマネージャは **pnpm**（`packageManager` で 9.15.9 を指定）。
+パッケージマネージャは **pnpm**（`packageManager` で 9.15.9 を指定）。Node.js は **20+** が必要です。
 
 ```bash
+nodebrew use v20          # PATH に nodebrew を通しておく
 corepack enable
 pnpm install
 aws login                 # AWS 認証が切れている場合
@@ -21,6 +22,7 @@ pnpm run deploy:aws       # generate → S3 sync → CloudFront invalidation
 ## Setup
 
 ```bash
+nodebrew use v20
 corepack enable
 pnpm install
 ```
