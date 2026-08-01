@@ -13,9 +13,7 @@ export default defineNuxtConfig({
   // 環境変数の設定
   runtimeConfig: {
     public: {
-      EMAILJS_SERVICE_ID: process.env.EMAILJS_SERVICE_ID || 'your_service_id',
-      EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID || 'your_template_id',
-      EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
+      CONTACT_API_URL: process.env.CONTACT_API_URL || ''
     }
   },
   // Google Tag Managerの設定

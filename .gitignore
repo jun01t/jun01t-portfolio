@@ -22,3 +22,15 @@ logs
 .env
 .env.*
 !.env.example
+
+# Terraform / contact API local artifacts
+infra/.bin/
+infra/contact/.terraform/
+infra/contact/build/
+infra/contact/lambda/node_modules/
+infra/contact/*.tfstate
+infra/contact/*.tfstate.*
+infra/contact/terraform.tfvars
+
+infra/contact/.terraform.tfstate.lock*
+infra/contact/* 2.*

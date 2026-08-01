@@ -1,0 +1,9 @@
+aws_region     = "ap-northeast-1"
+project_name   = "jun01t-portfolio"
+to_email       = "tmdjnch0901@gmail.com"
+from_email     = "tmdjnch0901@gmail.com"
+site_subdomain = "jun01t-portfolio.jun01t.com"
+route53_zone_name = "jun01t.com"
+allowed_origins = [
+  "https://jun01t-portfolio.jun01t.com",
+]

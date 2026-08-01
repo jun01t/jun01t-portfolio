@@ -1,0 +1,43 @@
+variable "aws_region" {
+  type        = string
+  description = "AWS region for contact API, SES, and S3 origin"
+  default     = "ap-northeast-1"
+}
+
+variable "project_name" {
+  type        = string
+  description = "Name prefix for resources"
+  default     = "jun01t-portfolio"
+}
+
+variable "to_email" {
+  type        = string
+  description = "Inbox that receives contact form messages"
+  default     = "tmdjnch0901@gmail.com"
+}
+
+variable "from_email" {
+  type        = string
+  description = "Verified SES identity used as From"
+  default     = "tmdjnch0901@gmail.com"
+}
+
+variable "allowed_origins" {
+  type        = list(string)
+  description = "CORS allowed origins for the contact API"
+  default = [
+    "https://jun01t-portfolio.jun01t.com",
+  ]
+}
+
+variable "site_subdomain" {
+  type        = string
+  description = "Public site hostname served by CloudFront"
+  default     = "jun01t-portfolio.jun01t.com"
+}
+
+variable "route53_zone_name" {
+  type        = string
+  description = "Hosted zone name that owns the site subdomain"
+  default     = "jun01t.com"
+}

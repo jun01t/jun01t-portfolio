@@ -1,6 +1,19 @@
-# Nuxt 3 Minimal Starter
+# jun01t Portfolio
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 3 静的サイト。ホスティングは **S3 + CloudFront**、お問い合わせは **SES（API Gateway + Lambda）**。
+
+公開 URL: `https://jun01t-portfolio.jun01t.com`
+
+インフラ: [infra/contact/README.md](./infra/contact/README.md)  
+環境変数: [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
+
+```bash
+aws login                 # AWS 認証が切れている場合
+npm run apply:infra       # Terraform apply + SES identity
+# SES 検証メールを承認してから:
+npm run deploy:aws        # generate → S3 sync → CloudFront invalidation
+```
+
 
 ## Setup
 

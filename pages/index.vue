@@ -453,7 +453,6 @@
 
 <script setup lang="ts">
 import { ref, type Ref } from 'vue'
-import emailjs from '@emailjs/browser'
 
 // 画像のインポート
 import programmerIcon from '~/assets/img/icons8-プログラマー-50.png'
@@ -496,16 +495,8 @@ const form: Ref<ContactForm> = ref({
     message: ''
 })
 
-// EmailJS設定
 const config = useRuntimeConfig()
-const EMAILJS_SERVICE_ID = config.public.EMAILJS_SERVICE_ID || 'your_service_id'
-const EMAILJS_TEMPLATE_ID = config.public.EMAILJS_TEMPLATE_ID || 'your_template_id'
-const EMAILJS_PUBLIC_KEY = config.public.EMAILJS_PUBLIC_KEY || 'your_public_key_here'
-
-// EmailJS初期化
-if (EMAILJS_PUBLIC_KEY !== 'your_public_key_here') {
-    emailjs.init(EMAILJS_PUBLIC_KEY)
-}
+const CONTACT_API_URL = String(config.public.CONTACT_API_URL || '').trim()
 
 // スクロール関数
 const scrollToProjects = (): void => {
@@ -522,56 +513,56 @@ const scrollToContact = (): void => {
     }
 }
 
-// フォーム送信処理
+// フォーム送信処理（AWS SES via API Gateway）
 const submitForm = async (): Promise<void> => {
     isSubmitting.value = true
 
     try {
-        // EmailJSの設定チェック
-        if (EMAILJS_PUBLIC_KEY === 'your_public_key_here') {
-            throw new Error('EmailJSの設定が完了していません。管理者にお問い合わせください。')
+        if (!CONTACT_API_URL) {
+            throw new Error('お問い合わせ API の設定が完了していません。管理者にお問い合わせください。')
         }
 
-        // EmailJSを使用してメール送信
-        const templateParams = {
-            from_name: form.value.name,
-            from_email: form.value.email,
-            subject: form.value.subject,
-            message: form.value.message,
-            to_email: 'tmdjnch0901@gmail.com'
+        const response = await fetch(CONTACT_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: form.value.name,
+                email: form.value.email,
+                subject: form.value.subject,
+                message: form.value.message,
+            }),
+        })
+
+        if (!response.ok) {
+            let detail = ''
+            try {
+                const payload = await response.json()
+                detail = String(payload?.error ?? '')
+            } catch {
+                detail = ''
+            }
+            throw new Error(detail || `Request failed (${response.status})`)
         }
 
-        // EmailJSでメール送信
-        const result = await emailjs.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            templateParams,
-            EMAILJS_PUBLIC_KEY
-        )
-
-        console.log('メール送信成功:', result)
-
-        // 成功メッセージ
         alert('お問い合わせありがとうございます！\n内容を確認の上、2-3営業日以内にご返信いたします。')
 
-        // フォームリセット
         form.value = {
             name: '',
             email: '',
             subject: '',
-            message: ''
+            message: '',
         }
-
     } catch (err: unknown) {
         console.error('送信エラー:', err)
 
-        // エラーメッセージの詳細化
-        let errorMessage = '送信に失敗しました。もう一度お試しください。'
         const message = (err as Error)?.message ?? ''
+        let errorMessage = '送信に失敗しました。もう一度お試しください。'
 
-        if (message.includes('EmailJS')) {
+        if (message.includes('設定が完了')) {
             errorMessage = 'メール送信の設定に問題があります。管理者にお問い合わせください。'
-        } else if (message.includes('network')) {
+        } else if (/too many|429/i.test(message)) {
+            errorMessage = '送信上限に達している可能性があります。しばらくしてから再度お試しください。'
+        } else if (/network|Failed to fetch/i.test(message)) {
             errorMessage = 'ネットワークエラーが発生しました。インターネット接続を確認してください。'
         }
 
@@ -599,7 +590,7 @@ const projects: Ref<Project[]> = ref([
         description: 'このポートフォリオサイト自体。レスポンシブデザインとモダンなUIを実装。',
         technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'TypeScript'],
         githubUrl: 'https://github.com/jun01t/jun01t-portfolio',
-        demoUrl: 'https://jun01t-portfolio.vercel.app'
+        demoUrl: 'https://jun01t-portfolio.jun01t.com'
     },
     {
         id: 2,
