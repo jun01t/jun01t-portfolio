@@ -6,26 +6,50 @@
 
 ```bash
 CONTACT_API_URL=https://xxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/contact
+TURNSTILE_SITE_KEY=0x4AAAA...   # Cloudflare Turnstile のサイトキー
 ```
 
 `CONTACT_API_URL` は `infra/contact` で `terraform apply` したあとの output `contact_api_url` です。  
-`pnpm run deploy:aws` を使う場合は Terraform output から自動取得します。
+`pnpm run deploy:aws` を使う場合は Terraform output から `CONTACT_API_URL` / `TURNSTILE_SITE_KEY` を自動取得します。
+
+## スパム対策
+
+- **Honeypot**: 非表示フィールド。ボットが埋めるとメールは送らず成功レスポンスのみ返す
+- **Cloudflare Turnstile**: 人による操作確認。シークレットは Lambda 環境変数のみ
+- **件名ホワイトリスト / 文字数制限 / IP レート制限**（従来どおり）
+
+### Turnstile のセットアップ
+
+1. [Cloudflare Turnstile](https://dash.cloudflare.com/?to=/:account/turnstile) で Widget を作成
+2. Hostname に `jun01t-portfolio.jun01t.com`（ローカル確認なら `localhost` も）を追加
+3. `infra/contact/terraform.tfvars` に追記:
+
+```hcl
+turnstile_site_key   = "サイトキー"
+turnstile_secret_key = "シークレットキー"
+```
+
+4. `pnpm run apply:infra` → `pnpm run deploy:aws`
+
+シークレット未設定の間は honeypot のみで動作します（Turnstile ウィジェットは出ません）。
 
 ## ローカル開発
 
 ```bash
 # .env
 CONTACT_API_URL=https://xxxxxxxx.execute-api.ap-northeast-1.amazonaws.com/contact
+TURNSTILE_SITE_KEY=0x4AAAA...
 pnpm run dev
 ```
 
 ## 初回セットアップ
 
 1. AWS 認証を有効化（`aws login` など）
-2. `cd infra/contact/lambda && pnpm install --prod`
-3. `cd .. && ../../.bin/terraform init && ../../.bin/terraform apply`
-4. SES 検証メール（`tmdjnch0901@gmail.com`）を承認
-5. リポジトリルートで `pnpm run deploy:aws`
+2. Turnstile キーを `terraform.tfvars` に設定（推奨）
+3. `cd infra/contact/lambda && pnpm install --prod`
+4. `cd .. && ../../.bin/terraform init && ../../.bin/terraform apply`
+5. SES 検証メール（`tmdjnch0901@gmail.com`）を承認
+6. リポジトリルートで `pnpm run deploy:aws`
 
 ## 公開 URL
 

@@ -4,6 +4,7 @@ const ses = new SESClient({})
 
 const TO_EMAIL = process.env.TO_EMAIL || 'tmdjnch0901@gmail.com'
 const FROM_EMAIL = process.env.FROM_EMAIL || TO_EMAIL
+const TURNSTILE_SECRET_KEY = (process.env.TURNSTILE_SECRET_KEY || '').trim()
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://jun01t-portfolio.jun01t.com')
   .split(',')
   .map((s) => s.trim())
@@ -22,6 +23,8 @@ const MAX = {
   subject: 64,
   message: 5000,
 }
+
+const MIN_MESSAGE = 10
 
 /** @type {Map<string, { count: number, resetAt: number }>} */
 const rateBuckets = new Map()
@@ -80,6 +83,33 @@ function parseBody(event) {
   }
 }
 
+async function verifyTurnstile(token, ip) {
+  if (!token) {
+    return { ok: false, reason: 'missing_token' }
+  }
+
+  const body = new URLSearchParams()
+  body.set('secret', TURNSTILE_SECRET_KEY)
+  body.set('response', token)
+  if (ip && ip !== 'unknown') body.set('remoteip', ip)
+
+  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  })
+
+  if (!res.ok) {
+    return { ok: false, reason: 'verify_http_error' }
+  }
+
+  const payload = await res.json()
+  if (!payload?.success) {
+    return { ok: false, reason: 'verify_failed', codes: payload?.['error-codes'] }
+  }
+  return { ok: true }
+}
+
 export async function handler(event) {
   const origin = event.headers?.origin || event.headers?.Origin || ''
 
@@ -109,22 +139,50 @@ export async function handler(event) {
     return json(400, { error: 'Invalid JSON body' }, origin)
   }
 
+  // Honeypot: bots often fill hidden fields. Pretend success so they stop retrying.
+  const website = String(data.website ?? '').trim()
+  if (website) {
+    return json(200, { ok: true }, origin)
+  }
+
   const name = String(data.name ?? '').trim()
   const email = String(data.email ?? '').trim()
   const subject = String(data.subject ?? '').trim()
   const message = String(data.message ?? '').trim()
+  const turnstileToken = String(data.turnstileToken ?? data['cf-turnstile-response'] ?? '').trim()
 
   if (!name || !email || !subject || !message) {
     return json(400, { error: 'Missing required fields' }, origin)
   }
+  if (!(subject in SUBJECT_LABELS)) {
+    return json(400, { error: 'Invalid subject' }, origin)
+  }
   if (name.length > MAX.name || email.length > MAX.email || subject.length > MAX.subject || message.length > MAX.message) {
     return json(400, { error: 'Field too long' }, origin)
+  }
+  if (message.length < MIN_MESSAGE) {
+    return json(400, { error: 'Message too short' }, origin)
   }
   if (!isValidEmail(email)) {
     return json(400, { error: 'Invalid email' }, origin)
   }
 
-  const subjectLabel = SUBJECT_LABELS[subject] || subject
+  if (TURNSTILE_SECRET_KEY) {
+    try {
+      const captcha = await verifyTurnstile(turnstileToken, ip)
+      if (!captcha.ok) {
+        console.warn('Turnstile failed', captcha)
+        return json(400, { error: 'CAPTCHA verification failed' }, origin)
+      }
+    } catch (err) {
+      console.error('Turnstile verify error', err)
+      return json(502, { error: 'CAPTCHA verification unavailable' }, origin)
+    }
+  } else {
+    console.warn('TURNSTILE_SECRET_KEY is not configured; honeypot-only mode')
+  }
+
+  const subjectLabel = SUBJECT_LABELS[subject]
   const textBody = [
     'ポートフォリオサイトからのお問い合わせ',
     '',

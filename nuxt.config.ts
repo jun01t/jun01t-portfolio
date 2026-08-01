@@ -13,7 +13,8 @@ export default defineNuxtConfig({
   // 環境変数の設定
   runtimeConfig: {
     public: {
-      CONTACT_API_URL: process.env.CONTACT_API_URL || ''
+      CONTACT_API_URL: process.env.CONTACT_API_URL || '',
+      TURNSTILE_SITE_KEY: process.env.TURNSTILE_SITE_KEY || '',
     }
   },
   // Google Tag Managerの設定

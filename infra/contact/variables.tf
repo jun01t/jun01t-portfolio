@@ -41,3 +41,16 @@ variable "route53_zone_name" {
   description = "Hosted zone name that owns the site subdomain"
   default     = "jun01t.com"
 }
+
+variable "turnstile_site_key" {
+  type        = string
+  description = "Cloudflare Turnstile site key (public)"
+  default     = ""
+}
+
+variable "turnstile_secret_key" {
+  type        = string
+  description = "Cloudflare Turnstile secret key (private)"
+  sensitive   = true
+  default     = ""
+}

@@ -2,6 +2,7 @@
 
 - **サイト**: S3 + CloudFront + ACM + Route53 → `https://jun01t-portfolio.jun01t.com`
 - **お問い合わせ**: API Gateway + Lambda + SES
+- **スパム対策**: honeypot + Cloudflare Turnstile（推奨）+ レート制限
 
 Vercel は使いません。
 
@@ -10,6 +11,18 @@ Vercel は使いません。
 1. 有効な AWS 認証（期限切れならターミナルで `aws login`）
 2. Route53 に `jun01t.com` ホストゾーンがあること
 3. リポジトリルートで `pnpm install` 済みであること
+4. （推奨）Cloudflare Turnstile の site / secret キー
+
+## Turnstile キー
+
+[Turnstile ダッシュボード](https://dash.cloudflare.com/?to=/:account/turnstile) で Widget を作成し、`terraform.tfvars` に設定:
+
+```hcl
+turnstile_site_key   = "..."
+turnstile_secret_key = "..."
+```
+
+未設定でも honeypot のみで動作します。
 
 ## 1. Terraform apply
 
@@ -37,15 +50,17 @@ apply 後:
 リポジトリルートで:
 
 ```bash
-export CONTACT_API_URL="$(cd infra/contact && ../../.bin/terraform output -raw contact_api_url)"
 pnpm run deploy:aws
 ```
 
-`deploy:aws` は `nuxt generate` → S3 sync → CloudFront invalidation を実行します。
+`deploy:aws` は `nuxt generate` → S3 sync → CloudFront invalidation を実行します。  
+`TURNSTILE_SITE_KEY` も Terraform output から渡します。
 
 ## 手動デプロイ例
 
 ```bash
+export CONTACT_API_URL="$(cd infra/contact && ../../.bin/terraform output -raw contact_api_url)"
+export TURNSTILE_SITE_KEY="$(cd infra/contact && ../../.bin/terraform output -raw turnstile_site_key)"
 pnpm run generate
 aws s3 sync dist/ "s3://$(cd infra/contact && ../../.bin/terraform output -raw s3_bucket_name)/" --delete
 aws cloudfront create-invalidation \

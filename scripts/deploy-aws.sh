@@ -32,10 +32,17 @@ fi
 BUCKET="$("$TF_BIN" output -raw s3_bucket_name)"
 DIST_ID="$("$TF_BIN" output -raw cloudfront_distribution_id)"
 API_URL="$("$TF_BIN" output -raw contact_api_url)"
+TURNSTILE_KEY="$("$TF_BIN" output -raw turnstile_site_key 2>/dev/null || true)"
 
 cd "$ROOT_DIR"
 export CONTACT_API_URL="${CONTACT_API_URL:-$API_URL}"
+export TURNSTILE_SITE_KEY="${TURNSTILE_SITE_KEY:-$TURNSTILE_KEY}"
 echo "CONTACT_API_URL=$CONTACT_API_URL"
+if [[ -n "${TURNSTILE_SITE_KEY}" ]]; then
+  echo "TURNSTILE_SITE_KEY is set"
+else
+  echo "WARN: TURNSTILE_SITE_KEY is empty (honeypot-only until Turnstile is configured)"
+fi
 echo "Deploying to s3://$BUCKET (CloudFront $DIST_ID)"
 
 run_pnpm run generate

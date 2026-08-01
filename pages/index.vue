@@ -262,17 +262,24 @@
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- お問い合わせフォーム -->
                 <div class="bg-gray-50 rounded-2xl p-8">
-                    <form @submit.prevent="submitForm" class="space-y-6">
+                    <form @submit.prevent="submitForm" class="space-y-6 relative">
+                        <!-- Honeypot: leave empty. Hidden from humans, bots often fill it. -->
+                        <div class="contact-hp" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input id="website" v-model="form.website" type="text" name="website" tabindex="-1"
+                                autocomplete="off" />
+                        </div>
+
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">お名前 *</label>
-                            <input type="text" id="name" v-model="form.name" required
+                            <input type="text" id="name" v-model="form.name" required maxlength="100"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                                 placeholder="山田太郎">
                         </div>
 
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">メールアドレス *</label>
-                            <input type="email" id="email" v-model="form.email" required
+                            <input type="email" id="email" v-model="form.email" required maxlength="254"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                                 placeholder="example@example.com">
                         </div>
@@ -301,12 +308,17 @@
 
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-2">メッセージ *</label>
-                            <textarea id="message" v-model="form.message" required rows="5"
+                            <textarea id="message" v-model="form.message" required rows="5" minlength="10"
+                                maxlength="5000"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
                                 placeholder="プロジェクトの詳細やご要望をお聞かせください"></textarea>
                         </div>
 
-                        <button type="submit" :disabled="isSubmitting"
+                        <div v-if="TURNSTILE_SITE_KEY" class="flex justify-start">
+                            <div ref="turnstileEl" class="cf-turnstile"></div>
+                        </div>
+
+                        <button type="submit" :disabled="isSubmitting || !canSubmit"
                             class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105">
                             <span v-if="!isSubmitting">送信する</span>
                             <span v-else class="flex items-center justify-center">
@@ -452,7 +464,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
 
 // 画像のインポート
 import programmerIcon from '~/assets/img/icons8-プログラマー-50.png'
@@ -463,6 +475,18 @@ import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.pn
 import soundcloudIcon from '~/public/assets/img/icons8-soundcloud-48.png'
 import profileImage from '~/public/assets/img/icon-name.webp'
 import backgroundImage from '~/public/assets/img/coding-man.webp'
+
+type TurnstileApi = {
+    render: (el: HTMLElement, options: Record<string, unknown>) => string | number
+    reset: (widgetId?: string | number) => void
+    remove: (widgetId?: string | number) => void
+}
+
+declare global {
+    interface Window {
+        turnstile?: TurnstileApi
+    }
+}
 
 // メニューの開閉状態
 const isMenuOpen: Ref<boolean> = ref(false)
@@ -479,6 +503,10 @@ const closeMenu = (): void => {
 
 // お問い合わせフォームの状態
 const isSubmitting: Ref<boolean> = ref(false)
+const turnstileToken: Ref<string> = ref('')
+const turnstileEl: Ref<HTMLElement | null> = ref(null)
+const formOpenedAt = Date.now()
+let turnstileWidgetId: string | number | null = null
 
 // フォームデータ
 type ContactForm = {
@@ -486,17 +514,86 @@ type ContactForm = {
     email: string
     subject: string
     message: string
+    website: string
 }
 
 const form: Ref<ContactForm> = ref({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    website: '',
 })
 
 const config = useRuntimeConfig()
 const CONTACT_API_URL = String(config.public.CONTACT_API_URL || '').trim()
+const TURNSTILE_SITE_KEY = String(config.public.TURNSTILE_SITE_KEY || '').trim()
+
+const canSubmit = computed(() => {
+    if (!TURNSTILE_SITE_KEY) return true
+    return Boolean(turnstileToken.value)
+})
+
+const loadTurnstileScript = (): Promise<void> => {
+    if (window.turnstile) return Promise.resolve()
+    return new Promise((resolve, reject) => {
+        const existing = document.querySelector<HTMLScriptElement>('script[data-turnstile]')
+        if (existing) {
+            existing.addEventListener('load', () => resolve(), { once: true })
+            existing.addEventListener('error', () => reject(new Error('Turnstile script failed')), { once: true })
+            return
+        }
+        const script = document.createElement('script')
+        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+        script.async = true
+        script.defer = true
+        script.dataset.turnstile = 'true'
+        script.onload = () => resolve()
+        script.onerror = () => reject(new Error('Turnstile script failed'))
+        document.head.appendChild(script)
+    })
+}
+
+const renderTurnstile = async (): Promise<void> => {
+    if (!TURNSTILE_SITE_KEY) return
+    await loadTurnstileScript()
+    await nextTick()
+    if (!turnstileEl.value || !window.turnstile) return
+    if (turnstileWidgetId !== null) {
+        window.turnstile.remove(turnstileWidgetId)
+        turnstileWidgetId = null
+    }
+    turnstileWidgetId = window.turnstile.render(turnstileEl.value, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: 'light',
+        callback: (token: string) => {
+            turnstileToken.value = token
+        },
+        'expired-callback': () => {
+            turnstileToken.value = ''
+        },
+        'error-callback': () => {
+            turnstileToken.value = ''
+        },
+    })
+}
+
+const resetTurnstile = (): void => {
+    turnstileToken.value = ''
+    if (turnstileWidgetId !== null && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetId)
+    }
+}
+
+onMounted(() => {
+    void renderTurnstile().catch((err) => console.error(err))
+})
+
+onBeforeUnmount(() => {
+    if (turnstileWidgetId !== null && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetId)
+    }
+})
 
 // スクロール関数
 const scrollToProjects = (): void => {
@@ -522,6 +619,15 @@ const submitForm = async (): Promise<void> => {
             throw new Error('お問い合わせ API の設定が完了していません。管理者にお問い合わせください。')
         }
 
+        // Soft client-side throttle for naive bots (server honeypot / Turnstile are the real checks)
+        if (Date.now() - formOpenedAt < 2500) {
+            throw new Error('送信が早すぎます。内容を確認してから再度お試しください。')
+        }
+
+        if (TURNSTILE_SITE_KEY && !turnstileToken.value) {
+            throw new Error('CAPTCHA を完了してください。')
+        }
+
         const response = await fetch(CONTACT_API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -530,6 +636,8 @@ const submitForm = async (): Promise<void> => {
                 email: form.value.email,
                 subject: form.value.subject,
                 message: form.value.message,
+                website: form.value.website,
+                turnstileToken: turnstileToken.value,
             }),
         })
 
@@ -551,7 +659,9 @@ const submitForm = async (): Promise<void> => {
             email: '',
             subject: '',
             message: '',
+            website: '',
         }
+        resetTurnstile()
     } catch (err: unknown) {
         console.error('送信エラー:', err)
 
@@ -560,6 +670,11 @@ const submitForm = async (): Promise<void> => {
 
         if (message.includes('設定が完了')) {
             errorMessage = 'メール送信の設定に問題があります。管理者にお問い合わせください。'
+        } else if (/CAPTCHA|captcha/i.test(message)) {
+            errorMessage = 'スパム対策の確認に失敗しました。もう一度チェックしてから送信してください。'
+            resetTurnstile()
+        } else if (/早すぎ/i.test(message)) {
+            errorMessage = message
         } else if (/too many|429/i.test(message)) {
             errorMessage = '送信上限に達している可能性があります。しばらくしてから再度お試しください。'
         } else if (/network|Failed to fetch/i.test(message)) {
@@ -663,6 +778,15 @@ const projects: Ref<Project[]> = ref([
 
 <style lang="scss" scoped>
 /* キービジュアル：夏のシアン／アンバー × エンジニアグリッド */
+.contact-hp {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .hero {
     --hero-ink: #e8f7f4;
     --hero-cyan: #2ec4b6;

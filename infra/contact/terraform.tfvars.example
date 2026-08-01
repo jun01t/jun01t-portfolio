@@ -7,3 +7,8 @@ route53_zone_name = "jun01t.com"
 allowed_origins = [
   "https://jun01t-portfolio.jun01t.com",
 ]
+
+# Cloudflare Turnstile (https://dash.cloudflare.com/?to=/:account/turnstile)
+# Hostnames に jun01t-portfolio.jun01t.com と localhost を追加
+turnstile_site_key   = "0x4AAAA..."
+turnstile_secret_key = "0x4AAAA..."
