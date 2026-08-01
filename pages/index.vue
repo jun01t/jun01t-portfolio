@@ -739,11 +739,12 @@ const projects: Ref<Project[]> = ref([
 }
 
 .hero__brand {
-    font-family: 'Unbounded', sans-serif;
-    font-size: clamp(3.1rem, 9.5vw, 5.25rem);
-    font-weight: 800;
-    line-height: 0.98;
-    letter-spacing: -0.02em;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3.25rem, 10vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+    padding-bottom: 0.08em;
     background: linear-gradient(120deg, #fff 10%, var(--hero-sky) 48%, var(--hero-sun) 92%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -885,11 +886,12 @@ const projects: Ref<Project[]> = ref([
 }
 
 .site-footer__brand {
-    font-family: 'Unbounded', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(1.75rem, 4vw, 2.25rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.15;
+    padding-bottom: 0.06em;
     background: linear-gradient(120deg, #fff 10%, var(--footer-sky) 48%, var(--footer-sun) 92%);
     -webkit-background-clip: text;
     background-clip: text;
