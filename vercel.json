@@ -1,11 +1,10 @@
 {
-  "buildCommand": "npm run generate",
-  "outputDirectory": "dist",
-  "framework": "nuxtjs",
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "https://jun01t-portfolio.jun01t.com/$1",
+      "permanent": true
     }
   ]
 }
