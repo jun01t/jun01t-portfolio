@@ -34,6 +34,12 @@ resource "aws_apigatewayv2_stage" "default" {
   api_id      = aws_apigatewayv2_api.contact.id
   name        = "$default"
   auto_deploy = true
+
+  # Contact form only: keep flood cost bounded (per-account stage defaults)
+  default_route_settings {
+    throttling_burst_limit = var.api_throttle_burst_limit
+    throttling_rate_limit  = var.api_throttle_rate_limit
+  }
 }
 
 resource "aws_lambda_permission" "apigw" {

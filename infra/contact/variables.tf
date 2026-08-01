@@ -54,3 +54,33 @@ variable "turnstile_secret_key" {
   sensitive   = true
   default     = ""
 }
+
+variable "api_throttle_rate_limit" {
+  type        = number
+  description = "API Gateway steady-state requests per second for /contact"
+  default     = 5
+}
+
+variable "api_throttle_burst_limit" {
+  type        = number
+  description = "API Gateway burst limit for /contact"
+  default     = 10
+}
+
+variable "lambda_reserved_concurrency" {
+  type        = number
+  description = "Max concurrent Lambda executions for the contact function"
+  default     = 5
+}
+
+variable "monthly_budget_usd" {
+  type        = number
+  description = "Account monthly cost budget (USD) that emails alerts"
+  default     = 5
+}
+
+variable "budget_alert_email" {
+  type        = string
+  description = "Email for AWS Budgets alerts"
+  default     = "tmdjnch0901@gmail.com"
+}

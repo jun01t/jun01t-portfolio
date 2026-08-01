@@ -12,3 +12,10 @@ allowed_origins = [
 # Hostnames に jun01t-portfolio.jun01t.com と localhost を追加
 turnstile_site_key   = "0x4AAAA..."
 turnstile_secret_key = "0x4AAAA..."
+
+# Cost guards (optional overrides)
+# api_throttle_rate_limit      = 5
+# api_throttle_burst_limit     = 10
+# lambda_reserved_concurrency  = 5
+# monthly_budget_usd           = 5
+# budget_alert_email           = "tmdjnch0901@gmail.com"

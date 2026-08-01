@@ -18,6 +18,12 @@ TURNSTILE_SITE_KEY=0x4AAAA...   # Cloudflare Turnstile のサイトキー
 - **Cloudflare Turnstile**: 人による操作確認。シークレットは Lambda 環境変数のみ
 - **件名ホワイトリスト / 文字数制限 / IP レート制限**（従来どおり）
 
+## 費用ガード
+
+- API Gateway: 既定 5 req/s（バースト 10）
+- Lambda: 同時実行上限 5
+- AWS Budgets: 月 $5 の 80% / 100% / 予測超過で `budget_alert_email` に通知（初回は確認メールあり）
+
 ### Turnstile のセットアップ
 
 1. [Cloudflare Turnstile](https://dash.cloudflare.com/?to=/:account/turnstile) で Widget を作成

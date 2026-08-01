@@ -49,6 +49,9 @@ resource "aws_lambda_function" "contact" {
   timeout       = 15
   memory_size   = 128
 
+  # Caps parallel abuse / runaway concurrency cost
+  reserved_concurrent_executions = var.lambda_reserved_concurrency
+
   filename         = data.archive_file.contact_lambda.output_path
   source_code_hash = data.archive_file.contact_lambda.output_base64sha256
 

@@ -3,6 +3,7 @@
 - **サイト**: S3 + CloudFront + ACM + Route53 → `https://jun01t-portfolio.jun01t.com`
 - **お問い合わせ**: API Gateway + Lambda + SES
 - **スパム対策**: honeypot + Cloudflare Turnstile（推奨）+ レート制限
+- **費用ガード**: API スロットル、Lambda 同時実行上限、月次 Budgets アラート（既定 $5）
 
 Vercel は使いません。
 
