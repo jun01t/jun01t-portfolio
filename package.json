@@ -33,7 +33,7 @@
     "vue-tsc": "^2.2.8"
   },
   "dependencies": {
-    "sass": "^1.69.6",
+    "sass": "^1.102.0",
     "sass-loader": "^13.3.3"
   }
 }
