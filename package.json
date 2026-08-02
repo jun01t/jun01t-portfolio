@@ -24,12 +24,12 @@
     "eslint": "^9.22.0",
     "eslint-plugin-vue": "^9.33.0",
     "globals": "^16.0.0",
-    "nuxt": "^3.9.0",
+    "nuxt": "^4.5.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.1",
-    "vue": "^3.3.13",
+    "vue": "^3.5.40",
     "vue-eslint-parser": "^9.4.3",
-    "vue-router": "^4.2.5",
+    "vue-router": "^5.2.0",
     "vue-tsc": "^2.2.8"
   },
   "dependencies": {
