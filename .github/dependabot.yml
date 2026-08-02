@@ -5,6 +5,18 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # Stay on Nuxt 3; major bumps (Nuxt 4 / vue-router 5) break current modules.
+    ignore:
+      - dependency-name: "nuxt"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "vue"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "vue-router"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@nuxtjs/tailwindcss"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@zadigetvoltaire/nuxt-gtm"
+        update-types: ["version-update:semver-major"]
     groups:
       nuxt-ecosystem:
         patterns:
@@ -12,6 +24,9 @@ updates:
           - "@nuxt/*"
           - "vue"
           - "vue-router"
+        update-types:
+          - "minor"
+          - "patch"
 
   - package-ecosystem: npm
     directory: /infra/contact/lambda
