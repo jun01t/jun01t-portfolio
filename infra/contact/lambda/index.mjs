@@ -2,8 +2,8 @@ import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
 
 const ses = new SESClient({})
 
-const TO_EMAIL = process.env.TO_EMAIL || 'tmdjnch0901@gmail.com'
-const FROM_EMAIL = process.env.FROM_EMAIL || TO_EMAIL
+const TO_EMAIL = (process.env.TO_EMAIL || '').trim()
+const FROM_EMAIL = (process.env.FROM_EMAIL || TO_EMAIL).trim()
 const TURNSTILE_SECRET_KEY = (process.env.TURNSTILE_SECRET_KEY || '').trim()
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://jun01t-portfolio.jun01t.com')
   .split(',')
@@ -180,6 +180,11 @@ export async function handler(event) {
     }
   } else {
     console.warn('TURNSTILE_SECRET_KEY is not configured; honeypot-only mode')
+  }
+
+  if (!TO_EMAIL || !FROM_EMAIL) {
+    console.error('TO_EMAIL / FROM_EMAIL is not configured')
+    return json(503, { error: 'Mail is not configured' }, origin)
   }
 
   const subjectLabel = SUBJECT_LABELS[subject]

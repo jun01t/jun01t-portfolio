@@ -89,7 +89,7 @@ cd ..
 
 apply 後:
 
-1. `tmdjnch0901@gmail.com` に届く **SES 検証メール** のリンクを開く
+1. `terraform.tfvars` の `from_email` に届く **SES 検証メール** のリンクを開く
 2. output の `contact_api_url` / `s3_bucket_name` / `cloudfront_distribution_id` を控える
 
 ## 2. サイトをデプロイ

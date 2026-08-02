@@ -12,15 +12,25 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "typecheck": "nuxt typecheck",
     "deploy:aws": "bash scripts/deploy-aws.sh",
     "apply:infra": "bash scripts/apply-infra.sh"
   },
   "devDependencies": {
+    "@eslint/js": "^9.22.0",
     "@nuxtjs/tailwindcss": "^6.10.3",
     "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
+    "eslint": "^9.22.0",
+    "eslint-plugin-vue": "^9.33.0",
+    "globals": "^16.0.0",
     "nuxt": "^3.9.0",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1",
     "vue": "^3.3.13",
-    "vue-router": "^4.2.5"
+    "vue-eslint-parser": "^9.4.3",
+    "vue-router": "^4.2.5",
+    "vue-tsc": "^2.2.8"
   },
   "dependencies": {
     "sass": "^1.69.6",

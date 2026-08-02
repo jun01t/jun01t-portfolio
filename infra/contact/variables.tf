@@ -12,14 +12,12 @@ variable "project_name" {
 
 variable "to_email" {
   type        = string
-  description = "Inbox that receives contact form messages"
-  default     = "tmdjnch0901@gmail.com"
+  description = "Inbox that receives contact form messages (set in terraform.tfvars)"
 }
 
 variable "from_email" {
   type        = string
-  description = "Verified SES identity used as From"
-  default     = "tmdjnch0901@gmail.com"
+  description = "Verified SES identity used as From (set in terraform.tfvars)"
 }
 
 variable "allowed_origins" {
@@ -81,6 +79,5 @@ variable "monthly_budget_usd" {
 
 variable "budget_alert_email" {
   type        = string
-  description = "Email for AWS Budgets alerts"
-  default     = "tmdjnch0901@gmail.com"
+  description = "Email for AWS Budgets alerts (set in terraform.tfvars)"
 }

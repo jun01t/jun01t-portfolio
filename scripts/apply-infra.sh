@@ -37,7 +37,7 @@ mkdir -p build
 
 echo
 echo "Next:"
-echo "1) Open the SES verification email sent to tmdjnch0901@gmail.com"
+echo "1) Open the SES verification email for the from_email in terraform.tfvars"
 echo "2) From repo root: pnpm run deploy:aws"
 echo
 "$TF_BIN" output

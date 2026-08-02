@@ -54,7 +54,7 @@ pnpm run dev
 2. Turnstile キーを `terraform.tfvars` に設定（推奨）
 3. `cd infra/contact/lambda && pnpm install --prod`
 4. `cd .. && ../../.bin/terraform init && ../../.bin/terraform apply`
-5. SES 検証メール（`tmdjnch0901@gmail.com`）を承認
+5. SES 検証メール（`terraform.tfvars` の `from_email`）を承認
 6. リポジトリルートで `pnpm run deploy:aws`
 
 ## 公開 URL

@@ -1,0 +1,17 @@
+title = "jun01t-portfolio"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated and local infra artifacts"
+paths = [
+  '''^\.nuxt/''',
+  '''^\.output/''',
+  '''^dist/''',
+  '''^infra/contact/\.terraform/''',
+  '''^infra/contact/build/''',
+  '''^infra/contact/terraform\.tfvars$''',
+  '''^pnpm-lock\.yaml$''',
+  '''^infra/contact/lambda/pnpm-lock\.yaml$''',
+]

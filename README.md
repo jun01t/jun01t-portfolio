@@ -4,6 +4,15 @@ Nuxt 3 静的サイト。ホスティングは **S3 + CloudFront**、お問い�
 
 公開 URL: `https://jun01t-portfolio.jun01t.com`
 
+## 成果と設計判断
+
+- **静的配信**: サーバーレスで運用負荷を下げつつ、独自ドメイン（Route53 + ACM + CloudFront OAC）で配信する
+- **お問い合わせ**: EmailJS 依存をやめ、API Gateway + Lambda + SES に移行。返信可能な `Reply-To` を維持する
+- **スパム対策**: honeypot + Cloudflare Turnstile + 件名ホワイトリスト + IP レート制限
+- **費用ガード**: API スロットル、Lambda 同時実行上限、月次 AWS Budgets（既定 USD 5）アラート
+- **移行互換**: 旧 Vercel URL は AWS ドメインへ 308 リダイレクト
+- **品質ゲート**: GitHub Actions で Gitleaks / lint / typecheck / build。Dependabot で依存更新
+
 インフラ: [infra/contact/README.md](./infra/contact/README.md)  
 環境変数: [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
 
