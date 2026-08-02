@@ -7,9 +7,12 @@
     <nav class="fixed top-0 left-0 w-full z-50 bg-gray-800 bg-opacity-90">
         <div class="flex justify-between items-center px-4 py-2">
             <div class="text-white font-bold text-lg sm:text-xl">jun01t's Portfolio</div>
-            <button @click="toggleMenu" class="text-white p-2 focus:outline-none transition-transform duration-300"
-                :class="{ 'transform rotate-90': isMenuOpen }">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button type="button" @click="toggleMenu"
+                class="text-white p-2 focus:outline-none transition-transform duration-300"
+                :class="{ 'transform rotate-90': isMenuOpen }"
+                :aria-expanded="isMenuOpen" aria-controls="site-menu"
+                :aria-label="isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                     </path>
                 </svg>
@@ -17,7 +20,7 @@
         </div>
 
         <!-- メニューコンテンツ -->
-        <div v-show="isMenuOpen"
+        <div id="site-menu" v-show="isMenuOpen"
             class="bg-gray-800 bg-opacity-95 border-t border-gray-700 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-700 hover:scrollbar-thumb-gray-400 scrollable-indicator">
             <div class="px-4 py-4">
                 <div class="flex items-center justify-between mb-4">

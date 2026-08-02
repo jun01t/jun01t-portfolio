@@ -1,0 +1,30 @@
+# jun01t Portfolio
+
+> Software engineer portfolio by jun01t. Static Nuxt site hosted on AWS (S3 + CloudFront), with a SES contact API and Cloudflare Turnstile spam protection.
+
+The preferred site URL is https://jun01t-portfolio.jun01t.com/
+
+## Site
+
+- [Home](https://jun01t-portfolio.jun01t.com/): Portfolio landing page with projects, skills, and contact form
+- [GitHub repository](https://github.com/jun01t/jun01t-portfolio): Source code and infrastructure (Terraform)
+
+## Projects
+
+- [jun01t Portfolio](https://jun01t-portfolio.jun01t.com/): This site
+- [CSV Viewer](https://github.com/jun01t/csv-viewer): CSV viewing tool
+- [Weather Outfit Suggestor](https://github.com/jun01t/weather-outfit-suggestor): Weather-based outfit suggestions
+- [Leap Year Site](https://github.com/jun01t/leap-year-site): Leap year utility site
+- [Konkatsu Diagnosis](https://github.com/jun01t/konkatsu-diagnosis): AI marriage-market diagnosis demo
+- [favicon-getter](https://favicon-getter.vercel.app): Favicon fetch CLI / API / Web UI
+
+## Social
+
+- [GitHub](https://github.com/jun01t)
+- [SoundCloud](https://soundcloud.com/jun01t)
+- [YouTube](https://www.youtube.com/@jun01t)
+- [Blog](https://blog.jun01t.com/)
+
+## Optional
+
+- Contact form submissions go through an authenticated API (Turnstile). Prefer the on-site form for inquiries.
