@@ -7,6 +7,63 @@ Nuxt 3 静的サイト。ホスティングは **S3 + CloudFront**、お問い�
 インフラ: [infra/contact/README.md](./infra/contact/README.md)  
 環境変数: [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
 
+## 構成図
+
+```mermaid
+flowchart TB
+  subgraph clients [Clients]
+    User[Browser]
+  end
+
+  subgraph edge [Edge / DNS]
+    R53[Route53<br/>jun01t-portfolio.jun01t.com]
+    ACM[ACM cert<br/>us-east-1]
+    CF[CloudFront]
+    Vercel[Vercel<br/>*.vercel.app → 308 redirect]
+  end
+
+  subgraph hosting [Static hosting]
+    S3[(S3<br/>Nuxt generate 成果物)]
+  end
+
+  subgraph contact [Contact API]
+    APIGW[API Gateway HTTP API<br/>POST /contact<br/>throttle 5 rps]
+    Lambda[Lambda Node.js 20<br/>honeypot / Turnstile / rate limit]
+    SES[Amazon SES]
+  end
+
+  subgraph spam [Spam protection]
+    Turnstile[Cloudflare Turnstile]
+  end
+
+  subgraph ops [Ops]
+    TF[Terraform infra/contact]
+    Budget[AWS Budgets<br/>月 $5 アラート]
+  end
+
+  User -->|HTTPS| R53
+  User -->|旧 URL| Vercel
+  Vercel -->|Location| R53
+  R53 --> CF
+  ACM -.-> CF
+  CF -->|OAC| S3
+
+  User -->|フォーム送信| Turnstile
+  User -->|JSON + token| APIGW
+  APIGW --> Lambda
+  Lambda -->|siteverify| Turnstile
+  Lambda -->|SendEmail| SES
+  SES -->|inbox| Mail[(tmdjnch0901@gmail.com)]
+
+  TF --> hosting
+  TF --> contact
+  TF --> Budget
+```
+
+**配信**: Nuxt 3 SPA（`pnpm generate`）→ S3 → CloudFront  
+**お問い合わせ**: フォーム → Turnstile → API Gateway → Lambda → SES  
+**旧 Vercel URL**: AWS ドメインへ恒久リダイレクト
+
 パッケージマネージャは **pnpm**（`packageManager` で 9.15.9 を指定）。Node.js は **20+** が必要です。
 
 ```bash

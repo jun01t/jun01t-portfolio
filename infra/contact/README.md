@@ -5,7 +5,53 @@
 - **スパム対策**: honeypot + Cloudflare Turnstile（推奨）+ レート制限
 - **費用ガード**: API スロットル、Lambda 同時実行上限、月次 Budgets アラート（既定 $5）
 
-Vercel は使いません。
+Vercel は使いません（`*.vercel.app` は AWS ドメインへ 308 リダイレクト）。
+
+## 構成図
+
+```mermaid
+flowchart LR
+  subgraph dns [DNS / TLS]
+    R53[Route53]
+    ACM[ACM us-east-1]
+  end
+
+  subgraph web [Website]
+    CF[CloudFront]
+    S3[(S3 static)]
+  end
+
+  subgraph api [Contact]
+    GW[API Gateway]
+    L[Lambda]
+    SES[SES]
+  end
+
+  TS[Cloudflare Turnstile]
+  User([User]) --> R53
+  R53 --> CF
+  ACM -.-> CF
+  CF -->|OAC| S3
+
+  User -->|CAPTCHA| TS
+  User -->|POST /contact| GW
+  GW --> L
+  L -->|verify| TS
+  L --> SES
+```
+
+デプロイフロー:
+
+```mermaid
+flowchart LR
+  Dev[Local / CI] -->|pnpm generate| Dist[dist/]
+  Dist -->|aws s3 sync| S3[(S3)]
+  Dist -.->|invalidation| CF[CloudFront]
+  Dev -->|pnpm apply:infra| TF[Terraform]
+  TF --> GW[API / Lambda / SES / Budgets]
+  TF --> CF
+  TF --> S3
+```
 
 ## 前提
 
