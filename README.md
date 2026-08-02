@@ -16,19 +16,19 @@ flowchart TB
   end
 
   subgraph edge [Edge / DNS]
-    R53[Route53<br/>jun01t-portfolio.jun01t.com]
-    ACM[ACM cert<br/>us-east-1]
+    R53["Route53<br/>jun01t-portfolio.jun01t.com"]
+    ACM["ACM cert<br/>us-east-1"]
     CF[CloudFront]
-    Vercel[Vercel<br/>*.vercel.app → 308 redirect]
+    Vercel["Vercel<br/>vercel.app 308 redirect"]
   end
 
   subgraph hosting [Static hosting]
-    S3[(S3<br/>Nuxt generate 成果物)]
+    S3[("S3<br/>Nuxt generate 成果物")]
   end
 
   subgraph contact [Contact API]
-    APIGW[API Gateway HTTP API<br/>POST /contact<br/>throttle 5 rps]
-    Lambda[Lambda Node.js 20<br/>honeypot / Turnstile / rate limit]
+    APIGW["API Gateway HTTP API<br/>POST /contact<br/>throttle 5 rps"]
+    Lambda["Lambda Node.js 20<br/>honeypot / Turnstile / rate limit"]
     SES[Amazon SES]
   end
 
@@ -37,8 +37,8 @@ flowchart TB
   end
 
   subgraph ops [Ops]
-    TF[Terraform infra/contact]
-    Budget[AWS Budgets<br/>月 $5 アラート]
+    TF["Terraform infra/contact"]
+    Budget["AWS Budgets<br/>monthly USD 5 alert"]
   end
 
   User -->|HTTPS| R53
@@ -53,7 +53,7 @@ flowchart TB
   APIGW --> Lambda
   Lambda -->|siteverify| Turnstile
   Lambda -->|SendEmail| SES
-  SES -->|inbox| Mail[(tmdjnch0901@gmail.com)]
+  SES -->|inbox| Mail[("Contact inbox")]
 
   TF --> hosting
   TF --> contact
