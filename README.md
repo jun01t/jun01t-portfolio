@@ -37,7 +37,7 @@ flowchart TB
 
   subgraph contact [Contact API]
     APIGW["API Gateway HTTP API<br/>POST /contact<br/>throttle 5 rps"]
-    Lambda["Lambda Node.js 20<br/>honeypot / Turnstile / rate limit"]
+    Lambda["Lambda Node.js 22<br/>honeypot / Turnstile / rate limit"]
     SES[Amazon SES]
   end
 

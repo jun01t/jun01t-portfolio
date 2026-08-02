@@ -45,7 +45,7 @@ resource "aws_lambda_function" "contact" {
   function_name = "${var.project_name}-contact"
   role          = aws_iam_role.contact_lambda.arn
   handler       = "index.handler"
-  runtime       = "nodejs20.x"
+  runtime       = "nodejs22.x"
   timeout       = 15
   memory_size   = 128
 
