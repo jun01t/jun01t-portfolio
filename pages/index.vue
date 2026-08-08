@@ -776,6 +776,15 @@ const projects: Ref<Project[]> = ref([
         githubUrl: 'https://github.com/jun01t/favicon-getter',
         demoUrl: 'https://favicon-getter.vercel.app'
     },
+    {
+        id: 10,
+        title: 'Simple MBTI',
+        description:
+            'E/I・S/N・T/F・J/P の各軸1問・合計4問でMBTIタイプを診断するシンプルな性格診断サイト。16タイプの説明・適職例表示と X シェアに対応。',
+        technologies: ['Nuxt.js', 'Vue.js', 'TypeScript', 'Tailwind CSS'],
+        githubUrl: 'https://github.com/jun01t/simple-mbti',
+        demoUrl: 'https://simple-mbti-self.vercel.app/'
+    },
 ])
 </script>
 
