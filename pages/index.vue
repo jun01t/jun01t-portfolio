@@ -778,9 +778,9 @@ const projects: Ref<Project[]> = ref([
     },
     {
         id: 10,
-        title: 'Simple MBTI',
+        title: 'Simple Type',
         description:
-            'E/I・S/N・T/F・J/P の各軸1問・合計4問でMBTIタイプを診断するシンプルな性格診断サイト。16タイプの説明・適職例表示と X シェアに対応。',
+            'E/I・S/N・T/F・J/P の各軸1問・合計4問で16タイプの傾向がわかる娯楽用の簡易性格診断サイト。タイプ説明・適職例（参考）と X シェアに対応。',
         technologies: ['Nuxt.js', 'Vue.js', 'TypeScript', 'Tailwind CSS'],
         githubUrl: 'https://github.com/jun01t/simple-mbti',
         demoUrl: 'https://simple-mbti-self.vercel.app/'

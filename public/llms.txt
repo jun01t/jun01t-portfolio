@@ -17,7 +17,7 @@ The preferred site URL is https://jun01t-portfolio.jun01t.com/
 - [Leap Year Site](https://github.com/jun01t/leap-year-site): Leap year utility site
 - [Konkatsu Diagnosis](https://github.com/jun01t/konkatsu-diagnosis): AI marriage-market diagnosis demo
 - [favicon-getter](https://favicon-getter.vercel.app): Favicon fetch CLI / API / Web UI
-- [Simple MBTI](https://simple-mbti-self.vercel.app/): 4-question MBTI personality quiz
+- [Simple Type](https://simple-mbti-self.vercel.app/): 4-question 16-type personality quiz (entertainment)
 
 ## Social
 
