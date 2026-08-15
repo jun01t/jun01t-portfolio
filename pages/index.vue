@@ -184,6 +184,10 @@
                             <div class="w-2 h-2 bg-slate-800 rounded-full mr-3"></div>
                             Next.js
                         </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                            Rails
+                        </li>
                     </ul>
                 </div>
 
@@ -206,6 +210,10 @@
                         <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
                             Go
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-rose-500 rounded-full mr-3"></div>
+                            Ruby
                         </li>
                         <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
@@ -259,6 +267,10 @@
                         <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-amber-500 rounded-full mr-3"></div>
                             Vite
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
+                            PostgreSQL
                         </li>
                     </ul>
                 </div>
@@ -796,6 +808,15 @@ const projects: Ref<Project[]> = ref([
         technologies: ['Nuxt.js', 'Vue.js', 'TypeScript', 'Tailwind CSS'],
         githubUrl: 'https://github.com/jun01t/simple-mbti',
         demoUrl: 'https://simple-mbti-self.vercel.app/'
+    },
+    {
+        id: 11,
+        title: 'Prompt Vault',
+        description:
+            'AIプロンプトの保存・タグ・お気に入り・履歴・テンプレート展開をまとめた自分専用の管理アプリ。Rails API（JWT）と Nuxt 3、ローカルは Apple Container 上の PostgreSQL で動かす。',
+        technologies: ['Rails', 'Nuxt.js', 'TypeScript', 'PostgreSQL', 'Apple Container'],
+        githubUrl: 'https://github.com/jun01t/prompt-vault',
+        demoUrl: null
     },
 ])
 </script>

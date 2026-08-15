@@ -18,6 +18,7 @@ The preferred site URL is https://jun01t-portfolio.jun01t.com/
 - [Konkatsu Diagnosis](https://github.com/jun01t/konkatsu-diagnosis): AI marriage-market diagnosis demo
 - [favicon-getter](https://favicon-getter.vercel.app): Favicon fetch CLI / API / Web UI
 - [Simple Type](https://simple-mbti-self.vercel.app/): 4-question 16-type personality quiz (entertainment)
+- [Prompt Vault](https://github.com/jun01t/prompt-vault): Personal AI prompt manager (Rails API + Nuxt, local Apple Container)
 
 ## Social
 
