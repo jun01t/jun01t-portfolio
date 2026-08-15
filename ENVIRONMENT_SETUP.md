@@ -10,7 +10,8 @@ TURNSTILE_SITE_KEY=0x4AAAA...   # Cloudflare Turnstile のサイトキー
 ```
 
 `CONTACT_API_URL` は `infra/contact` で `terraform apply` したあとの output `contact_api_url` です。  
-`pnpm run deploy:aws` を使う場合は Terraform output から `CONTACT_API_URL` / `TURNSTILE_SITE_KEY` を自動取得します。
+`pnpm run deploy:aws` を使う場合は Terraform output から `CONTACT_API_URL` / `TURNSTILE_SITE_KEY` を自動取得します。  
+GitHub Actions の自動デプロイでは、未設定ならリポジトリ Variables（`CONTACT_API_URL` / `TURNSTILE_SITE_KEY`）またはワークフローの既定値を使います。
 
 ## スパム対策
 
@@ -50,7 +51,7 @@ pnpm run dev
 
 ## 初回セットアップ
 
-1. AWS 認証を有効化（`aws login` など）
+1. AWS 認証を有効化（`aws login` など）。GitHub Actions からの自動デプロイは OIDC ロール（`apply:infra` で作成）を使う
 2. Turnstile キーを `terraform.tfvars` に設定（推奨）
 3. `cd infra/contact/lambda && pnpm install --prod`
 4. `cd .. && ../../.bin/terraform init && ../../.bin/terraform apply`

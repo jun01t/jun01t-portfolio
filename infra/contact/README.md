@@ -103,6 +103,19 @@ pnpm run deploy:aws
 `deploy:aws` は `nuxt generate` → S3 sync → CloudFront invalidation を実行します。  
 `TURNSTILE_SITE_KEY` も Terraform output から渡します。
 
+`master` / `main` への push では GitHub Actions（`.github/workflows/deploy.yml`）が同じ処理を自動実行します。  
+認証は GitHub OIDC（`jun01t-portfolio-github-deploy` ロール）で、アクセスキーは使いません。
+
+OIDC プロバイダとロールを CLI で先に作っている場合、Terraform へ取り込むには:
+
+```bash
+cd infra/contact
+../../.bin/terraform import aws_iam_openid_connect_provider.github \
+  arn:aws:iam::873325270739:oidc-provider/token.actions.githubusercontent.com
+../../.bin/terraform import aws_iam_role.github_deploy jun01t-portfolio-github-deploy
+../../.bin/terraform import aws_iam_role_policy.github_deploy jun01t-portfolio-github-deploy:jun01t-portfolio-github-deploy
+```
+
 ## 手動デプロイ例
 
 ```bash

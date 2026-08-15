@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Generate and publish to AWS
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ap-northeast-1
+      AWS_DEPLOY_ROLE_ARN: arn:aws:iam::873325270739:role/jun01t-portfolio-github-deploy
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ env.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Generate
+        run: pnpm run generate
+        env:
+          CONTACT_API_URL: ${{ vars.CONTACT_API_URL || 'https://25nlc4b0l6.execute-api.ap-northeast-1.amazonaws.com/contact' }}
+          TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY || '0x4AAAAAAEDk1aTaTPEg1MMB' }}
+
+      - name: Sync to S3 and invalidate CloudFront
+        run: |
+          set -euo pipefail
+          aws s3 sync dist/ "s3://jun01t-portfolio-site-873325270739/" --delete
+          aws cloudfront create-invalidation --distribution-id E1Z1GLYV6N8HB1 --paths "/*"

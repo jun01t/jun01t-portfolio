@@ -31,3 +31,8 @@ output "turnstile_site_key" {
   description = "Public Turnstile site key for Nuxt build (TURNSTILE_SITE_KEY)"
   value       = var.turnstile_site_key
 }
+
+output "github_deploy_role_arn" {
+  description = "IAM role assumed by GitHub Actions via OIDC"
+  value       = aws_iam_role.github_deploy.arn
+}

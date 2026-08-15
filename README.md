@@ -12,6 +12,7 @@ Nuxt 3 静的サイト。ホスティングは **S3 + CloudFront**、お問い�
 - **費用ガード**: API スロットル、Lambda 同時実行上限、月次 AWS Budgets（既定 USD 5）アラート
 - **移行互換**: 旧 Vercel URL は AWS ドメインへ 308 リダイレクト
 - **品質ゲート**: GitHub Actions で Gitleaks / lint / typecheck / build。Dependabot で依存更新
+- **自動デプロイ**: `master` / `main` への push で GitHub Actions が `generate` → S3 → CloudFront を実行（OIDC、長期キーなし）
 
 インフラ: [infra/contact/README.md](./infra/contact/README.md)  
 環境変数: [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md)
@@ -82,8 +83,10 @@ pnpm install
 aws login                 # AWS 認証が切れている場合
 pnpm run apply:infra      # Terraform apply + SES identity
 # SES 検証メールを承認してから:
-pnpm run deploy:aws       # generate → S3 sync → CloudFront invalidation
+pnpm run deploy:aws       # 手元から generate → S3 sync → CloudFront invalidation
 ```
+
+`master` / `main` へ push すると GitHub Actions からも同じ公開先へデプロイされます。初回だけ `pnpm run apply:infra` で GitHub OIDC 用 IAM ロールを作ってください。
 
 ## Setup
 
