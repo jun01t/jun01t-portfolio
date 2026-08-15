@@ -1,12 +1,7 @@
-data "archive_file" "contact_lambda" {
-  type        = "zip"
-  source_dir  = "${path.module}/lambda"
-  output_path = "${path.module}/build/contact-lambda.zip"
-  excludes = [
-    "pnpm-lock.yaml",
-    "package-lock.json",
-    ".npmrc",
-  ]
+# Zip is built by scripts/pack-lambda.sh (or apply-infra.sh) before apply.
+# Avoids hashicorp/archive walking iCloud-backed node_modules (hangs / OOM).
+locals {
+  contact_lambda_zip = "${path.module}/build/contact-lambda.zip"
 }
 
 resource "aws_iam_role" "contact_lambda" {
@@ -56,8 +51,8 @@ resource "aws_lambda_function" "contact" {
   # Caps parallel abuse / runaway concurrency cost
   reserved_concurrent_executions = var.lambda_reserved_concurrency
 
-  filename         = data.archive_file.contact_lambda.output_path
-  source_code_hash = data.archive_file.contact_lambda.output_base64sha256
+  filename         = local.contact_lambda_zip
+  source_code_hash = filebase64sha256(local.contact_lambda_zip)
 
   environment {
     variables = {

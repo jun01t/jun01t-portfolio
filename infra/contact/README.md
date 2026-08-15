@@ -82,7 +82,9 @@ pnpm run apply:infra
 
 ```bash
 cd infra/contact/lambda && pnpm install --prod
-cd ..
+# またはリポジトリルートから（推奨・/tmp に zip を組み立てる）
+bash scripts/pack-lambda.sh
+cd infra/contact
 ../../.bin/terraform init
 ../../.bin/terraform apply
 ```
