@@ -31,12 +31,16 @@ resource "aws_iam_role_policy" "contact_lambda_ses" {
   name = "${var.project_name}-contact-ses-send"
   role = aws_iam_role.contact_lambda.id
 
+  # Least privilege: only verified From (/ To) identities, not Resource "*"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect   = "Allow"
       Action   = ["ses:SendEmail", "ses:SendRawEmail"]
-      Resource = "*"
+      Resource = concat(
+        [aws_ses_email_identity.contact.arn],
+        aws_ses_email_identity.inbox[*].arn,
+      )
     }]
   })
 }

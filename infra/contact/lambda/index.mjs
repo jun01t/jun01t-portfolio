@@ -26,7 +26,11 @@ const MAX = {
 
 const MIN_MESSAGE = 10
 
-/** @type {Map<string, { count: number, resetAt: number }>} */
+/**
+ * Per-instance only: cold starts / scale-out reset this map.
+ * Primary flood control is API Gateway stage throttling (see api.tf).
+ * @type {Map<string, { count: number, resetAt: number }>}
+ */
 const rateBuckets = new Map()
 const RATE_LIMIT = 5
 const RATE_WINDOW_MS = 60 * 60 * 1000

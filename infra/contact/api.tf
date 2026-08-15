@@ -35,7 +35,7 @@ resource "aws_apigatewayv2_stage" "default" {
   name        = "$default"
   auto_deploy = true
 
-  # Contact form only: keep flood cost bounded (per-account stage defaults)
+  # Primary flood control for /contact (Lambda Map rate limit is per-instance only).
   default_route_settings {
     throttling_burst_limit = var.api_throttle_burst_limit
     throttling_rate_limit  = var.api_throttle_rate_limit

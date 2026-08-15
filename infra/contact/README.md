@@ -2,7 +2,7 @@
 
 - **サイト**: S3 + CloudFront + ACM + Route53 → `https://jun01t-portfolio.jun01t.com`
 - **お問い合わせ**: API Gateway + Lambda + SES
-- **スパム対策**: honeypot + Cloudflare Turnstile（推奨）+ レート制限
+- **スパム対策**: honeypot + Cloudflare Turnstile（推奨）+ レート制限（主は API Gateway スロットル、Lambda 内 Map は補助）
 - **費用ガード**: API スロットル、Lambda 同時実行上限、月次 Budgets アラート（既定 $5）
 
 Vercel は使いません（`*.vercel.app` は AWS ドメインへ 308 リダイレクト）。
@@ -106,12 +106,26 @@ pnpm run deploy:aws
 `master` / `main` への push では GitHub Actions（`.github/workflows/deploy.yml`）が同じ処理を自動実行します。  
 認証は GitHub OIDC（`jun01t-portfolio-github-deploy` ロール）で、アクセスキーは使いません。
 
+### GitHub Actions Variables（必須）
+
+リポジトリの **Settings → Secrets and variables → Actions → Variables** に設定します（ワークフローに直書きしません）:
+
+| Variable | 例の取得元 |
+| --- | --- |
+| `AWS_REGION` | `ap-northeast-1` |
+| `AWS_DEPLOY_ROLE_ARN` | `terraform output -raw github_deploy_role_arn` |
+| `S3_BUCKET` | `terraform output -raw s3_bucket_name` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | `terraform output -raw cloudfront_distribution_id` |
+| `CONTACT_API_URL` | `terraform output -raw contact_api_url` |
+| `TURNSTILE_SITE_KEY` | `terraform output -raw turnstile_site_key`（任意だが推奨） |
+
 OIDC プロバイダとロールを CLI で先に作っている場合、Terraform へ取り込むには:
 
 ```bash
 cd infra/contact
+ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 ../../.bin/terraform import aws_iam_openid_connect_provider.github \
-  arn:aws:iam::873325270739:oidc-provider/token.actions.githubusercontent.com
+  "arn:aws:iam::${ACCOUNT_ID}:oidc-provider/token.actions.githubusercontent.com"
 ../../.bin/terraform import aws_iam_role.github_deploy jun01t-portfolio-github-deploy
 ../../.bin/terraform import aws_iam_role_policy.github_deploy jun01t-portfolio-github-deploy:jun01t-portfolio-github-deploy
 ```

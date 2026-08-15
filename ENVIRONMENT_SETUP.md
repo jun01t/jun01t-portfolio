@@ -10,18 +10,31 @@ TURNSTILE_SITE_KEY=0x4AAAA...   # Cloudflare Turnstile のサイトキー
 ```
 
 `CONTACT_API_URL` は `infra/contact` で `terraform apply` したあとの output `contact_api_url` です。  
-`pnpm run deploy:aws` を使う場合は Terraform output から `CONTACT_API_URL` / `TURNSTILE_SITE_KEY` を自動取得します。  
-GitHub Actions の自動デプロイでは、未設定ならリポジトリ Variables（`CONTACT_API_URL` / `TURNSTILE_SITE_KEY`）またはワークフローの既定値を使います。
+`pnpm run deploy:aws` を使う場合は Terraform output から `CONTACT_API_URL` / `TURNSTILE_SITE_KEY` を自動取得します。
+
+### GitHub Actions Variables
+
+自動デプロイ（`.github/workflows/deploy.yml`）は次のリポジトリ Variables を参照します（直書きしません）:
+
+- `AWS_REGION`
+- `AWS_DEPLOY_ROLE_ARN`
+- `S3_BUCKET`
+- `CLOUDFRONT_DISTRIBUTION_ID`
+- `CONTACT_API_URL`
+- `TURNSTILE_SITE_KEY`（推奨）
+
+値は `infra/contact` の Terraform output から設定します。詳細は [infra/contact/README.md](./infra/contact/README.md) を参照。
 
 ## スパム対策
 
 - **Honeypot**: 非表示フィールド。ボットが埋めるとメールは送らず成功レスポンスのみ返す
 - **Cloudflare Turnstile**: 人による操作確認。シークレットは Lambda 環境変数のみ
-- **件名ホワイトリスト / 文字数制限 / IP レート制限**（従来どおり）
+- **件名ホワイトリスト / 文字数制限**
+- **レート制限**: 主は API Gateway の stage throttling。Lambda 内の IP Map はインスタンス単位の補助のみ
 
 ## 費用ガード
 
-- API Gateway: 既定 5 req/s（バースト 10）
+- API Gateway: 既定 5 req/s（バースト 10）← 問い合わせ洪水の主制御
 - Lambda: 同時実行上限 5
 - AWS Budgets: 月 $5 の 80% / 100% / 予測超過で `budget_alert_email` に通知（初回は確認メールあり）
 
