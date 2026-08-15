@@ -25,7 +25,7 @@ jobs:
       CONTACT_API_URL: ${{ vars.CONTACT_API_URL }}
       TURNSTILE_SITE_KEY: ${{ vars.TURNSTILE_SITE_KEY }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Require deploy variables
         run: |
