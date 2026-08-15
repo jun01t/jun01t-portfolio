@@ -18,7 +18,17 @@ fi
 # Terraform AWS provider does not always pick up `aws login` cache directly.
 eval "$(aws configure export-credentials --format env)"
 
+if [[ ! -x "$TF_BIN" ]]; then
+  echo "terraform binary not found at $TF_BIN" >&2
+  exit 1
+fi
+
 bash "$ROOT_DIR/scripts/pack-lambda.sh"
+
+if [[ ! -s "$TF_DIR/build/contact-lambda.zip" ]]; then
+  echo "Lambda zip missing after pack-lambda.sh" >&2
+  exit 1
+fi
 
 cd "$TF_DIR"
 "$TF_BIN" init -input=false

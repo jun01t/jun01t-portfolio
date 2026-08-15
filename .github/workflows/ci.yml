@@ -24,7 +24,7 @@ jobs:
         run: ./gitleaks detect --source . --no-git --verbose
 
   quality:
-    name: Lint / Typecheck / Build
+    name: Lint / Typecheck / Generate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -41,8 +41,8 @@ jobs:
         run: pnpm run lint
       - name: Typecheck
         run: pnpm run typecheck
-      - name: Build
-        run: pnpm run build
+      - name: Generate
+        run: pnpm run generate
         env:
           CONTACT_API_URL: https://example.execute-api.ap-northeast-1.amazonaws.com/contact
           TURNSTILE_SITE_KEY: ""

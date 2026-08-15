@@ -81,12 +81,11 @@ pnpm run apply:infra
 手動の場合:
 
 ```bash
-cd infra/contact/lambda && pnpm install --prod
-# またはリポジトリルートから（推奨・/tmp に zip を組み立てる）
+# リポジトリルートから
 bash scripts/pack-lambda.sh
 cd infra/contact
-../../.bin/terraform init
-../../.bin/terraform apply
+../.bin/terraform init
+../.bin/terraform apply
 ```
 
 apply 後:
@@ -126,20 +125,20 @@ OIDC プロバイダとロールを CLI で先に作っている場合、Terrafo
 ```bash
 cd infra/contact
 ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
-../../.bin/terraform import aws_iam_openid_connect_provider.github \
+../.bin/terraform import aws_iam_openid_connect_provider.github \
   "arn:aws:iam::${ACCOUNT_ID}:oidc-provider/token.actions.githubusercontent.com"
-../../.bin/terraform import aws_iam_role.github_deploy jun01t-portfolio-github-deploy
-../../.bin/terraform import aws_iam_role_policy.github_deploy jun01t-portfolio-github-deploy:jun01t-portfolio-github-deploy
+../.bin/terraform import aws_iam_role.github_deploy jun01t-portfolio-github-deploy
+../.bin/terraform import aws_iam_role_policy.github_deploy jun01t-portfolio-github-deploy:jun01t-portfolio-github-deploy
 ```
 
 ## 手動デプロイ例
 
 ```bash
-export CONTACT_API_URL="$(cd infra/contact && ../../.bin/terraform output -raw contact_api_url)"
-export TURNSTILE_SITE_KEY="$(cd infra/contact && ../../.bin/terraform output -raw turnstile_site_key)"
+export CONTACT_API_URL="$(cd infra/contact && ../.bin/terraform output -raw contact_api_url)"
+export TURNSTILE_SITE_KEY="$(cd infra/contact && ../.bin/terraform output -raw turnstile_site_key)"
 pnpm run generate
-aws s3 sync dist/ "s3://$(cd infra/contact && ../../.bin/terraform output -raw s3_bucket_name)/" --delete
+aws s3 sync dist/ "s3://$(cd infra/contact && ../.bin/terraform output -raw s3_bucket_name)/" --delete
 aws cloudfront create-invalidation \
-  --distribution-id "$(cd infra/contact && ../../.bin/terraform output -raw cloudfront_distribution_id)" \
+  --distribution-id "$(cd infra/contact && ../.bin/terraform output -raw cloudfront_distribution_id)" \
   --paths "/*"
 ```

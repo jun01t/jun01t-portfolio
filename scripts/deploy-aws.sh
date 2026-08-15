@@ -15,9 +15,12 @@ run_pnpm() {
 }
 
 # Prefer Node 20+ (nuxt generate can crash on older Node)
-if [[ -x "$HOME/.nodebrew/current/bin/node" ]]; then
-  export PATH="$HOME/.nodebrew/current/bin:$PATH"
-fi
+for dir in "${HOME}/.nodebrew/node"/v22.*/bin "${HOME}/.nodebrew/node"/v20.*/bin "${HOME}/.nodebrew/current/bin"; do
+  if [[ -x "${dir}/node" ]]; then
+    export PATH="${dir}:$PATH"
+    break
+  fi
+done
 
 unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN || true
 export AWS_EC2_METADATA_DISABLED=1 AWS_SDK_LOAD_CONFIG=1

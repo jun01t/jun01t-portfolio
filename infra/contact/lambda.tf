@@ -52,7 +52,7 @@ resource "aws_lambda_function" "contact" {
   reserved_concurrent_executions = var.lambda_reserved_concurrency
 
   filename         = local.contact_lambda_zip
-  source_code_hash = filebase64sha256(local.contact_lambda_zip)
+  source_code_hash = fileexists(local.contact_lambda_zip) ? filebase64sha256(local.contact_lambda_zip) : ""
 
   environment {
     variables = {
@@ -68,6 +68,13 @@ resource "aws_lambda_function" "contact" {
     aws_iam_role_policy.contact_lambda_ses,
     aws_ses_email_identity.contact,
   ]
+
+  lifecycle {
+    precondition {
+      condition     = fileexists(local.contact_lambda_zip)
+      error_message = "Missing infra/contact/build/contact-lambda.zip. From the repo root run: bash scripts/pack-lambda.sh"
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "contact_lambda" {

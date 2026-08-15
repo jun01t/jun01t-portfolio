@@ -66,10 +66,9 @@ pnpm run dev
 
 1. AWS 認証を有効化（`aws login` など）。GitHub Actions からの自動デプロイは OIDC ロール（`apply:infra` で作成）を使う
 2. Turnstile キーを `terraform.tfvars` に設定（推奨）
-3. `cd infra/contact/lambda && pnpm install --prod`
-4. `cd .. && ../../.bin/terraform init && ../../.bin/terraform apply`
-5. SES 検証メール（`terraform.tfvars` の `from_email`）を承認
-6. リポジトリルートで `pnpm run deploy:aws`
+3. リポジトリルートで `pnpm run apply:infra`（Lambda zip 作成 → Terraform apply）
+4. SES 検証メール（`terraform.tfvars` の `from_email`）を承認
+5. リポジトリルートで `pnpm run deploy:aws`
 
 ## 公開 URL
 

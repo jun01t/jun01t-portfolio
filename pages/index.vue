@@ -566,6 +566,10 @@ const loadTurnstileScript = (): Promise<void> => {
     return new Promise((resolve, reject) => {
         const existing = document.querySelector<HTMLScriptElement>('script[data-turnstile]')
         if (existing) {
+            if (window.turnstile || existing.dataset.loaded === 'true') {
+                resolve()
+                return
+            }
             existing.addEventListener('load', () => resolve(), { once: true })
             existing.addEventListener('error', () => reject(new Error('Turnstile script failed')), { once: true })
             return
@@ -575,7 +579,10 @@ const loadTurnstileScript = (): Promise<void> => {
         script.async = true
         script.defer = true
         script.dataset.turnstile = 'true'
-        script.onload = () => resolve()
+        script.onload = () => {
+            script.dataset.loaded = 'true'
+            resolve()
+        }
         script.onerror = () => reject(new Error('Turnstile script failed'))
         document.head.appendChild(script)
     })
