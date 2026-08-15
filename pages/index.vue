@@ -173,12 +173,16 @@
                     </div>
                     <ul class="space-y-3">
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
-                            Ruby on Rails
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            Nuxt.js
                         </li>
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                            Nuxt.js (Vue.js)
+                            <div class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
+                            Vue.js
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-slate-800 rounded-full mr-3"></div>
+                            Next.js
                         </li>
                     </ul>
                 </div>
@@ -192,20 +196,16 @@
                     </div>
                     <ul class="space-y-3">
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
-                            Ruby
-                        </li>
-                        <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
                             TypeScript
                         </li>
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                            PHP
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                            JavaScript
                         </li>
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                            Java
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                            Go
                         </li>
                         <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
@@ -214,39 +214,51 @@
                     </ul>
                 </div>
 
-                <!-- データベース -->
+                <!-- インフラ -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="databaseIcon" alt="データベース" loading="lazy"
-                            decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">データベース</h3>
+                        <img class="w-8 h-8 mr-4" :src="awsIcon" alt="インフラ" loading="lazy" decoding="async" />
+                        <h3 class="text-2xl font-bold text-gray-800">インフラ</h3>
                     </div>
                     <ul class="space-y-3">
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                            PostgreSQL
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
-                            Oracle
-                        </li>
-                        <li class="flex items-center text-gray-600">
                             <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                            MySQL
+                            AWS（S3 / CloudFront / Lambda）
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-violet-500 rounded-full mr-3"></div>
+                            Terraform
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-gray-700 rounded-full mr-3"></div>
+                            GitHub Actions
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-black rounded-full mr-3"></div>
+                            Vercel
                         </li>
                     </ul>
                 </div>
 
-                <!-- クラウド -->
+                <!-- ツール -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="awsIcon" alt="AWS" loading="lazy" decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">クラウド</h3>
+                        <img class="w-8 h-8 mr-4" :src="databaseIcon" alt="ツール" loading="lazy"
+                            decoding="async" />
+                        <h3 class="text-2xl font-bold text-gray-800">ツール</h3>
                     </div>
                     <ul class="space-y-3">
                         <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                            AWS
+                            <div class="w-2 h-2 bg-sky-500 rounded-full mr-3"></div>
+                            Tailwind CSS
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-lime-500 rounded-full mr-3"></div>
+                            Node.js / pnpm
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-amber-500 rounded-full mr-3"></div>
+                            Vite
                         </li>
                     </ul>
                 </div>
