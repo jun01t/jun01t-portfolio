@@ -274,6 +274,34 @@
                         </li>
                     </ul>
                 </div>
+
+                <!-- AI -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex items-center mb-6">
+                        <svg class="w-8 h-8 mr-4 text-violet-500" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path d="M12 3.5l1.2 3.6L17 8.3l-3.8 1.2L12 13l-1.2-3.5L7 8.3l3.8-1.2L12 3.5z" />
+                            <path d="M18.5 13.5l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7.7-2.1z" />
+                            <path d="M6.2 14.2l.55 1.65 1.65.55-1.65.55L6.2 18.6l-.55-1.65-1.65-.55 1.65-.55.55-1.65z" />
+                        </svg>
+                        <h3 class="text-2xl font-bold text-gray-800">AI</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+                            Claude Code
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-emerald-600 rounded-full mr-3"></div>
+                            Codex
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                            Cursor
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
