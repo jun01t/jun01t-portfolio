@@ -71,13 +71,16 @@
     <!-- メニューが開いている時の背景オーバーレイ -->
     <div v-if="isMenuOpen" @click="closeMenu" class="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
 
-    <!-- ヒーローセクション（夏 × スタイリッシュ × エンジニア） -->
+    <!-- ヒーローセクション（秋 × スタイリッシュ × エンジニア） -->
     <section class="hero relative min-h-screen flex items-center justify-center overflow-hidden"
         :style="{ '--hero-bg': `url(${backgroundImage})` }">
         <div class="hero__media" aria-hidden="true"></div>
         <div class="hero__grade" aria-hidden="true"></div>
         <div class="hero__grid" aria-hidden="true"></div>
-        <div class="hero__sun" aria-hidden="true"></div>
+        <div class="hero__moon" aria-hidden="true"></div>
+        <div class="hero__leaves" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
 
         <div class="hero__content relative z-10 text-center px-4 max-w-3xl mx-auto">
             <div class="hero__avatar mx-auto mb-7 overflow-hidden">
@@ -85,7 +88,7 @@
                     fetchpriority="high" decoding="async" />
             </div>
 
-            <p class="hero__mono mb-4">software_engineer · summer_build</p>
+            <p class="hero__mono mb-4">software_engineer · autumn_build</p>
 
             <h1 class="hero__brand mb-4">jun01t</h1>
 
@@ -105,7 +108,7 @@
     </section>
 
     <!-- 成果物セクション -->
-    <div id="projects" class="py-20 bg-gray-50">
+    <div id="projects" class="season-main py-20">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">成果物</h2>
 
@@ -307,7 +310,7 @@
     </div>
 
     <!-- お問い合わせセクション -->
-    <div id="contact" class="py-20 bg-white">
+    <div id="contact" class="season-contact py-20">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold text-gray-800 mb-4">お問い合わせ</h2>
@@ -316,7 +319,7 @@
 
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- お問い合わせフォーム -->
-                <div class="bg-gray-50 rounded-2xl p-8">
+                <div class="bg-amber-50 rounded-2xl p-8">
                     <form @submit.prevent="submitForm" class="space-y-6 relative">
                         <!-- Honeypot: leave empty. Hidden from humans, bots often fill it. -->
                         <div class="contact-hp" aria-hidden="true">
@@ -393,7 +396,7 @@
 
                 <!-- 連絡先情報 -->
                 <div class="space-y-8">
-                    <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8">
+                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-6">連絡先情報</h3>
 
                         <div class="space-y-6">
@@ -447,7 +450,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-gray-50 rounded-2xl p-8">
+                    <div class="bg-amber-50 rounded-2xl p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-4">対応可能なサービス</h3>
                         <ul class="space-y-3">
                             <li class="flex items-center text-gray-600">
@@ -478,7 +481,7 @@
         <div class="site-footer__grid" aria-hidden="true"></div>
         <div class="relative z-10 max-w-6xl mx-auto px-4 py-16">
             <div class="text-center">
-                <p class="site-footer__mono mb-3">built_with_care · summer_build</p>
+                <p class="site-footer__mono mb-3">built_with_care · autumn_build</p>
                 <h3 class="site-footer__brand mb-3">jun01t</h3>
                 <p class="site-footer__lead mb-8">Software Engineer & Creative Developer</p>
 
@@ -857,7 +860,7 @@ const projects: Ref<Project[]> = ref([
 </script>
 
 <style lang="scss" scoped>
-/* キービジュアル：夏のシアン／アンバー × エンジニアグリッド */
+/* キービジュアル：秋のメイプル／ゴールド × エンジニアグリッド */
 .contact-hp {
     position: absolute;
     left: -10000px;
@@ -867,12 +870,19 @@ const projects: Ref<Project[]> = ref([
     overflow: hidden;
 }
 
+.season-main {
+    background: #f7f1e8;
+}
+
+.season-contact {
+    background: #fbf6ef;
+}
+
 .hero {
-    --hero-ink: #e8f7f4;
-    --hero-cyan: #2ec4b6;
-    --hero-sky: #5eead4;
-    --hero-sun: #f5a524;
-    --hero-deep: #042f2e;
+    --hero-ink: #f6eee4;
+    --hero-maple: #e07a3d;
+    --hero-gold: #efb86a;
+    --hero-deep: #1a100c;
     font-family: 'Syne', sans-serif;
     color: var(--hero-ink);
 }
@@ -885,6 +895,7 @@ const projects: Ref<Project[]> = ref([
     background-position: center;
     background-repeat: no-repeat;
     transform: scale(1.04);
+    filter: sepia(0.42) saturate(1.05) hue-rotate(-12deg);
     animation: hero-drift 28s ease-in-out infinite alternate;
 }
 
@@ -892,34 +903,99 @@ const projects: Ref<Project[]> = ref([
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(165deg, rgba(4, 47, 46, 0.72) 0%, rgba(8, 68, 78, 0.55) 42%, rgba(15, 90, 100, 0.45) 100%),
-        linear-gradient(25deg, rgba(245, 165, 36, 0.28) 0%, transparent 38%),
-        linear-gradient(to top, rgba(4, 30, 32, 0.75) 0%, transparent 45%);
+        linear-gradient(165deg, rgba(26, 16, 12, 0.82) 0%, rgba(72, 30, 14, 0.64) 42%, rgba(92, 42, 18, 0.5) 100%),
+        linear-gradient(25deg, rgba(224, 122, 61, 0.36) 0%, transparent 38%),
+        linear-gradient(to top, rgba(20, 10, 8, 0.82) 0%, transparent 45%);
 }
 
 .hero__grid {
     position: absolute;
     inset: 0;
-    opacity: 0.22;
+    opacity: 0.2;
     background-image:
-        linear-gradient(rgba(94, 234, 212, 0.35) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(94, 234, 212, 0.35) 1px, transparent 1px);
+        linear-gradient(rgba(239, 184, 106, 0.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(239, 184, 106, 0.35) 1px, transparent 1px);
     background-size: 48px 48px;
     mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
     animation: hero-grid 18s linear infinite;
 }
 
-.hero__sun {
+.hero__moon {
+    position: absolute;
+    top: -8%;
+    right: -6%;
+    width: min(48vw, 400px);
+    height: min(48vw, 400px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(239, 184, 106, 0.62) 0%, rgba(224, 122, 61, 0.22) 42%, transparent 70%);
+    filter: blur(8px);
+    animation: hero-moon 12s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.hero__leaves {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.hero__leaves i {
     position: absolute;
     top: -12%;
-    right: -8%;
-    width: min(52vw, 420px);
-    height: min(52vw, 420px);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(245, 165, 36, 0.55) 0%, rgba(46, 196, 182, 0.18) 42%, transparent 70%);
-    filter: blur(8px);
-    animation: hero-sun 12s ease-in-out infinite alternate;
-    pointer-events: none;
+    display: block;
+    width: 10px;
+    height: 14px;
+    border-radius: 0 70% 0 70%;
+    opacity: 0.5;
+    animation: hero-leaf 18s linear infinite;
+}
+
+.hero__leaves i:nth-child(1) {
+    left: 10%;
+    background: #c2410c;
+    animation-delay: 0s;
+}
+
+.hero__leaves i:nth-child(2) {
+    left: 28%;
+    width: 8px;
+    height: 11px;
+    background: #efb86a;
+    animation-delay: 3s;
+    animation-duration: 20s;
+}
+
+.hero__leaves i:nth-child(3) {
+    left: 46%;
+    background: #e07a3d;
+    animation-delay: 6s;
+    animation-duration: 16s;
+}
+
+.hero__leaves i:nth-child(4) {
+    left: 62%;
+    width: 9px;
+    height: 12px;
+    background: #b45309;
+    animation-delay: 2s;
+    animation-duration: 22s;
+}
+
+.hero__leaves i:nth-child(5) {
+    left: 76%;
+    background: #dc2626;
+    animation-delay: 8s;
+    animation-duration: 19s;
+}
+
+.hero__leaves i:nth-child(6) {
+    left: 88%;
+    width: 7px;
+    height: 10px;
+    background: #efb86a;
+    animation-delay: 5s;
+    animation-duration: 17s;
 }
 
 .hero__content {
@@ -930,8 +1006,8 @@ const projects: Ref<Project[]> = ref([
     width: 7.5rem;
     height: 7.5rem;
     border-radius: 50%;
-    border: 2px solid rgba(94, 234, 212, 0.55);
-    box-shadow: 0 0 0 6px rgba(4, 47, 46, 0.35);
+    border: 2px solid rgba(239, 184, 106, 0.55);
+    box-shadow: 0 0 0 6px rgba(26, 16, 12, 0.35);
 }
 
 .hero__mono {
@@ -939,7 +1015,7 @@ const projects: Ref<Project[]> = ref([
     font-size: 0.75rem;
     letter-spacing: 0.14em;
     text-transform: lowercase;
-    color: rgba(94, 234, 212, 0.9);
+    color: rgba(239, 184, 106, 0.92);
 }
 
 .hero__brand {
@@ -949,7 +1025,7 @@ const projects: Ref<Project[]> = ref([
     line-height: 1.15;
     letter-spacing: -0.04em;
     padding-bottom: 0.08em;
-    background: linear-gradient(120deg, #fff 10%, var(--hero-sky) 48%, var(--hero-sun) 92%);
+    background: linear-gradient(120deg, #fff 10%, var(--hero-gold) 48%, var(--hero-maple) 92%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -959,7 +1035,7 @@ const projects: Ref<Project[]> = ref([
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: clamp(0.95rem, 2.4vw, 1.15rem);
     line-height: 1.7;
-    color: rgba(232, 247, 244, 0.88);
+    color: rgba(246, 238, 228, 0.88);
     max-width: 28rem;
     margin-left: auto;
     margin-right: auto;
@@ -981,24 +1057,24 @@ const projects: Ref<Project[]> = ref([
 }
 
 .hero__btn--primary {
-    background: var(--hero-cyan);
+    background: var(--hero-maple);
     color: var(--hero-deep);
     border: 1px solid transparent;
 }
 
 .hero__btn--primary:hover {
-    background: var(--hero-sky);
+    background: var(--hero-gold);
 }
 
 .hero__btn--ghost {
     background: transparent;
     color: var(--hero-ink);
-    border: 1px solid rgba(232, 247, 244, 0.55);
+    border: 1px solid rgba(246, 238, 228, 0.55);
 }
 
 .hero__btn--ghost:hover {
-    border-color: var(--hero-sky);
-    color: var(--hero-sky);
+    border-color: var(--hero-gold);
+    color: var(--hero-gold);
 }
 
 @keyframes hero-rise {
@@ -1033,7 +1109,7 @@ const projects: Ref<Project[]> = ref([
     }
 }
 
-@keyframes hero-sun {
+@keyframes hero-moon {
     from {
         opacity: 0.75;
         transform: translate3d(0, 0, 0) scale(1);
@@ -1045,26 +1121,46 @@ const projects: Ref<Project[]> = ref([
     }
 }
 
+@keyframes hero-leaf {
+    0% {
+        transform: translate3d(0, -8vh, 0) rotate(0deg);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0.55;
+    }
+
+    88% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translate3d(48px, 110vh, 0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .hero__media,
     .hero__grid,
-    .hero__sun,
+    .hero__moon,
+    .hero__leaves i,
     .hero__content {
         animation: none;
     }
 }
 
-/* フッター：ヒーローと同系の夏 × エンジニア */
+/* フッター：ヒーローと同系の秋 × エンジニア */
 .site-footer {
-    --footer-ink: #e8f7f4;
-    --footer-cyan: #2ec4b6;
-    --footer-sky: #5eead4;
-    --footer-sun: #f5a524;
-    --footer-deep: #042f2e;
+    --footer-ink: #f6eee4;
+    --footer-maple: #e07a3d;
+    --footer-gold: #efb86a;
+    --footer-deep: #1a100c;
     position: relative;
     overflow: hidden;
     background:
-        linear-gradient(180deg, #063836 0%, var(--footer-deep) 55%, #021c1b 100%);
+        linear-gradient(180deg, #3d1c12 0%, var(--footer-deep) 55%, #120a08 100%);
     color: var(--footer-ink);
     font-family: 'Syne', sans-serif;
 }
@@ -1074,8 +1170,8 @@ const projects: Ref<Project[]> = ref([
     inset: 0;
     opacity: 0.12;
     background-image:
-        linear-gradient(rgba(94, 234, 212, 0.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(94, 234, 212, 0.4) 1px, transparent 1px);
+        linear-gradient(rgba(239, 184, 106, 0.4) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(239, 184, 106, 0.4) 1px, transparent 1px);
     background-size: 40px 40px;
     mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
     pointer-events: none;
@@ -1086,7 +1182,7 @@ const projects: Ref<Project[]> = ref([
     font-size: 0.7rem;
     letter-spacing: 0.14em;
     text-transform: lowercase;
-    color: rgba(94, 234, 212, 0.85);
+    color: rgba(239, 184, 106, 0.88);
 }
 
 .site-footer__brand {
@@ -1096,7 +1192,7 @@ const projects: Ref<Project[]> = ref([
     letter-spacing: -0.04em;
     line-height: 1.15;
     padding-bottom: 0.06em;
-    background: linear-gradient(120deg, #fff 10%, var(--footer-sky) 48%, var(--footer-sun) 92%);
+    background: linear-gradient(120deg, #fff 10%, var(--footer-gold) 48%, var(--footer-maple) 92%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -1105,7 +1201,7 @@ const projects: Ref<Project[]> = ref([
 .site-footer__lead {
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.85rem;
-    color: rgba(232, 247, 244, 0.72);
+    color: rgba(246, 238, 228, 0.72);
 }
 
 .site-footer__social {
@@ -1115,26 +1211,26 @@ const projects: Ref<Project[]> = ref([
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 0.35rem;
-    border: 1px solid rgba(232, 247, 244, 0.2);
-    color: rgba(232, 247, 244, 0.75);
+    border: 1px solid rgba(246, 238, 228, 0.2);
+    color: rgba(246, 238, 228, 0.75);
     transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
 .site-footer__social:hover {
-    color: var(--footer-sky);
-    border-color: rgba(94, 234, 212, 0.55);
-    background: rgba(46, 196, 182, 0.12);
+    color: var(--footer-gold);
+    border-color: rgba(239, 184, 106, 0.55);
+    background: rgba(224, 122, 61, 0.14);
     transform: translateY(-2px);
 }
 
 .site-footer__rule {
-    border-top: 1px solid rgba(94, 234, 212, 0.18);
+    border-top: 1px solid rgba(239, 184, 106, 0.2);
 }
 
 .site-footer__copy {
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
     font-size: 0.75rem;
-    color: rgba(232, 247, 244, 0.45);
+    color: rgba(246, 238, 228, 0.45);
 }
 
 /* カスタムスクロールバーのスタイル */
