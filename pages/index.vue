@@ -856,6 +856,15 @@ const projects: Ref<Project[]> = ref([
         githubUrl: 'https://github.com/jun01t/prompt-vault',
         demoUrl: null
     },
+    {
+        id: 12,
+        title: 'jun01-dev',
+        description:
+            '実務スタックとフルリモートの机に合わせて、ウェブ技術とガジェットを短くまとめるダイジェスト。公開フィードを毎朝収集し、GitHub Actions で更新する。',
+        technologies: ['Vue.js', 'Vite', 'TypeScript', 'Vue Router', 'GitHub Actions'],
+        githubUrl: 'https://github.com/jun01t/jun01-dev',
+        demoUrl: 'https://jun01t.github.io/jun01-dev/'
+    },
 ])
 </script>
 
