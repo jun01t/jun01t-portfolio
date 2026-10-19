@@ -32,6 +32,8 @@ if [[ ! -x "$TF_BIN" ]]; then
   exit 1
 fi
 
+bash "$ROOT_DIR/scripts/init-infra.sh"
+
 BUCKET="$("$TF_BIN" output -raw s3_bucket_name)"
 DIST_ID="$("$TF_BIN" output -raw cloudfront_distribution_id)"
 API_URL="$("$TF_BIN" output -raw contact_api_url)"

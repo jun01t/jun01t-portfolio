@@ -31,6 +31,7 @@ infra/contact/lambda/node_modules/
 infra/contact/*.tfstate
 infra/contact/*.tfstate.*
 infra/contact/terraform.tfvars
+infra/contact/backend.hcl
 
 infra/contact/.terraform.tfstate.lock*
 infra/contact/* 2.*
