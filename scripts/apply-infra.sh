@@ -31,7 +31,7 @@ if [[ ! -s "$TF_DIR/build/contact-lambda.zip" ]]; then
 fi
 
 cd "$TF_DIR"
-"$TF_BIN" init -input=false
+bash "$ROOT_DIR/scripts/init-infra.sh"
 "$TF_BIN" apply -input=false -auto-approve
 
 echo

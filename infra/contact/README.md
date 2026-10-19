@@ -71,6 +71,35 @@ turnstile_secret_key = "..."
 
 未設定でも honeypot のみで動作します。
 
+## Terraform state の保存先（S3 backend）
+
+Terraform **1.10 以上**を `infra/.bin/terraform` に配置してください。state は専用 S3 バケットで共有し、`use_lockfile = true` で同時更新を防ぎます。DynamoDB テーブルは不要です。
+
+事前に、利用する AWS アカウントに state 用 S3 バケットを用意してください。この構成が作るサイト配信用バケットとは分け、バージョニング・暗号化・パブリックアクセスの全面ブロックを有効にしてください。backend は `terraform init` 時点で必要なので、この構成自身では作成しません。
+
+```bash
+# リポジトリルートから（初回のみ。既存ファイルは上書きしない）
+cp -n infra/contact/backend.hcl.example infra/contact/backend.hcl
+# backend.hcl の bucket は terraform.jun01t.com。region を実際のバケットに合わせる
+# key は同じインフラを操作する全員で統一する
+bash scripts/init-infra.sh
+```
+
+`backend.hcl` は Git 管理対象外です。AWS 認証は既存のプロファイルなどで渡し、認証情報はこのファイルに記載しないでください。backend の region は state バケットのリージョンであり、アプリの `aws_region` とは別です。
+
+操作する認証主体には、state バケットの `s3:ListBucket`、state オブジェクトの `s3:GetObject` / `s3:PutObject`、同じ key に `.tflock` を付けたロックオブジェクトの `s3:GetObject` / `s3:PutObject` / `s3:DeleteObject` が必要です。カスタマー管理 KMS キーを使う場合は対応する KMS 権限も付与してください。サイト配信専用の GitHub Actions ロールに state アクセス権は不要です。
+
+### 既存のローカル state を移行する場合
+
+既存環境の **最新のローカル state がある作業ディレクトリ**で実行してください。空のチェックアウトから先に apply しないでください。
+
+1. 全員の Terraform 操作を止め、`terraform.tfstate` とバックアップを安全な場所にコピーする（state にはシークレットが含まれます）。
+2. 上記の `backend.hcl` を用意する。
+3. `infra/contact` で `../.bin/terraform init -migrate-state -backend-config=backend.hcl` を実行し、移行の確認に回答する。
+4. `../.bin/terraform state list` と `../.bin/terraform plan` で既存リソースが認識されることを確認する。意図しない再作成があれば apply しない。
+
+他の作業ディレクトリは移行完了後に `bash scripts/init-infra.sh` で接続します。`-reconfigure` は既存 state を移行しないため、移行の代わりに使わないでください。バケット・key を後から変更する場合も state の移行が必要です。
+
 ## 1. Terraform apply
 
 ```bash
@@ -84,7 +113,7 @@ pnpm run apply:infra
 # リポジトリルートから
 bash scripts/pack-lambda.sh
 cd infra/contact
-../.bin/terraform init
+../.bin/terraform init -backend-config=backend.hcl
 ../.bin/terraform apply
 ```
 

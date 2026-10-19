@@ -1,0 +1,6 @@
+# Use an existing, dedicated state bucket (not the website bucket).
+bucket       = "terraform.jun01t.com"
+key          = "jun01t-portfolio/contact/terraform.tfstate"
+region       = "ap-northeast-1"
+encrypt      = true
+use_lockfile = true
