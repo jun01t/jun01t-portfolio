@@ -1,541 +1,505 @@
 <template>
-    <header>
-        <title>jun01t's Portfolio</title>
-    </header>
-
-    <!-- ハンバーガーメニュー -->
-    <nav class="fixed top-0 left-0 w-full z-50 bg-gray-800 bg-opacity-90">
-        <div class="flex justify-between items-center px-4 py-2">
-            <div class="text-white font-bold text-lg sm:text-xl">jun01t's Portfolio</div>
-            <button type="button" @click="toggleMenu"
-                class="text-white p-2 focus:outline-none transition-transform duration-300"
-                :class="{ 'transform rotate-90': isMenuOpen }"
-                :aria-expanded="isMenuOpen" aria-controls="site-menu"
-                :aria-label="isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
+    <div class="portfolio" id="top">
+        <a class="skip-link" href="#main">本文へスキップ</a>
+        <nav
+            class="navigation"
+            aria-label="メインナビゲーション"
+            @keydown.esc="closeMenu"
+        >
+            <a class="wordmark" href="#top" @click="closeMenu"
+                >jun01t<span aria-hidden="true">.</span></a
+            >
+            <span class="nav-caption">ENGINEERING MEETS CREATIVITY</span>
+            <div class="desktop-links">
+                <a href="#projects"
+                    >Works <span><UiArrow /></span
+                ></a>
+                <a href="#about">About</a>
+                <a href="#contact" class="nav-contact"
+                    >Let's talk <span><UiArrow /></span
+                ></a>
+            </div>
+            <button
+                class="menu-toggle"
+                type="button"
+                @click="toggleMenu"
+                :aria-expanded="isMenuOpen"
+                aria-controls="site-menu"
+                :aria-label="isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'"
+            >
+                {{ isMenuOpen ? 'Close −' : 'Menu +' }}
             </button>
-        </div>
-
-        <!-- メニューコンテンツ -->
-        <div id="site-menu" v-show="isMenuOpen"
-            class="bg-gray-800 bg-opacity-95 border-t border-gray-700 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-700 hover:scrollbar-thumb-gray-400 scrollable-indicator">
-            <div class="px-4 py-4">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-white text-lg font-bold">成果物</h3>
-                    <div class="flex items-center text-gray-400 text-xs">
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M7 16l-4-4m0 0 4-4m0 0l4 4m-4-4v18"></path>
-                        </svg>
-                        スクロール可能
-                    </div>
+            <div id="site-menu" v-show="isMenuOpen" class="mobile-links">
+                <a href="#projects" @click="closeMenu">Works <span>01</span></a>
+                <a href="#about" @click="closeMenu">About <span>02</span></a>
+                <a href="#contact" @click="closeMenu"
+                    >Let's talk <span><UiArrow /></span
+                ></a>
+            </div>
+        </nav>
+        <main id="main">
+            <section class="hero" aria-labelledby="hero-title">
+                <div class="hero-topline">
+                    <span
+                        ><i class="status-dot"></i> SOFTWARE ENGINEER & CREATIVE
+                        DEVELOPER</span
+                    ><span>PORTFOLIO — {{ currentYear }}</span>
                 </div>
-                <div class="space-y-3">
-                    <div v-for="project in projects" :key="project.id"
-                        class="bg-gray-700 rounded-lg p-3 sm:p-4 hover:bg-gray-600 transition-colors">
-                        <h4 class="text-white font-semibold text-base sm:text-lg">{{ project.title }}</h4>
-                        <p class="text-gray-300 text-xs sm:text-sm mt-1">{{ project.description }}</p>
-                        <div class="flex flex-wrap gap-1 sm:gap-2 mt-2">
-                            <span v-for="tech in project.technologies" :key="tech"
-                                class="bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                                {{ tech }}
-                            </span>
+                <div class="hero-layout">
+                    <div class="hero-copy">
+                        <p class="eyebrow">CODE. CREATE. CONNECT.</p>
+                        <h1 id="hero-title">
+                            Ideas into<br /><span class="serif">something</span
+                            ><br /><span class="last-line"
+                                >real<span class="hero-period">.</span
+                                ><span class="hero-asterisk" aria-hidden="true"
+                                    >✳</span
+                                ></span
+                            >
+                        </h1>
+                        <p class="hero-description">
+                            アイデアを、触れられるかたちに。<br />コードとクリエイティブで、日常に小さな可能性を。
+                        </p>
+                        <a class="primary-link" href="#projects"
+                            >制作物を見る
+                            <span aria-hidden="true"
+                                ><UiArrow direction="down-right" /></span
+                        ></a>
+                    </div>
+                    <div
+                        class="hero-art"
+                        aria-label="技術と創造性が交差する軌道を表現したグラフィック"
+                        role="img"
+                    >
+                        <div class="art-coordinate">
+                            FIG. 01 / THE CREATIVE ORBIT
                         </div>
-                        <div class="mt-3 flex flex-col sm:flex-row gap-2">
-                            <a v-if="project.githubUrl" :href="project.githubUrl" target="_blank"
-                                class="text-blue-400 hover:text-blue-300 text-xs sm:text-sm inline-flex items-center">
-                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                                </svg>
-                                GitHub
-                            </a>
-                            <a v-if="project.demoUrl" :href="project.demoUrl" target="_blank"
-                                class="text-green-400 hover:text-green-300 text-xs sm:text-sm inline-flex items-center">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                </svg>
-                                デモ
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- メニューが開いている時の背景オーバーレイ -->
-    <div v-if="isMenuOpen" @click="closeMenu" class="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
-
-    <!-- ヒーローセクション（秋 × スタイリッシュ × エンジニア） -->
-    <section class="hero relative min-h-screen flex items-center justify-center overflow-hidden"
-        :style="{ '--hero-bg': `url(${backgroundImage})` }">
-        <div class="hero__media" aria-hidden="true"></div>
-        <div class="hero__grade" aria-hidden="true"></div>
-        <div class="hero__grid" aria-hidden="true"></div>
-        <div class="hero__moon" aria-hidden="true"></div>
-        <div class="hero__leaves" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <div class="hero__content relative z-10 text-center px-4 max-w-3xl mx-auto">
-            <div class="hero__avatar mx-auto mb-7 overflow-hidden">
-                <img :src="profileImage" alt="jun01t" class="w-full h-full object-cover"
-                    fetchpriority="high" decoding="async" />
-            </div>
-
-            <p class="hero__mono mb-4">software_engineer · autumn_build</p>
-
-            <h1 class="hero__brand mb-4">jun01t</h1>
-
-            <p class="hero__lead mb-10">
-                プロダクトを速く、美しく、動くものとして届ける。
-            </p>
-
-            <div class="hero__cta flex flex-col sm:flex-row gap-3 justify-center">
-                <button type="button" @click="scrollToProjects" class="hero__btn hero__btn--primary">
-                    成果物を見る
-                </button>
-                <button type="button" @click="scrollToContact" class="hero__btn hero__btn--ghost">
-                    お問い合わせ
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 成果物セクション -->
-    <div id="projects" class="season-main py-20">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">成果物</h2>
-
-            <!-- 成果物一覧 -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                <div v-for="project in projects" :key="project.id"
-                    class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">{{ project.title }}</h3>
-                    <p class="text-gray-600 mb-4">{{ project.description }}</p>
-
-                    <!-- 技術スタック -->
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span v-for="tech in project.technologies" :key="tech"
-                            class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                            {{ tech }}
-                        </span>
-                    </div>
-
-                    <!-- リンクボタン -->
-                    <div class="flex gap-3">
-                        <a v-if="project.githubUrl" :href="project.githubUrl" target="_blank"
-                            class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
-                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                            GitHub
-                        </a>
-                        <a v-if="project.demoUrl" :href="project.demoUrl" target="_blank"
-                            class="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            デモ
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Skills & Expertise</h2>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 職業 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="programmerIcon" alt="プログラマー" loading="lazy"
-                            decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">職業</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                            ソフトウェアエンジニア
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- フレームワーク -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="webappIcon" alt="ウェブアプリ" loading="lazy"
-                            decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">フレームワーク</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                            Nuxt.js
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
-                            Vue.js
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-slate-800 rounded-full mr-3"></div>
-                            Next.js
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
-                            Rails
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- プログラミング言語 -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="languageIcon" alt="プログラミング言語" loading="lazy"
-                            decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">言語</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                            TypeScript
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                            JavaScript
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
-                            Go
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-rose-500 rounded-full mr-3"></div>
-                            Ruby
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
-                            HTML/CSS
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- インフラ -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="awsIcon" alt="インフラ" loading="lazy" decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">インフラ</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                            AWS（S3 / CloudFront / Lambda）
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-violet-500 rounded-full mr-3"></div>
-                            Terraform
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-gray-700 rounded-full mr-3"></div>
-                            GitHub Actions
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-black rounded-full mr-3"></div>
-                            Vercel
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- ツール -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center mb-6">
-                        <img class="w-8 h-8 mr-4" :src="databaseIcon" alt="ツール" loading="lazy"
-                            decoding="async" />
-                        <h3 class="text-2xl font-bold text-gray-800">ツール</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-sky-500 rounded-full mr-3"></div>
-                            Tailwind CSS
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-lime-500 rounded-full mr-3"></div>
-                            Node.js / pnpm
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-amber-500 rounded-full mr-3"></div>
-                            Vite
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-indigo-500 rounded-full mr-3"></div>
-                            PostgreSQL
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- AI -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex items-center mb-6">
-                        <svg class="w-8 h-8 mr-4 text-violet-500" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
-                            aria-hidden="true">
-                            <path d="M12 3.5l1.2 3.6L17 8.3l-3.8 1.2L12 13l-1.2-3.5L7 8.3l3.8-1.2L12 3.5z" />
-                            <path d="M18.5 13.5l.7 2.1 2.1.7-2.1.7-.7 2.1-.7-2.1-2.1-.7 2.1-.7.7-2.1z" />
-                            <path d="M6.2 14.2l.55 1.65 1.65.55-1.65.55L6.2 18.6l-.55-1.65-1.65-.55 1.65-.55.55-1.65z" />
-                        </svg>
-                        <h3 class="text-2xl font-bold text-gray-800">AI</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                            Claude Code
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-emerald-600 rounded-full mr-3"></div>
-                            Codex
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
-                            Cursor
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- お問い合わせセクション -->
-    <div id="contact" class="season-contact py-20">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">お問い合わせ</h2>
-                <p class="text-xl text-gray-600">プロジェクトのご相談やお仕事のご依頼はお気軽にご連絡ください</p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12">
-                <!-- お問い合わせフォーム -->
-                <div class="bg-amber-50 rounded-2xl p-8">
-                    <form @submit.prevent="submitForm" class="space-y-6 relative">
-                        <!-- Honeypot: leave empty. Hidden from humans, bots often fill it. -->
-                        <div class="contact-hp" aria-hidden="true">
-                            <label for="website">Website</label>
-                            <input id="website" v-model="form.website" type="text" name="website" tabindex="-1"
-                                autocomplete="off" />
-                        </div>
-
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">お名前 *</label>
-                            <input type="text" id="name" v-model="form.name" required maxlength="100"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                                placeholder="山田太郎">
-                        </div>
-
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">メールアドレス *</label>
-                            <input type="email" id="email" v-model="form.email" required maxlength="254"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                                placeholder="example@example.com">
-                        </div>
-
-                        <div>
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">件名 *</label>
-                            <div class="relative">
-                                <select id="subject" v-model="form.subject" required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-10 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 appearance-none">
-                                    <option value="">選択してください</option>
-                                    <option value="web-development">Web開発のご相談</option>
-                                    <option value="consulting">技術コンサルティング</option>
-                                    <option value="collaboration">コラボレーション</option>
-                                    <option value="other">その他</option>
-                                </select>
-                                <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                                    <svg class="h-4 w-4 text-gray-500" viewBox="0 0 20 20" fill="currentColor"
-                                        aria-hidden="true">
-                                        <path fill-rule="evenodd"
-                                            d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.08 1.04l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.27a.75.75 0 0 1 .02-1.06Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
+                        <div class="orbit-scene" aria-hidden="true">
+                            <div class="orbit orbit-one"></div>
+                            <div class="orbit orbit-two"></div>
+                            <div class="orbit orbit-three"></div>
+                            <div class="orbit-core">
+                                <span>j<span class="core-zero">0</span>1</span>
+                            </div>
+                            <span class="orbit-point point-one"></span
+                            ><span class="orbit-point point-two"></span>
+                            <div class="art-label label-code">
+                                &lt;/&gt; <span>CODE</span>
+                            </div>
+                            <div class="art-label label-create">
+                                ✳ <span>CREATE</span>
                             </div>
                         </div>
-
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">メッセージ *</label>
-                            <textarea id="message" v-model="form.message" required rows="5" minlength="10"
-                                maxlength="5000"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
-                                placeholder="プロジェクトの詳細やご要望をお聞かせください"></textarea>
+                        <div class="art-bottom">
+                            <span>LOGIC × INTUITION</span
+                            ><span>ALWAYS EXPLORING <UiArrow /></span>
                         </div>
+                    </div>
+                </div>
+                <div class="hero-bottom">
+                    <span>WEB DEVELOPMENT · CLOUD · CREATIVE</span
+                    ><a href="#projects"
+                        >SCROLL TO EXPLORE
+                        <span><UiArrow direction="down" /></span
+                    ></a>
+                </div>
+            </section>
 
-                        <div v-if="TURNSTILE_SITE_KEY" class="flex justify-start">
+            <section
+                class="works section-shell"
+                id="projects"
+                aria-labelledby="works-title"
+            >
+                <div class="section-topline">
+                    <span>01 / SELECTED WORKS</span
+                    ><span>A COLLECTION OF THINGS I'VE BUILT</span>
+                </div>
+                <div class="section-heading">
+                    <h2 id="works-title">
+                        Built with <span class="serif">curiosity.</span>
+                    </h2>
+                    <p>
+                        つくって、試して、磨いていく。<br />Web
+                        アプリから、言葉や音の表現まで。
+                    </p>
+                </div>
+                <div class="works-toolbar">
+                    <div class="filters" aria-label="制作物の絞り込み">
+                        <button
+                            v-for="filter in filters"
+                            :key="filter"
+                            type="button"
+                            :class="{ active: activeFilter === filter }"
+                            :aria-pressed="activeFilter === filter"
+                            @click="activeFilter = filter"
+                        >
+                            {{ filter
+                            }}<span v-if="filter === 'All'">{{
+                                String(projects.length).padStart(2, '0')
+                            }}</span>
+                        </button>
+                    </div>
+                    <span class="work-count" role="status" aria-live="polite"
+                        >{{
+                            String(visibleProjects.length).padStart(2, '0')
+                        }}
+                        PROJECTS</span
+                    >
+                </div>
+                <div class="project-grid">
+                    <article
+                        v-for="project in visibleProjects"
+                        :key="project.id"
+                        class="project-card"
+                    >
+                        <a
+                            :href="
+                                project.demoUrl ||
+                                project.githubUrl ||
+                                '#projects'
+                            "
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="project-art"
+                            :class="`art-${project.id}`"
+                            :aria-label="`${project.title} を別タブで開く`"
+                        >
+                            <div class="project-art-top">
+                                <span>{{
+                                    categoryFor(project.id).toUpperCase()
+                                }}</span
+                                ><span>{{
+                                    String(project.id).padStart(2, '0')
+                                }}</span>
+                            </div>
+                            <div
+                                v-if="project.id === 11"
+                                class="vault-decoration"
+                                aria-hidden="true"
+                            >
+                                <i></i><i></i><i></i>
+                            </div>
+                            <div
+                                v-if="project.id === 2"
+                                class="csv-decoration"
+                                aria-hidden="true"
+                            >
+                                <span>A</span><span>B</span><span>C</span
+                                ><span>01</span><span>02</span><span>03</span
+                                ><span>04</span><span>05</span><span>06</span>
+                            </div>
+                            <div
+                                v-if="project.id === 4"
+                                class="sound-decoration"
+                                aria-hidden="true"
+                            >
+                                <i
+                                    v-for="n in 16"
+                                    :key="n"
+                                    :style="{
+                                        height: `${24 + ((n * 37) % 80)}px`,
+                                    }"
+                                ></i>
+                            </div>
+                            <div class="project-art-word">
+                                <UiArrow v-if="project.id === 9" /><template
+                                    v-else
+                                    >{{
+                                        artworkLabels[project.id]?.[0]
+                                    }}</template
+                                >
+                            </div>
+                            <div class="project-art-bottom">
+                                <span>{{ artworkLabels[project.id]?.[1] }}</span
+                                ><span class="art-arrow" aria-hidden="true"
+                                    ><UiArrow
+                                /></span>
+                            </div>
+                        </a>
+                        <div class="project-info">
+                            <div class="project-title-row">
+                                <h3>{{ project.title }}</h3>
+                                <a
+                                    v-if="project.githubUrl"
+                                    :href="project.githubUrl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="source-link"
+                                    :aria-label="`${project.title} のソースコード`"
+                                    >Code <UiArrow
+                                /></a>
+                            </div>
+                            <p>{{ project.description }}</p>
+                            <ul class="tech-tags" aria-label="使用技術">
+                                <li
+                                    v-for="tech in project.technologies"
+                                    :key="tech"
+                                >
+                                    {{ tech }}
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+                <a
+                    class="text-link all-code"
+                    href="https://github.com/jun01t"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >More experiments on GitHub <span><UiArrow /></span
+                ></a>
+            </section>
+
+            <section
+                class="about section-shell"
+                id="about"
+                aria-labelledby="about-title"
+            >
+                <div class="section-topline">
+                    <span>02 / A LITTLE ABOUT ME</span
+                    ><span>THE PERSON BEHIND THE CODE</span>
+                </div>
+                <div class="about-intro">
+                    <div class="about-heading">
+                        <div class="profile-line">
+                            <img
+                                src="/assets/img/icon-name.webp"
+                                alt="jun01t のプロフィール画像"
+                                width="56"
+                                height="56"
+                                loading="lazy"
+                            /><span>HELLO, I'M JUN01T.</span>
+                        </div>
+                        <h2 id="about-title">
+                            Engineer by craft.<br /><span class="serif"
+                                >Creator at heart.</span
+                            >
+                        </h2>
+                    </div>
+                    <div class="about-copy">
+                        <span class="about-symbol" aria-hidden="true">✳</span>
+                        <p>
+                            コードを書くことも、音楽をつくることも。<br />根っこにあるのは「つくってみたい」という好奇心。
+                        </p>
+                        <p>
+                            フロントエンドからバックエンド、クラウドまで。技術を組み合わせてアイデアを動くものにし、使う人にとって心地よい体験を目指しています。
+                        </p>
+                        <a
+                            href="https://github.com/jun01t"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-link"
+                            >Find me on GitHub <span><UiArrow /></span
+                        ></a>
+                    </div>
+                </div>
+                <div class="skill-grid">
+                    <article
+                        v-for="skill in skillGroups"
+                        :key="skill.number"
+                        class="skill-card"
+                    >
+                        <span class="skill-number"
+                            >{{ skill.number }} / EXPERTISE</span
+                        >
+                        <h3>{{ skill.title }}</h3>
+                        <p>{{ skill.copy }}</p>
+                        <ul>
+                            <li v-for="item in skill.items" :key="item">
+                                {{ item }}
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section
+                class="contact section-shell"
+                id="contact"
+                aria-labelledby="contact-title"
+            >
+                <div class="section-topline">
+                    <span>03 / GET IN TOUCH</span
+                    ><span>GOOD THINGS START WITH A CONVERSATION</span>
+                </div>
+                <div class="contact-layout">
+                    <div class="contact-copy">
+                        <p class="eyebrow">HAVE SOMETHING IN MIND?</p>
+                        <h2 id="contact-title">
+                            Let's make<br /><span class="serif">it happen.</span
+                            ><span class="contact-arrow" aria-hidden="true"
+                                ><UiArrow
+                            /></span>
+                        </h2>
+                        <p>
+                            「こんなものをつくりたい」から、はじめましょう。<br />開発のご相談やコラボレーションなど、<br />お気軽にご連絡ください。
+                        </p>
+                        <div class="contact-services">
+                            <span>WEB DEVELOPMENT</span><span>FRONTEND</span
+                            ><span>CONSULTING</span><span>CODE REVIEW</span>
+                        </div>
+                        <div class="social-links">
+                            <a
+                                v-for="link in socialLinks"
+                                :key="link.label"
+                                :href="link.href"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >{{ link.label }} <UiArrow
+                            /></a>
+                        </div>
+                    </div>
+                    <form
+                        @submit.prevent="submitForm"
+                        class="contact-form"
+                        :aria-busy="isSubmitting"
+                    >
+                        <div class="contact-hp" aria-hidden="true">
+                            <label for="website">Website</label
+                            ><input
+                                id="website"
+                                v-model="form.website"
+                                type="text"
+                                name="website"
+                                tabindex="-1"
+                                autocomplete="off"
+                            />
+                        </div>
+                        <div class="form-heading">
+                            <span>SEND A MESSAGE</span><span>✳</span>
+                        </div>
+                        <div class="form-field">
+                            <label for="name">お名前 <span>必須</span></label
+                            ><input
+                                id="name"
+                                v-model="form.name"
+                                type="text"
+                                autocomplete="name"
+                                placeholder="山田 太郎"
+                                required
+                                maxlength="100"
+                            />
+                        </div>
+                        <div class="form-field">
+                            <label for="email"
+                                >メールアドレス <span>必須</span></label
+                            ><input
+                                id="email"
+                                v-model="form.email"
+                                type="email"
+                                autocomplete="email"
+                                placeholder="hello@example.com"
+                                required
+                                maxlength="254"
+                            />
+                        </div>
+                        <div class="form-field">
+                            <label for="subject"
+                                >ご相談内容 <span>必須</span></label
+                            ><select
+                                id="subject"
+                                v-model="form.subject"
+                                required
+                            >
+                                <option value="" disabled>
+                                    選択してください
+                                </option>
+                                <option value="web-development">
+                                    Web開発のご相談
+                                </option>
+                                <option value="consulting">
+                                    技術コンサルティング
+                                </option>
+                                <option value="collaboration">
+                                    コラボレーション
+                                </option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="message"
+                                >メッセージ <span>必須</span></label
+                            ><textarea
+                                id="message"
+                                v-model="form.message"
+                                placeholder="アイデアやご相談内容をお聞かせください（10文字以上）"
+                                required
+                                rows="4"
+                                minlength="10"
+                                maxlength="5000"
+                            ></textarea>
+                        </div>
+                        <div v-if="TURNSTILE_SITE_KEY">
                             <div ref="turnstileEl" class="cf-turnstile"></div>
                         </div>
-
-                        <button type="submit" :disabled="isSubmitting || !canSubmit"
-                            class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105">
-                            <span v-if="!isSubmitting">送信する</span>
-                            <span v-else class="flex items-center justify-center">
-                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                        stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor"
-                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                    </path>
-                                </svg>
-                                送信中...
-                            </span>
+                        <p
+                            v-if="formFeedback"
+                            class="form-feedback"
+                            :class="{ success: formSucceeded }"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {{ formFeedback }}
+                        </p>
+                        <button
+                            class="submit-button"
+                            type="submit"
+                            :disabled="isSubmitting || !canSubmit"
+                        >
+                            <span>{{
+                                isSubmitting ? '送信中…' : 'メッセージを送る'
+                            }}</span
+                            ><span aria-hidden="true"><UiArrow /></span>
                         </button>
                     </form>
                 </div>
-
-                <!-- 連絡先情報 -->
-                <div class="space-y-8">
-                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6">連絡先情報</h3>
-
-                        <div class="space-y-6">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mr-4">
-                                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">GitHub</h4>
-                                    <a href="https://github.com/jun01t" target="_blank"
-                                        class="text-gray-600 hover:text-gray-800 transition-colors">
-                                        github.com/jun01t
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center">
-                                <div
-                                    class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-lg">
-                                        <img :src="soundcloudIcon" alt="SoundCloud" class="w-8 h-8" loading="lazy"
-                                            decoding="async" />
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">SoundCloud</h4>
-                                    <a href="https://soundcloud.com/jun01t" target="_blank"
-                                        class="text-gray-600 hover:text-gray-800 transition-colors">
-                                        soundcloud.com/jun01t
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center">
-                                <div
-                                    class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4 shadow-lg">
-                                    <svg class="w-6 h-6" fill="#333" viewBox="0 0 300 300">
-                                        <path
-                                            d="M149.999 248.909c-54.537 0-98.906-44.367-98.906-98.909 0-54.537 44.369-98.909 98.906-98.909 54.545 0 98.908 44.372 98.908 98.909 0 54.542-44.363 98.909-98.908 98.909zm0-185.238c-47.601 0-86.33 38.723-86.33 86.329 0 47.605 38.729 86.332 86.33 86.332 47.61 0 86.338-38.727 86.338-86.332 0-47.606-38.728-86.329-86.338-86.329zM161.52 101.16c-4.832-9.785-7.783-19.3-9.273-24.845v70.055c2.447.917 4.197 3.257 4.197 6.021 0 3.559-2.887 6.442-6.443 6.442-3.56 0-6.443-2.885-6.443-6.442 0-2.896 1.925-5.317 4.558-6.131v-70.019c-1.485 5.531-4.438 15.092-9.293 24.919-7.571 15.314-17.009 28.823-17.009 28.823l6.036 82.598s5.736 6.401 22.31 6.41h.023c16.573-.009 22.312-6.41 22.312-6.41l6.035-82.598c-.003 0-9.441-13.508-17.01-28.823z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-800">はてなブログ</h4>
-                                    <a href="https://blog.jun01t.com/" target="_blank"
-                                        class="text-gray-600 hover:text-gray-800 transition-colors">
-                                        blog.jun01t.com
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-amber-50 rounded-2xl p-8">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">対応可能なサービス</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center text-gray-600">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                                Webアプリケーション開発
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                フロントエンド開発
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                                技術コンサルティング
-                            </li>
-                            <li class="flex items-center text-gray-600">
-                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                                コードレビュー
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            </section>
+        </main>
+        <footer class="footer section-shell">
+            <div class="footer-top">
+                <a class="footer-brand" href="#top"
+                    >jun01t<span aria-hidden="true">.</span></a
+                >
+                <p>A LITTLE LOGIC.<br />A LOT OF CURIOSITY.</p>
+                <a class="back-top" href="#top"
+                    >BACK TO TOP <UiArrow direction="up"
+                /></a>
             </div>
-        </div>
+            <div class="footer-bottom">
+                <span>© {{ currentYear }} JUN01T</span
+                ><span>DESIGNED WITH INTENTION. BUILT WITH CODE.</span
+                ><span>THANKS FOR STOPPING BY.</span>
+            </div>
+        </footer>
     </div>
-
-    <!-- フッター -->
-    <footer class="site-footer">
-        <div class="site-footer__grid" aria-hidden="true"></div>
-        <div class="relative z-10 max-w-6xl mx-auto px-4 py-16">
-            <div class="text-center">
-                <p class="site-footer__mono mb-3">built_with_care · autumn_build</p>
-                <h3 class="site-footer__brand mb-3">jun01t</h3>
-                <p class="site-footer__lead mb-8">Software Engineer & Creative Developer</p>
-
-                <div class="flex justify-center gap-5 mb-10">
-                    <a href="https://github.com/jun01t" target="_blank" rel="noopener noreferrer"
-                        class="site-footer__social" aria-label="GitHub">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                    </a>
-                    <a href="https://soundcloud.com/jun01t" target="_blank" rel="noopener noreferrer"
-                        class="site-footer__social" aria-label="SoundCloud">
-                        <img :src="soundcloudIcon" alt="" class="w-5 h-5" loading="lazy" decoding="async" />
-                    </a>
-                    <a href="https://www.youtube.com/@jun01t" target="_blank" rel="noopener noreferrer"
-                        class="site-footer__social" aria-label="YouTube">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                        </svg>
-                    </a>
-                    <a href="https://blog.jun01t.com/" target="_blank" rel="noopener noreferrer"
-                        class="site-footer__social" aria-label="はてなブログ">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 300 300" aria-hidden="true">
-                            <path
-                                d="M149.999 248.909c-54.537 0-98.906-44.367-98.906-98.909 0-54.537 44.369-98.909 98.906-98.909 54.545 0 98.908 44.372 98.908 98.909 0 54.542-44.363 98.909-98.908 98.909zm0-185.238c-47.601 0-86.33 38.723-86.33 86.329 0 47.605 38.729 86.332 86.33 86.332 47.61 0 86.338-38.727 86.338-86.332 0-47.606-38.728-86.329-86.338-86.329zM161.52 101.16c-4.832-9.785-7.783-19.3-9.273-24.845v70.055c2.447.917 4.197 3.257 4.197 6.021 0 3.559-2.887 6.442-6.443 6.442-3.56 0-6.443-2.885-6.443-6.442 0-2.896 1.925-5.317 4.558-6.131v-70.019c-1.485 5.531-4.438 15.092-9.293 24.919-7.571 15.314-17.009 28.823-17.009 28.823l6.036 82.598s5.736 6.401 22.31 6.41h.023c16.573-.009 22.312-6.41 22.312-6.41l6.035-82.598c-.003 0-9.441-13.508-17.01-28.823z" />
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="site-footer__rule pt-8">
-                    <p class="site-footer__copy">© 2026 jun01t. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, type Ref } from 'vue'
-
-// 画像のインポート
-import programmerIcon from '~/assets/img/icons8-プログラマー-50.png'
-import webappIcon from '~/assets/img/icons8-ウェブアプリ-64.png'
-import languageIcon from '~/assets/img/icons8-プログラミング言語-50.png'
-import databaseIcon from '~/assets/img/icons8-データベース-50.png'
-import awsIcon from '~/assets/img/icons8-アマゾンウェブサービス-32.png'
-import soundcloudIcon from '~/public/assets/img/icons8-soundcloud-48.png'
-import profileImage from '~/public/assets/img/icon-name.webp'
-import backgroundImage from '~/public/assets/img/coding-man.webp'
+import {
+    ref,
+    computed,
+    onMounted,
+    onBeforeUnmount,
+    nextTick,
+    type Ref,
+} from 'vue'
+useHead({
+    title: 'jun01t | Software Engineer & Creative Developer',
+    htmlAttrs: { lang: 'ja' },
+    meta: [
+        {
+            name: 'description',
+            content:
+                'アイデアを、触れられるかたちに。jun01t の制作実績とスキルを紹介するポートフォリオ。Web アプリ開発からクラウド、音楽や技術発信まで。',
+        },
+    ],
+})
 
 type TurnstileApi = {
-    render: (el: HTMLElement, options: Record<string, unknown>) => string | number
+    render: (
+        el: HTMLElement,
+        options: Record<string, unknown>,
+    ) => string | number
     reset: (widgetId?: string | number) => void
     remove: (widgetId?: string | number) => void
 }
@@ -595,18 +559,25 @@ const canSubmit = computed(() => {
 const loadTurnstileScript = (): Promise<void> => {
     if (window.turnstile) return Promise.resolve()
     return new Promise((resolve, reject) => {
-        const existing = document.querySelector<HTMLScriptElement>('script[data-turnstile]')
+        const existing = document.querySelector<HTMLScriptElement>(
+            'script[data-turnstile]',
+        )
         if (existing) {
             if (window.turnstile || existing.dataset.loaded === 'true') {
                 resolve()
                 return
             }
             existing.addEventListener('load', () => resolve(), { once: true })
-            existing.addEventListener('error', () => reject(new Error('Turnstile script failed')), { once: true })
+            existing.addEventListener(
+                'error',
+                () => reject(new Error('Turnstile script failed')),
+                { once: true },
+            )
             return
         }
         const script = document.createElement('script')
-        script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+        script.src =
+            'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
         script.async = true
         script.defer = true
         script.dataset.turnstile = 'true'
@@ -660,33 +631,24 @@ onBeforeUnmount(() => {
     }
 })
 
-// スクロール関数
-const scrollToProjects = (): void => {
-    const projectsSection = document.getElementById('projects')
-    if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: 'smooth' })
-    }
-}
-
-const scrollToContact = (): void => {
-    const contactSection = document.getElementById('contact')
-    if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' })
-    }
-}
-
 // フォーム送信処理（AWS SES via API Gateway）
 const submitForm = async (): Promise<void> => {
     isSubmitting.value = true
+    formFeedback.value = ''
+    formSucceeded.value = false
 
     try {
         if (!CONTACT_API_URL) {
-            throw new Error('お問い合わせ API の設定が完了していません。管理者にお問い合わせください。')
+            throw new Error(
+                'お問い合わせ API の設定が完了していません。管理者にお問い合わせください。',
+            )
         }
 
         // Soft client-side throttle for naive bots (server honeypot / Turnstile are the real checks)
         if (Date.now() - formOpenedAt < 2500) {
-            throw new Error('送信が早すぎます。内容を確認してから再度お試しください。')
+            throw new Error(
+                '送信が早すぎます。内容を確認してから再度お試しください。',
+            )
         }
 
         if (TURNSTILE_SITE_KEY && !turnstileToken.value) {
@@ -717,7 +679,9 @@ const submitForm = async (): Promise<void> => {
             throw new Error(detail || `Request failed (${response.status})`)
         }
 
-        alert('お問い合わせありがとうございます！\n内容を確認の上、2-3営業日以内にご返信いたします。')
+        formSucceeded.value = true
+        formFeedback.value =
+            'お問い合わせありがとうございます。内容を確認の上、ご返信いたします。'
 
         form.value = {
             name: '',
@@ -734,24 +698,27 @@ const submitForm = async (): Promise<void> => {
         let errorMessage = '送信に失敗しました。もう一度お試しください。'
 
         if (message.includes('設定が完了')) {
-            errorMessage = 'メール送信の設定に問題があります。管理者にお問い合わせください。'
+            errorMessage =
+                'メール送信の設定に問題があります。管理者にお問い合わせください。'
         } else if (/CAPTCHA|captcha/i.test(message)) {
-            errorMessage = 'スパム対策の確認に失敗しました。もう一度チェックしてから送信してください。'
+            errorMessage =
+                'スパム対策の確認に失敗しました。もう一度チェックしてから送信してください。'
             resetTurnstile()
         } else if (/早すぎ/i.test(message)) {
             errorMessage = message
         } else if (/too many|429/i.test(message)) {
-            errorMessage = '送信上限に達している可能性があります。しばらくしてから再度お試しください。'
+            errorMessage =
+                '送信上限に達している可能性があります。しばらくしてから再度お試しください。'
         } else if (/network|Failed to fetch/i.test(message)) {
-            errorMessage = 'ネットワークエラーが発生しました。インターネット接続を確認してください。'
+            errorMessage =
+                'ネットワークエラーが発生しました。インターネット接続を確認してください。'
         }
 
-        alert(errorMessage)
+        formFeedback.value = errorMessage
     } finally {
         isSubmitting.value = false
     }
 }
-
 
 // 成果物のデータ
 type Project = {
@@ -767,58 +734,96 @@ const projects: Ref<Project[]> = ref([
     {
         id: 1,
         title: 'ポートフォリオサイト（Nuxt.js）',
-        description: 'このポートフォリオサイト自体。レスポンシブデザインとモダンなUIを実装。',
+        description:
+            'このポートフォリオサイト自体。レスポンシブデザインとモダンなUIを実装。',
         technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'TypeScript'],
         githubUrl: 'https://github.com/jun01t/jun01t-portfolio',
-        demoUrl: 'https://jun01t-portfolio.jun01t.com'
+        demoUrl: 'https://jun01t-portfolio.jun01t.com',
     },
     {
         id: 2,
         title: 'CSVビューアー（Vue.js）',
-        description: 'CSVファイルをアップロードして表形式で表示・編集できるWebアプリケーション。データの検索・フィルタリング機能付き。',
-        technologies: ['Nuxt.js', 'Vue.js', 'Tailwind CSS', 'JavaScript', 'HTML5', 'CSS3'],
+        description:
+            'CSVファイルをアップロードして表形式で表示・編集できるWebアプリケーション。データの検索・フィルタリング機能付き。',
+        technologies: [
+            'Nuxt.js',
+            'Vue.js',
+            'Tailwind CSS',
+            'JavaScript',
+            'HTML5',
+            'CSS3',
+        ],
         githubUrl: 'https://github.com/jun01t/csv-viewer',
-        demoUrl: 'https://t.co/JCV7h3xCRR'
+        demoUrl: 'https://t.co/JCV7h3xCRR',
     },
     {
         id: 3,
         title: '技術ブログ（はてなブログ）',
-        description: 'WebAssembly、プログラミング、技術トレンドについて発信する技術ブログ。Web開発の知見や最新技術の解説記事を執筆。',
-        technologies: ['はてなブログ', 'Markdown', '技術記事', 'WebAssembly', 'プログラミング'],
+        description:
+            'WebAssembly、プログラミング、技術トレンドについて発信する技術ブログ。Web開発の知見や最新技術の解説記事を執筆。',
+        technologies: [
+            'はてなブログ',
+            'Markdown',
+            '技術記事',
+            'WebAssembly',
+            'プログラミング',
+        ],
         githubUrl: null,
-        demoUrl: 'https://blog.jun01t.com/'
+        demoUrl: 'https://blog.jun01t.com/',
     },
     {
         id: 4,
         title: '音楽制作（SoundCloud）',
-        description: '音楽制作・楽曲配信プラットフォーム。オリジナル楽曲の制作・公開を行い、音楽活動を通じてクリエイティブな表現を追求。',
-        technologies: ['SoundCloud', '音楽制作', '楽曲配信', 'クリエイティブ', '音響技術'],
+        description:
+            '音楽制作・楽曲配信プラットフォーム。オリジナル楽曲の制作・公開を行い、音楽活動を通じてクリエイティブな表現を追求。',
+        technologies: [
+            'SoundCloud',
+            '音楽制作',
+            '楽曲配信',
+            'クリエイティブ',
+            '音響技術',
+        ],
         githubUrl: null,
-        demoUrl: 'https://soundcloud.com/jun01t'
+        demoUrl: 'https://soundcloud.com/jun01t',
     },
     {
         id: 5,
         title: '動画制作（YouTube）',
-        description: 'YouTubeチャンネルでの動画制作・配信活動。技術解説、チュートリアル、クリエイティブなコンテンツ制作を通じて知識共有と表現活動を展開。',
-        technologies: ['YouTube', '動画制作', 'コンテンツ制作', '映像編集', '配信技術'],
+        description:
+            'YouTubeチャンネルでの動画制作・配信活動。技術解説、チュートリアル、クリエイティブなコンテンツ制作を通じて知識共有と表現活動を展開。',
+        technologies: [
+            'YouTube',
+            '動画制作',
+            'コンテンツ制作',
+            '映像編集',
+            '配信技術',
+        ],
         githubUrl: null,
-        demoUrl: 'https://www.youtube.com/@jun01t'
+        demoUrl: 'https://www.youtube.com/@jun01t',
     },
     {
         id: 6,
         title: 'Weather Outfit Suggestor',
-        description: '天気情報に基づいて最適な服装を提案するWebアプリケーション。気温に応じたコーディネート提案と快適に過ごすためのアドバイスを提供。',
-        technologies: ['Vue.js', 'Vite', 'Tailwind CSS', 'JavaScript', 'OpenWeatherMap API'],
+        description:
+            '天気情報に基づいて最適な服装を提案するWebアプリケーション。気温に応じたコーディネート提案と快適に過ごすためのアドバイスを提供。',
+        technologies: [
+            'Vue.js',
+            'Vite',
+            'Tailwind CSS',
+            'JavaScript',
+            'OpenWeatherMap API',
+        ],
         githubUrl: 'https://github.com/jun01t/weather-outfit-suggestor',
-        demoUrl: 'https://weather-outfit-suggestor.vercel.app'
+        demoUrl: 'https://weather-outfit-suggestor.vercel.app',
     },
     {
         id: 7,
         title: '今年は閏年？',
-        description: '指定した年が閏年かどうかを判定するうるう年チェックサイト。閏年は4で割り切れて100で割り切れない年、または400で割り切れる年で判定。',
+        description:
+            '指定した年が閏年かどうかを判定するうるう年チェックサイト。閏年は4で割り切れて100で割り切れない年、または400で割り切れる年で判定。',
         technologies: ['Vue.js', 'Vite', 'Tailwind CSS', 'JavaScript'],
         githubUrl: 'https://github.com/jun01t/leap-year-site',
-        demoUrl: 'https://leap-year-site.vercel.app/'
+        demoUrl: 'https://leap-year-site.vercel.app/',
     },
     {
         id: 8,
@@ -827,7 +832,8 @@ const projects: Ref<Project[]> = ref([
             '質問に答えてAIが婚活の偏差値・傾向を診断するWebアプリ。フロントは Next.js（App Router）、API は Go（Chi）または同一オリジンの Route Handlers。',
         technologies: ['Next.js', 'Go', 'TypeScript', 'Chi'],
         githubUrl: 'https://github.com/jun01t/konkatsu-diagnosis',
-        demoUrl: 'https://konkatsu-diagnosis-glbxolozp-jun01ts-projects.vercel.app/'
+        demoUrl:
+            'https://konkatsu-diagnosis-glbxolozp-jun01ts-projects.vercel.app/',
     },
     {
         id: 9,
@@ -836,7 +842,7 @@ const projects: Ref<Project[]> = ref([
             '指定したサイトの favicon を URL・サイズ指定で取得するツール。CLI・API・Web UI を用意し、Vercel にデプロイ。',
         technologies: ['Node.js', 'JavaScript', 'Vercel', 'HTML/CSS'],
         githubUrl: 'https://github.com/jun01t/favicon-getter',
-        demoUrl: 'https://favicon-getter.vercel.app'
+        demoUrl: 'https://favicon-getter.vercel.app',
     },
     {
         id: 10,
@@ -845,439 +851,116 @@ const projects: Ref<Project[]> = ref([
             'E/I・S/N・T/F・J/P の各軸1問・合計4問で16タイプの傾向がわかる娯楽用の簡易性格診断サイト。タイプ説明・適職例（参考）と X シェアに対応。',
         technologies: ['Nuxt.js', 'Vue.js', 'TypeScript', 'Tailwind CSS'],
         githubUrl: 'https://github.com/jun01t/simple-mbti',
-        demoUrl: 'https://simple-mbti-self.vercel.app/'
+        demoUrl: 'https://simple-mbti-self.vercel.app/',
     },
     {
         id: 11,
         title: 'Prompt Vault',
         description:
             'AIプロンプトの保存・タグ・お気に入り・履歴・テンプレート展開をまとめた自分専用の管理アプリ。Rails API（JWT）と Nuxt 3、ローカルは Apple Container 上の PostgreSQL で動かす。',
-        technologies: ['Rails', 'Nuxt.js', 'TypeScript', 'PostgreSQL', 'Apple Container'],
+        technologies: [
+            'Rails',
+            'Nuxt.js',
+            'TypeScript',
+            'PostgreSQL',
+            'Apple Container',
+        ],
         githubUrl: 'https://github.com/jun01t/prompt-vault',
-        demoUrl: null
+        demoUrl: null,
     },
     {
         id: 12,
         title: 'jun01-dev',
         description:
             '実務スタックとフルリモートの机に合わせて、ウェブ技術とガジェットを短くまとめるダイジェスト。公開フィードを毎朝収集し、GitHub Actions で更新する。',
-        technologies: ['Vue.js', 'Vite', 'TypeScript', 'Vue Router', 'GitHub Actions'],
+        technologies: [
+            'Vue.js',
+            'Vite',
+            'TypeScript',
+            'Vue Router',
+            'GitHub Actions',
+        ],
         githubUrl: 'https://github.com/jun01t/jun01-dev',
-        demoUrl: 'https://jun01t.github.io/jun01-dev/'
+        demoUrl: 'https://jun01t.github.io/jun01-dev/',
     },
 ])
+
+const formFeedback = ref('')
+const formSucceeded = ref(false)
+const activeFilter = ref('All')
+const filters = ['All', 'Web apps', 'Writing', 'Creative']
+const categoryFor = (id: number) =>
+    id === 3 || id === 12
+        ? 'Writing'
+        : id === 4 || id === 5
+          ? 'Creative'
+          : 'Web apps'
+const projectOrder = [11, 12, 2, 6, 10, 9, 8, 7, 1, 3, 4, 5]
+const visibleProjects = computed(() =>
+    projectOrder
+        .map((id) => projects.value.find((project) => project.id === id)!)
+        .filter(
+            (project) =>
+                activeFilter.value === 'All' ||
+                categoryFor(project.id) === activeFilter.value,
+        ),
+)
+const artworkLabels: Record<number, string[]> = {
+    1: ['jun01t', 'PORTFOLIO / DESIGN & CODE'],
+    2: ['A, B, CSV.', 'A LITTLE ORDER IN YOUR DATA'],
+    3: ['Notes.', 'IDEAS WORTH SHARING'],
+    4: ['Sound in motion.', 'ORIGINAL MUSIC / JUN01T'],
+    5: ['Play.', 'STORIES IN MOTION'],
+    6: ['22°', 'A GOOD DAY TO GO OUT'],
+    7: ['366', 'ONE EXTRA DAY.'],
+    8: ['Find your fit.', 'AN EXPERIMENT WITH AI'],
+    9: ['↗', 'SMALL ICON. BIG IDENTITY.'],
+    10: ['Just your type.', '16 WAYS TO BE YOU'],
+    11: ['Prompt Vault', 'A HOME FOR YOUR NEXT IDEA'],
+    12: ['jun01-dev', 'A DAILY DOSE OF DISCOVERY'],
+}
+const skillGroups = [
+    {
+        number: '01',
+        title: 'Frontend',
+        copy: '触れて心地よい、使ってわかりやすい体験を。',
+        items: [
+            'Vue.js / Nuxt',
+            'React / Next.js',
+            'TypeScript',
+            'Tailwind CSS',
+        ],
+    },
+    {
+        number: '02',
+        title: 'Backend & Cloud',
+        copy: 'アイデアを支える、堅実な仕組みを。',
+        items: [
+            'Rails / Go',
+            'PostgreSQL',
+            'AWS / Terraform',
+            'GitHub Actions',
+        ],
+    },
+    {
+        number: '03',
+        title: 'Creative & AI',
+        copy: '技術と表現のあいだを、自由に行き来する。',
+        items: [
+            'Claude Code / Codex',
+            'Cursor',
+            'Music production',
+            'Writing / Video',
+        ],
+    },
+]
+const socialLinks = [
+    { label: 'GitHub', href: 'https://github.com/jun01t' },
+    { label: 'Blog', href: 'https://blog.jun01t.com/' },
+    { label: 'SoundCloud', href: 'https://soundcloud.com/jun01t' },
+    { label: 'YouTube', href: 'https://www.youtube.com/@jun01t' },
+]
+const currentYear = new Date().getFullYear()
 </script>
 
-<style lang="scss" scoped>
-/* キービジュアル：秋のメイプル／ゴールド × エンジニアグリッド */
-.contact-hp {
-    position: absolute;
-    left: -10000px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
-.season-main {
-    background: #f7f1e8;
-}
-
-.season-contact {
-    background: #fbf6ef;
-}
-
-.hero {
-    --hero-ink: #f6eee4;
-    --hero-maple: #e07a3d;
-    --hero-gold: #efb86a;
-    --hero-deep: #1a100c;
-    font-family: 'Syne', sans-serif;
-    color: var(--hero-ink);
-}
-
-.hero__media {
-    position: absolute;
-    inset: 0;
-    background-image: var(--hero-bg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: scale(1.04);
-    filter: sepia(0.42) saturate(1.05) hue-rotate(-12deg);
-    animation: hero-drift 28s ease-in-out infinite alternate;
-}
-
-.hero__grade {
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(165deg, rgba(26, 16, 12, 0.82) 0%, rgba(72, 30, 14, 0.64) 42%, rgba(92, 42, 18, 0.5) 100%),
-        linear-gradient(25deg, rgba(224, 122, 61, 0.36) 0%, transparent 38%),
-        linear-gradient(to top, rgba(20, 10, 8, 0.82) 0%, transparent 45%);
-}
-
-.hero__grid {
-    position: absolute;
-    inset: 0;
-    opacity: 0.2;
-    background-image:
-        linear-gradient(rgba(239, 184, 106, 0.35) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(239, 184, 106, 0.35) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 20%, transparent 75%);
-    animation: hero-grid 18s linear infinite;
-}
-
-.hero__moon {
-    position: absolute;
-    top: -8%;
-    right: -6%;
-    width: min(48vw, 400px);
-    height: min(48vw, 400px);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(239, 184, 106, 0.62) 0%, rgba(224, 122, 61, 0.22) 42%, transparent 70%);
-    filter: blur(8px);
-    animation: hero-moon 12s ease-in-out infinite alternate;
-    pointer-events: none;
-}
-
-.hero__leaves {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-.hero__leaves i {
-    position: absolute;
-    top: -12%;
-    display: block;
-    width: 10px;
-    height: 14px;
-    border-radius: 0 70% 0 70%;
-    opacity: 0.5;
-    animation: hero-leaf 18s linear infinite;
-}
-
-.hero__leaves i:nth-child(1) {
-    left: 10%;
-    background: #c2410c;
-    animation-delay: 0s;
-}
-
-.hero__leaves i:nth-child(2) {
-    left: 28%;
-    width: 8px;
-    height: 11px;
-    background: #efb86a;
-    animation-delay: 3s;
-    animation-duration: 20s;
-}
-
-.hero__leaves i:nth-child(3) {
-    left: 46%;
-    background: #e07a3d;
-    animation-delay: 6s;
-    animation-duration: 16s;
-}
-
-.hero__leaves i:nth-child(4) {
-    left: 62%;
-    width: 9px;
-    height: 12px;
-    background: #b45309;
-    animation-delay: 2s;
-    animation-duration: 22s;
-}
-
-.hero__leaves i:nth-child(5) {
-    left: 76%;
-    background: #dc2626;
-    animation-delay: 8s;
-    animation-duration: 19s;
-}
-
-.hero__leaves i:nth-child(6) {
-    left: 88%;
-    width: 7px;
-    height: 10px;
-    background: #efb86a;
-    animation-delay: 5s;
-    animation-duration: 17s;
-}
-
-.hero__content {
-    animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.hero__avatar {
-    width: 7.5rem;
-    height: 7.5rem;
-    border-radius: 50%;
-    border: 2px solid rgba(239, 184, 106, 0.55);
-    box-shadow: 0 0 0 6px rgba(26, 16, 12, 0.35);
-}
-
-.hero__mono {
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: lowercase;
-    color: rgba(239, 184, 106, 0.92);
-}
-
-.hero__brand {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(3.25rem, 10vw, 5.5rem);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.04em;
-    padding-bottom: 0.08em;
-    background: linear-gradient(120deg, #fff 10%, var(--hero-gold) 48%, var(--hero-maple) 92%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.hero__lead {
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
-    line-height: 1.7;
-    color: rgba(246, 238, 228, 0.88);
-    max-width: 28rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero__btn {
-    min-width: 10.5rem;
-    padding: 0.85rem 1.5rem;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
-    border-radius: 0.35rem;
-    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
-
-.hero__btn:hover {
-    transform: translateY(-2px);
-}
-
-.hero__btn--primary {
-    background: var(--hero-maple);
-    color: var(--hero-deep);
-    border: 1px solid transparent;
-}
-
-.hero__btn--primary:hover {
-    background: var(--hero-gold);
-}
-
-.hero__btn--ghost {
-    background: transparent;
-    color: var(--hero-ink);
-    border: 1px solid rgba(246, 238, 228, 0.55);
-}
-
-.hero__btn--ghost:hover {
-    border-color: var(--hero-gold);
-    color: var(--hero-gold);
-}
-
-@keyframes hero-rise {
-    from {
-        opacity: 0;
-        transform: translateY(1.25rem);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes hero-drift {
-    from {
-        transform: scale(1.04) translate3d(0, 0, 0);
-    }
-
-    to {
-        transform: scale(1.08) translate3d(-1.5%, -1%, 0);
-    }
-}
-
-@keyframes hero-grid {
-    from {
-        background-position: 0 0;
-    }
-
-    to {
-        background-position: 48px 48px;
-    }
-}
-
-@keyframes hero-moon {
-    from {
-        opacity: 0.75;
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate3d(-4%, 6%, 0) scale(1.08);
-    }
-}
-
-@keyframes hero-leaf {
-    0% {
-        transform: translate3d(0, -8vh, 0) rotate(0deg);
-        opacity: 0;
-    }
-
-    12% {
-        opacity: 0.55;
-    }
-
-    88% {
-        opacity: 0.4;
-    }
-
-    100% {
-        transform: translate3d(48px, 110vh, 0) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero__media,
-    .hero__grid,
-    .hero__moon,
-    .hero__leaves i,
-    .hero__content {
-        animation: none;
-    }
-}
-
-/* フッター：ヒーローと同系の秋 × エンジニア */
-.site-footer {
-    --footer-ink: #f6eee4;
-    --footer-maple: #e07a3d;
-    --footer-gold: #efb86a;
-    --footer-deep: #1a100c;
-    position: relative;
-    overflow: hidden;
-    background:
-        linear-gradient(180deg, #3d1c12 0%, var(--footer-deep) 55%, #120a08 100%);
-    color: var(--footer-ink);
-    font-family: 'Syne', sans-serif;
-}
-
-.site-footer__grid {
-    position: absolute;
-    inset: 0;
-    opacity: 0.12;
-    background-image:
-        linear-gradient(rgba(239, 184, 106, 0.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(239, 184, 106, 0.4) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
-    pointer-events: none;
-}
-
-.site-footer__mono {
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: lowercase;
-    color: rgba(239, 184, 106, 0.88);
-}
-
-.site-footer__brand {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.15;
-    padding-bottom: 0.06em;
-    background: linear-gradient(120deg, #fff 10%, var(--footer-gold) 48%, var(--footer-maple) 92%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.site-footer__lead {
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.85rem;
-    color: rgba(246, 238, 228, 0.72);
-}
-
-.site-footer__social {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 0.35rem;
-    border: 1px solid rgba(246, 238, 228, 0.2);
-    color: rgba(246, 238, 228, 0.75);
-    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
-}
-
-.site-footer__social:hover {
-    color: var(--footer-gold);
-    border-color: rgba(239, 184, 106, 0.55);
-    background: rgba(224, 122, 61, 0.14);
-    transform: translateY(-2px);
-}
-
-.site-footer__rule {
-    border-top: 1px solid rgba(239, 184, 106, 0.2);
-}
-
-.site-footer__copy {
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 0.75rem;
-    color: rgba(246, 238, 228, 0.45);
-}
-
-/* カスタムスクロールバーのスタイル */
-.scrollbar-thin {
-    scrollbar-width: thin;
-}
-
-.scrollbar-thin::-webkit-scrollbar {
-    width: 8px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-    background: #374151;
-    border-radius: 4px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb {
-    background: #6b7280;
-    border-radius: 4px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
-}
-
-/* スクロール可能であることを示すグラデーション */
-.scrollable-indicator {
-    position: relative;
-}
-
-.scrollable-indicator::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 20px;
-    background: linear-gradient(transparent, rgba(55, 65, 81, 0.8));
-    pointer-events: none;
-}
-</style>
+<style scoped src="~/assets/css/portfolio.css"></style>
