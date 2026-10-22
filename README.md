@@ -74,10 +74,11 @@ flowchart TB
 **お問い合わせ**: フォーム → Turnstile → API Gateway → Lambda → SES  
 **旧 Vercel URL**: AWS ドメインへ恒久リダイレクト
 
-パッケージマネージャは **pnpm**（`packageManager` で 9.15.9 を指定）。Node.js は **20+** が必要です。
+パッケージマネージャは **pnpm**（`packageManager` で 9.15.9 を指定）。Node.js は **24.22.1 以上の 24 系**が必要です（`.node-version` で 24.22.1 を指定）。
 
 ```bash
-nodebrew use v20          # PATH に nodebrew を通しておく
+nodebrew install-binary v24.22.1  # 未導入の場合。PATH に nodebrew を通しておく
+nodebrew use v24.22.1
 corepack enable
 pnpm install
 aws login                 # AWS 認証が切れている場合
@@ -91,10 +92,12 @@ pnpm run deploy:aws       # 手元から generate → S3 sync → CloudFront inv
 ## Setup
 
 ```bash
-nodebrew use v20
+nodebrew use v24.22.1
 corepack enable
 pnpm install
 ```
+
+Lambda の実行環境は AWS 管理の Node.js 22 です。開発用 Node.js の更新では Lambda 自体は更新されません。セキュリティパッチの適用状況は AWS 側で別途確認してください。
 
 ## Development Server
 
