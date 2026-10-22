@@ -8,17 +8,11 @@ OUT_DIR="$ROOT_DIR/infra/contact/build"
 OUT_ZIP="$OUT_DIR/contact-lambda.zip"
 PNPM_VERSION="9.15.9"
 
-# Prefer Node 20+ (Homebrew node can be older than pnpm requires).
-for dir in "${HOME}/.nodebrew/node"/v22.*/bin "${HOME}/.nodebrew/node"/v20.*/bin "${HOME}/.nodebrew/current/bin"; do
-  if [[ -x "${dir}/node" ]]; then
-    export PATH="${dir}:$PATH"
-    break
-  fi
-done
+. "$ROOT_DIR/scripts/use-node.sh"
 
 run_pnpm() {
-  if command -v pnpm >/dev/null 2>&1 && pnpm --version >/dev/null 2>&1; then
-    pnpm "$@"
+  if command -v corepack >/dev/null 2>&1; then
+    corepack "pnpm@${PNPM_VERSION}" "$@"
   else
     npx --yes "pnpm@${PNPM_VERSION}" "$@"
   fi
@@ -26,12 +20,6 @@ run_pnpm() {
 
 if ! command -v zip >/dev/null 2>&1; then
   echo "zip is required to pack the Lambda bundle." >&2
-  exit 1
-fi
-
-node_major="$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0)"
-if [[ "${node_major}" -lt 20 ]]; then
-  echo "Node.js 20+ is required to pack the Lambda bundle (found $(node -v 2>/dev/null || echo none))." >&2
   exit 1
 fi
 

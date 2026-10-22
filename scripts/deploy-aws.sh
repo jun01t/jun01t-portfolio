@@ -7,20 +7,14 @@ TF_BIN="$ROOT_DIR/infra/.bin/terraform"
 PNPM_VERSION="9.15.9"
 
 run_pnpm() {
-  if command -v pnpm >/dev/null 2>&1 && pnpm --version >/dev/null 2>&1; then
-    pnpm "$@"
+  if command -v corepack >/dev/null 2>&1; then
+    corepack "pnpm@${PNPM_VERSION}" "$@"
   else
     npx --yes "pnpm@${PNPM_VERSION}" "$@"
   fi
 }
 
-# Prefer Node 20+ (nuxt generate can crash on older Node)
-for dir in "${HOME}/.nodebrew/node"/v22.*/bin "${HOME}/.nodebrew/node"/v20.*/bin "${HOME}/.nodebrew/current/bin"; do
-  if [[ -x "${dir}/node" ]]; then
-    export PATH="${dir}:$PATH"
-    break
-  fi
-done
+. "$ROOT_DIR/scripts/use-node.sh"
 
 unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN AWS_SECURITY_TOKEN || true
 export AWS_EC2_METADATA_DISABLED=1 AWS_SDK_LOAD_CONFIG=1
